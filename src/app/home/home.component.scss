@@ -1,0 +1,38 @@
+// Grid rules
+.home-grid{
+  display:grid;
+  width: 100%;
+}
+
+.data-overview, .main-logo{
+  text-align: center;
+}
+
+.main-logo{
+  margin-top:40px;
+}
+
+.data-overview{
+  margin-top:80px;
+}
+
+// Data overview list rules
+.data-count {
+  color: #a4302a;
+}
+
+.list-overview {
+  ul {
+    display: inline;
+    list-style-type: none;
+    margin:0px;
+    padding:0px;
+  }
+
+  li {
+    display: inline;
+    font-size: 30px;
+    color: white;
+    margin-right: 5%;
+  }
+}
