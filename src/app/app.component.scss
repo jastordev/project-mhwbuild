@@ -4,19 +4,20 @@
   min-height:200px;
   min-width:1000px;
   display: grid;
-  grid-template-columns: 35px auto 35px 300px 30px;
-  grid-template-rows: 80px auto;
+  grid-template-columns: 5% auto 5% 300px 30px;
+  grid-template-rows: 70px auto;
 }
 
 // Header rules here
 $border: 3px solid #97743a;
 
 .header {
-  background-color:#262216;
+  background-color:#202938;
   grid-row: 1 / 2;
   grid-column: 1 / span 5;
-  border-top: $border;
-  border-bottom : $border;
+  z-index: 1
+  // border-top: $border;
+  // border-bottom : $border;
 }
 
 .header-grid{
@@ -44,7 +45,7 @@ img.header-logo {
 
 // Main container rules here
 .main-container {
-  background-color: #463f32;
+  background-color: #262f3e;
   grid-column: 2 / span 1;
   grid-row: 2 / span 1;
   padding: 10px;
@@ -53,8 +54,10 @@ img.header-logo {
 
 // Sidebar rules here
 .sidebar-container {
-  background-color: #342e22;
+  background-color: #27303f;
   grid-column: 4 / span 1;
   grid-row: 2 / span 1;
   padding: 0 10px 0 10px;
+  max-height: 100%;
+  //overflow-y: scroll;
 }

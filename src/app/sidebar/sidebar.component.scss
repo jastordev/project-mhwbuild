@@ -1,17 +1,22 @@
+
 .table-nav{
   padding-top: 20px;
 
   h2 {
-    color: #a4302a;
+    color: #d32424;
     padding: 0px;
     margin: 0 0 0 7px;
+  }
+  h2:not(:last-child) {
+    @extend h2;
+    border-bottom: 2px dashed gray;
   }
   ul {
     list-style-type: none;
     padding: 0px;
-    margin: 0 0 0 7px;
+    margin: 9px 0 0 7px;
   }
   li {
     color: white;
   }
-}
+  }
