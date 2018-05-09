@@ -8,7 +8,7 @@ import { HomeService } from '../../services/home.service';
 })
 export class HomeComponent implements OnInit {
 
-  overview : any;
+  tableCounts : any;
 
   constructor(private home: HomeService) { }
 
@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
   }
 
   getOverview(){
-    this.home.getOverview().subscribe(overview => {
-      this.overview = overview;
+    this.home.getOverview().subscribe(tblCounts => {
+      this.tableCounts = tblCounts;
     });
   }
 
