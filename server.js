@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+app.use(cors());
+
 // Routes set up
 const apiOverview = require("./routes/overview");
 

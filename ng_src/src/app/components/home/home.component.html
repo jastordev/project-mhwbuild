@@ -1,0 +1,16 @@
+<div class="home-grid">
+  <div class="main-logo">
+    <img src="assets/logov1.png" />
+  </div>
+
+
+  <div class="data-overview">
+    <ul class="list-overview">
+      <li><span *ngIf="overview" class="data-count">{{overview.ItemCount}}</span> Items</li>
+      <li><span *ngIf="overview" class="data-count">{{overview.WeaponCount}}</span> Weapons</li>
+      <li><span *ngIf="overview"  class="data-count">{{overview.ArmorCount}}</span> Armor Pieces</li>
+      <li><span *ngIf="overview" class="data-count">{{overview.SkillCount}}</span> Skills</li>
+      <li><span *ngIf="overview" class="data-count">{{overview.BuildCount}}</span> Builds</li>
+    </ul>
+  </div>
+</div>

@@ -2,10 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { HomeComponent } from './home/home.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HomeComponent } from './components/home/home.component';
+
+import { HomeService } from './services/home.service';
 
 
 @NgModule({
@@ -16,9 +19,10 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ HttpClientModule, HomeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

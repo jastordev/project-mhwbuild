@@ -14,7 +14,7 @@ router.get('', async (req, res, next) => {
     queryRes[0]["ArmorCount"] = 0;
     queryRes[0]["SkillCount"] = 0;
 
-    res.json(queryRes);
+    res.json(queryRes[0]);
   } catch(err) {
     next(err);
   }
