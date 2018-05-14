@@ -2,15 +2,25 @@
 .table-nav{
   padding-top: 20px;
 
-  h2 {
+  .head-link {
+    display:block;
     color: #d32424;
     padding: 0px;
     margin: 0 0 0 7px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
   }
-  h2:not(:last-child) {
-    @extend h2;
+
+  .head-link:not(:last-child) {
+    @extend .head-link;
     border-bottom: 2px dashed gray;
   }
+
+  .head-link:hover{
+    color:#fc4b4b;    
+  }
+
   ul {
     list-style-type: none;
     padding: 0px;
@@ -19,4 +29,4 @@
   li {
     color: white;
   }
-  }
+}
