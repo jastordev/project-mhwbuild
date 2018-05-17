@@ -1,0 +1,55 @@
+// Header CSS
+.data-header {
+  height: 92px;
+  background-color: #1f242c;
+  display: grid;
+  grid-template-columns: 7% 35% auto auto;
+}
+
+// Header columns containers
+.test-search{
+  grid-column: 2;
+  align-self: center;
+  display: flex;
+}
+
+.test-cats{
+  grid-column: 4;
+  display:flex;
+  justify-self: end;
+}
+
+.test-img{
+  grid-column: 1;
+}
+
+// Search bar css
+.search {
+  width: 80%;
+  font-size: 28px;
+  background: transparent;
+  border: 0px;
+  color: #ffffff;
+  border-bottom: 3px solid #141518;
+  padding-left: 8px;
+
+  ::placeholder{
+    color: #85878a;
+  }
+}
+
+.search-icon{
+  width: 45px;
+  min-width: 45px;
+  padding-right: 6px;
+}
+
+// Categories css
+.category {
+  width: 70px;
+  margin-right: 5px;
+}
+
+.cat-img{
+  position:absolute;
+}
