@@ -3,12 +3,12 @@
     <img src="assets/logov1.png" />
   </div>
 
-
   <div class="data-overview">
     <ul class="list-overview">
+      <li><span *ngIf="getItemByIndex(0) | async; let item" class="data-count">{{item.name}}</span> Items</li>     
       <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.ItemCount}}</span> Items</li>
       <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.WeaponCount}}</span> Weapons</li>
-      <li><span *ngIf="tableCounts"  class="data-count">{{tableCounts.ArmorCount}}</span> Armor Pieces</li>
+      <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.ArmorCount}}</span> Armor Pieces</li>
       <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.SkillCount}}</span> Skills</li>
       <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.BuildCount}}</span> Builds</li>
     </ul>

@@ -10,6 +10,9 @@ import { ItemsModule } from './items/items.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
+import { DataService } from './shared/service/data.service';
+import { ItemService } from './shared/service/item.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +25,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ HttpClientModule],
+  providers: [ HttpClientModule, DataService, ItemService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
