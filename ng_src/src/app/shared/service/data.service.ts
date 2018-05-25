@@ -27,4 +27,8 @@ export class DataService {
     return placeItem; 
   }
 
+  // TEST FUNCTION
+  testItemChange(i : number){
+    this.itemService.testAdd();
+  }
 }

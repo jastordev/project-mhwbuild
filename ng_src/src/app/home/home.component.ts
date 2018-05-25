@@ -32,4 +32,9 @@ export class HomeComponent implements OnInit {
   getItemByIndex(i : number) : Observable<Item> {   
     return this.data.getItemByIndex(i);
   }
+
+  // TEST FUNCTION REMOVE
+  testChange(){
+    this.data.testItemChange(0);
+  }
 }

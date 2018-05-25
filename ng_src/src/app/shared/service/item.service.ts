@@ -8,15 +8,20 @@ import { Item } from '../models/item.model';
 @Injectable()
 export class ItemService {
 
-  private _items : BehaviorSubject <Item[]>;  
+  private _items : BehaviorSubject <Item[]>;
+  private dataStore: {
+    items: Item[]
+  }; 
 
   constructor() {
-    this._items = <BehaviorSubject<Item[]>>new BehaviorSubject([]);    
+    this._items = <BehaviorSubject<Item[]>>new BehaviorSubject([]);
+    this.dataStore = { items: [] };    
   }
 
   loadAll() {
     // HTTP REQUEST HERE BUT FOR NOW SIMULATED WITH DUMMY DATA
-    this._items.next(Object.assign({}, this.returnDummyArray()));
+    this.dataStore.items = this.returnDummyArray();
+    this._items.next(Object.assign({}, this.dataStore).items);
   }
 
   getItems() : Observable <Item[]> {
@@ -25,7 +30,8 @@ export class ItemService {
 
   // Ahead are functions purely meant for dummydata/testing
   returnDummyArray() : Item[] {
-    let newItem : Item[] = [this.returnDummyItem(1), this.returnDummyItem(2), this.returnDummyItem(3)];
+    let newItem  = [this.returnDummyItem(1),
+         this.returnDummyItem(2), this.returnDummyItem(3)];
     return newItem;
   }
 
@@ -40,6 +46,17 @@ export class ItemService {
     newItem.carry = 99;
     newItem.sellPrice = 60;    
     return newItem;
+  }
+
+  testDelete(index : number){
+    // HTTP SUB HERE
+    this.dataStore.items.splice(index, 1);
+    this._items.next(Object.assign({}, this.dataStore).items);
+  }
+
+  testAdd(){
+    this.dataStore.items.unshift(this.returnDummyItem(5));
+    this._items.next(Object.assign({}, this.dataStore).items);
   }
 
 }
