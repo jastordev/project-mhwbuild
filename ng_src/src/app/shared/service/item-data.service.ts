@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
 
 @Injectable()
-export class ItemService {
+export class ItemDataService {
 
   private _items : BehaviorSubject <Item[]>;
   private dataStore: {
@@ -28,7 +29,14 @@ export class ItemService {
     return this._items.asObservable();
   }
 
-  // Ahead are functions purely meant for dummydata/testing
+  getItemCount() : Observable<number> {
+    return Observable.of(this.dataStore.items.length);
+  }
+
+  //
+  // DUMMY DATA/TEST FUNCTIONS REMOVE WHEN DONE
+  // 
+  // Ahead are functions purely meant for dummydata/testing REMOVE
   returnDummyArray() : Item[] {
     let newItem  = [this.returnDummyItem(1),
          this.returnDummyItem(2), this.returnDummyItem(3)];

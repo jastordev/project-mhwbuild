@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { DataService } from './shared/service/data.service';
-import { ItemService } from './shared/service/item.service';
+import { ItemDataService } from './shared/service/item-data.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { ItemService } from './shared/service/item.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ HttpClientModule, DataService, ItemService],
+  providers: [ HttpClientModule, DataService, ItemDataService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

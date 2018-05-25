@@ -6,12 +6,11 @@
   <div class="data-overview">
     <button (click)=testChange() >Test Observable Change</button> 
     <ul class="list-overview">
-      <li><span *ngIf="getItemByIndex(0) | async; let item" class="data-count">{{item.name}}</span> TEST</li>     
-      <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.ItemCount}}</span> Items</li>
-      <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.WeaponCount}}</span> Weapons</li>
-      <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.ArmorCount}}</span> Armor Pieces</li>
-      <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.SkillCount}}</span> Skills</li>
-      <li><span *ngIf="tableCounts" class="data-count">{{tableCounts.BuildCount}}</span> Builds</li>
+      <li><span *ngIf="getItemCount() | async; let count" class="data-count">{{count}}</span> Items</li>
+      <li><span *ngIf="getWepCount() | async; let count" class="data-count">{{count}}</span> Weapons</li>
+      <li><span *ngIf="getArmCount() | async; let count" class="data-count">{{count}}</span> Armor Pieces</li>
+      <li><span *ngIf="getSkillCount() | async; let count" class="data-count">{{count}}</span> Skills</li>
+      <li><span *ngIf="getBuildCount() | async; let count" class="data-count">{{count}}</span> Builds</li>
     </ul>
   </div>
 </div>

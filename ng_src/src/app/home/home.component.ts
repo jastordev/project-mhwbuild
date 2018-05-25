@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HomeService } from './home.service';
 import { DataService } from '../shared/service/data.service';
 
 import { Observable } from 'rxjs/observable';
@@ -16,17 +15,32 @@ export class HomeComponent implements OnInit {
 
   tableCounts : any;
 
-  constructor(private home: HomeService, private data: DataService) { }
+  constructor(private data: DataService) { }
 
-  ngOnInit() {
-    this.getOverview();    
+  ngOnInit() {       
   }
 
-  getOverview(){
-    this.home.getOverview().subscribe(tblCounts => {
-      this.tableCounts = tblCounts;
-    });
+  getItemCount() : Observable<number>{
+    return this.data.getItemCount();
   }
+
+  getWepCount() : Observable<number>{
+    return this.data.getWepCount();
+  }
+
+  getArmCount() : Observable<number>{
+    return this.data.getArmCount();
+  }
+
+  getSkillCount() : Observable<number>{
+    return this.data.getSkillCount();
+  }
+
+  getBuildCount() : Observable<number>{
+    return this.data.getBuildCount();
+  }
+
+
 
   // CHANGE METHOD TO BY ID
   getItemByIndex(i : number) : Observable<Item> {   

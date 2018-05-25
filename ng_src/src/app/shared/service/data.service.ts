@@ -4,14 +4,14 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
-import { ItemService } from './item.service';
+import { ItemDataService } from './item-data.service';
 
 @Injectable()
 export class DataService {
 
   items : Observable <Item[]>;
 
-  constructor(private itemService : ItemService) {
+  constructor(private itemService : ItemDataService) {
     this.itemService.loadAll();
     this.items = this.itemService.getItems();    
   }
@@ -27,8 +27,31 @@ export class DataService {
     return placeItem; 
   }
 
+  // Count methods, modify as tables become available
+  getItemCount(){
+    return this.itemService.getItemCount();
+  }
+
+  getWepCount() : Observable<number>{
+    return Observable.of(99);
+  }
+
+  getArmCount() : Observable<number>{
+    return Observable.of(99);
+  }
+
+  getSkillCount() : Observable<number>{
+    return Observable.of(99);
+  }
+
+  getBuildCount() : Observable<number>{
+    return Observable.of(99);
+  }
+
+
+  // TEST REMOVE
   // TEST FUNCTION
   testItemChange(i : number){
-    this.itemService.testAdd();
+    this.itemService.testDelete(0);
   }
 }
