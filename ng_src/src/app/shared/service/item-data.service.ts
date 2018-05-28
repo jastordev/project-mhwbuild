@@ -38,17 +38,18 @@ export class ItemDataService {
   // 
   // Ahead are functions purely meant for dummydata/testing REMOVE
   returnDummyArray() : Item[] {
-    let newItem  = [this.returnDummyItem(1),
-         this.returnDummyItem(2), this.returnDummyItem(3)];
+    let newItem  = [this.returnDummyItem(1, "Mat"),
+         this.returnDummyItem(2, "Mat"), this.returnDummyItem(3, "Mat"),
+         this.returnDummyItem(4, "Misc")];
     return newItem;
   }
 
-  returnDummyItem(id : number) : Item {
+  returnDummyItem(id : number, cat : string) : Item {
     let newItem = new Item();
     newItem.id = id;
     newItem.name = "Iron Ore" + id;
     newItem.desc = "Ore that can be smelted into metall and used for many purposes" + id;
-    newItem.type = "Material";
+    newItem.type = cat;
     newItem.rarity = 4;
     newItem.obtainedFrom = "Places";
     newItem.carry = 99;
@@ -63,7 +64,7 @@ export class ItemDataService {
   }
 
   testAdd(){
-    this.dataStore.items.unshift(this.returnDummyItem(5));
+    this.dataStore.items.unshift(this.returnDummyItem(5, "Mat"));
     this._items.next(Object.assign({}, this.dataStore).items);
   }
 
