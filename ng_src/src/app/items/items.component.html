@@ -5,20 +5,25 @@
       <input class="search" placeholder="Search..." type="text" />
   </div>
   <div class="test-cats">
-    <div class="category">
-      <img class="cat-img" src="assets/cats/mat-cat-on.png" />
+    <div class="category" (click)="onCatClick($event)">
+      <img class="cat-img" src="assets/cats/mat-off.png" />
+      <img class="cat-img top" src="assets/cats/mat-on.png" />
     </div>
-    <div class="category">
-      <img class="cat-img" src="assets/cats/ammo-cat-on.png" />
+    <div class="category" (click)="onCatClick($event)">
+      <img class="cat-img" src="assets/cats/ammo-off.png" />
+      <img class="cat-img top" src="assets/cats/ammo-on.png" />
     </div>
-    <div class="category">
-      <img class="cat-img" src="assets/cats/deco-cat-on.png" />
+    <div class="category" (click)="onCatClick($event)">
+      <img class="cat-img" src="assets/cats/deco-off.png" />
+      <img class="cat-img top" src="assets/cats/deco-on.png" />
     </div>
-    <div class="category">
-      <img class="cat-img" src="assets/cats/misc-cat-on.png" />
+    <div class="category" (click)="onCatClick($event)">
+      <img class="cat-img" src="assets/cats/misc-off.png" />
+      <img class="cat-img top" src="assets/cats/misc-on.png" />
     </div>
-    <div class="category">
-      <img class="cat-img" src="assets/cats/tool-cat-on.png" />
+    <div class="category" (click)="onCatClick($event)">
+      <img class="cat-img" src="assets/cats/tool-off.png" />
+      <img class="cat-img top" src="assets/cats/tool-on.png" />
     </div>
   </div>
 </header>
