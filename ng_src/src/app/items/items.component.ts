@@ -16,11 +16,23 @@ export class ItemsComponent implements OnInit {
   items : Item[];
   categories : string[];
 
+  allowMat : boolean;
+  allowAmmo : boolean;
+  allowDeco : boolean;
+  allowMisc : boolean;
+  allowTool : boolean;
+
   constructor(private data : DataService) { }
 
   ngOnInit() {
     this.categories = ["Materials", "Ammo/Coatings", "Consumables and Misc", 
        "Decorations", "Specialized Tools"];
+
+    this.allowAmmo = true;
+    this.allowDeco = true;
+    this.allowMat = true;
+    this.allowMisc = true;
+    this.allowTool = true;
 
     this.data.items.subscribe( data => {
       this.items = data;
@@ -29,39 +41,57 @@ export class ItemsComponent implements OnInit {
 
   itemsPerCategory(category : string) : Item[] {
     
-    let tempList : Item[];
+    let tempList : Item[] = [];
 
     switch(category){
       case "Materials":
-        tempList = this.items.filter(item => item.type == "Mat");        
+        if(this.allowMat) tempList = this.items.filter(item => item.type == "Mat");        
         break;
       case "Consumables and Misc":
-        tempList = this.items.filter(item => item.type == "Misc");
+        if(this.allowMisc) tempList = this.items.filter(item => item.type == "Misc");
         break;
       case "Specialized Tools":
-        tempList = this.items.filter(item => item.type == "Tool");    
+        if(this.allowTool) tempList = this.items.filter(item => item.type == "Tool");    
         break;
       case "Decorations":
-        tempList =  this.items.filter(item => item.type == "Deco");
+        if(this.allowDeco) tempList =  this.items.filter(item => item.type == "Deco");
         break;
       case "Ammo/Coatings":
-        tempList =  this.items.filter(item => item.type == "Ammo");
+        if(this.allowAmmo) tempList =  this.items.filter(item => item.type == "Ammo");
         break;     
     }
-    
+
     if(tempList.length) { return tempList };
     return null;
 
   }
 
-  onCatClick(event : any){
-    
+  onCatClick(event : any, category : string){
+
     // Switch siblings' DOM location/classes with event.target
     let sibling = event.target.previousElementSibling;
     sibling.classList.add("top");
     sibling.remove();
     event.target.classList.remove("top");    
     event.target.parentNode.append(sibling);
-    
+
+    switch(category){
+      case "mat":
+        this.allowMat = this.allowMat ? false : true;
+        break;
+      case "ammo":
+        this.allowAmmo = this.allowAmmo ? false : true;
+        break;
+      case "deco":
+        this.allowDeco = this.allowDeco ? false : true;    
+        break;
+      case "misc":
+        this.allowMisc = this.allowMisc ? false : true; 
+        break;
+      case "tool":
+        this.allowTool = this.allowTool ? false : true; 
+        break;     
+    }
+
   }
 }
