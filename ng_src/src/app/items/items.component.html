@@ -2,7 +2,7 @@
   <img class="test-img" src="assets/itemsHeader.png" />
   <div class="test-search">
       <img class="search-icon" src="assets/searchIcon.png" />
-      <input class="search" placeholder="Search..." type="text" />
+      <input (keyup)="searchFilter($event)" class="search" placeholder="Search..." />
   </div>
   <div class="test-cats">
     <div class="category" (click)="onCatClick($event, 'mat')">

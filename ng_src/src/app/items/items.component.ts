@@ -13,7 +13,8 @@ import { DataService } from '../shared/service/data.service';
 })
 export class ItemsComponent implements OnInit {
 
-  items : Item[];
+  private _items : Item[];
+  itemsFiltered : Item[];
   categories : string[];
 
   allowMat : boolean;
@@ -35,7 +36,8 @@ export class ItemsComponent implements OnInit {
     this.allowTool = true;
 
     this.data.items.subscribe( data => {
-      this.items = data;
+      this._items = data;
+      this.itemsFiltered = this._items;
     });
   }
 
@@ -45,19 +47,19 @@ export class ItemsComponent implements OnInit {
 
     switch(category){
       case "Materials":
-        if(this.allowMat) tempList = this.items.filter(item => item.type == "Mat");        
+        if(this.allowMat) tempList = this.itemsFiltered.filter(item => item.type == "Mat");        
         break;
       case "Consumables and Misc":
-        if(this.allowMisc) tempList = this.items.filter(item => item.type == "Misc");
+        if(this.allowMisc) tempList = this.itemsFiltered.filter(item => item.type == "Misc");
         break;
       case "Specialized Tools":
-        if(this.allowTool) tempList = this.items.filter(item => item.type == "Tool");    
+        if(this.allowTool) tempList = this.itemsFiltered.filter(item => item.type == "Tool");    
         break;
       case "Decorations":
-        if(this.allowDeco) tempList =  this.items.filter(item => item.type == "Deco");
+        if(this.allowDeco) tempList =  this.itemsFiltered.filter(item => item.type == "Deco");
         break;
       case "Ammo/Coatings":
-        if(this.allowAmmo) tempList =  this.items.filter(item => item.type == "Ammo");
+        if(this.allowAmmo) tempList =  this.itemsFiltered.filter(item => item.type == "Ammo");
         break;     
     }
 
@@ -92,6 +94,15 @@ export class ItemsComponent implements OnInit {
         this.allowTool = this.allowTool ? false : true; 
         break;     
     }
-
+    
   }
+
+  searchFilter(event : any){
+    let searchStr = event.target.value.toLowerCase();      
+
+    this.itemsFiltered = this._items.filter(item => {
+      return item.name.toLowerCase().includes(searchStr);
+    })
+  }
+
 }

@@ -23,7 +23,7 @@ import { ItemDataService } from './shared/service/item-data.service';
     HomeModule,
     ItemsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule    
   ],
   providers: [ HttpClientModule, DataService, ItemDataService],
   bootstrap: [ AppComponent ]
