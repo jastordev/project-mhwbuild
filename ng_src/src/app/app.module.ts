@@ -10,8 +10,11 @@ import { ItemsModule } from './items/items.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
+import { DOMService } from './shared/service/dom.service';
+import { ModalService } from './shared/service/modal.service';
 import { DataService } from './shared/service/data.service';
 import { ItemDataService } from './shared/service/item-data.service';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { ItemDataService } from './shared/service/item-data.service';
     AppRoutingModule,
     HttpClientModule    
   ],
-  providers: [ HttpClientModule, DataService, ItemDataService],
+  providers: [ HttpClientModule, DOMService, ModalService,
+     DataService, ItemDataService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
