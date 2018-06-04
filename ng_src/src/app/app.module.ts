@@ -15,11 +15,14 @@ import { ModalService } from './shared/service/modal.service';
 import { DataService } from './shared/service/data.service';
 import { ItemDataService } from './shared/service/item-data.service';
 
+import { ItemDetailComponent } 
+  from './shared/components/ItemDetail/item-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { ItemDataService } from './shared/service/item-data.service';
   ],
   providers: [ HttpClientModule, DOMService, ModalService,
      DataService, ItemDataService],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [ ItemDetailComponent ]
 })
 export class AppModule { }
