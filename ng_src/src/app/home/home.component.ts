@@ -57,6 +57,6 @@ export class HomeComponent implements OnInit {
   }
 
   testModal(){
-    this.modal.init(ItemDetailComponent, {}, {});
+    this.modal.init(ItemDetailComponent, {input: "This works!"}, {});
   }
 }

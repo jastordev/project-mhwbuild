@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/observable';
 
 import { Item } from '../shared/models/item.model';
+import { ItemDetailComponent }
+  from '../shared/components/ItemDetail/item-detail.component';
 
 import { DataService } from '../shared/service/data.service';
+import { ModalService } from '../shared/service/modal.service';
 
 
 @Component({
@@ -23,7 +26,7 @@ export class ItemsComponent implements OnInit {
   allowMisc : boolean;
   allowTool : boolean;
 
-  constructor(private data : DataService) { }
+  constructor(private data : DataService, private modal : ModalService) { }
 
   ngOnInit() {
     this.categories = ["Materials", "Ammo/Coatings", "Consumables and Misc", 
@@ -103,6 +106,13 @@ export class ItemsComponent implements OnInit {
     this.itemsFiltered = this._items.filter(item => {
       return item.name.toLowerCase().includes(searchStr);
     })
+  }
+
+  showItemDetail(item : Item){
+    let input = {
+      item : item
+    }
+    this.modal.init(ItemDetailComponent, input, {});
   }
 
 }
