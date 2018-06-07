@@ -1,13 +1,20 @@
 <article class="item-detail">
-  <h1 class="item-name">{{item.name}}</h1>
+ 
+    <img class="item-icon" src="assets/items/OreIcon.png" alt="Iron Ore" />
+
+
+  <h1 class="item-name"><span [ngClass]="'rare' + item.rarity"> R{{item.rarity}} </span>{{item.name}}</h1>
   <span class="item-type">{{changeTypeToFull()}}</span>
-  <div class="item-icon">
-    <img src="assets/items/OreIcon.png" alt="Iron Ore" />
+
+  <p class="item-desc">{{item.desc}}</p>  
+  
+  <div class="item-buy">
+    Buy for <span><span *ngIf="!item.buyPrice">-</span>{{item.buyPrice}} z </span>
   </div>
-  <p class="item-desc">{{item.desc}}</p>
-  <span [ngClass]="'item-rarity rare' + item.rarity"> Rarity {{item.rarity}}</span>
-  <span class="item-carry"> Carry {{item.carry}}</span>
-  <span class="item-buy">Buy for <span *ngIf="!item.buyPrice">-</span>{{item.buyPrice}} z</span>
-  <span class="item-sell">Sell for <span *ngIf="!item.sellPrice">-</span>{{item.sellPrice}} z</span>
-  <span class="item-obtain">Obtained from {{item.obtainedFrom}}</span>
+  <div class="item-sell">
+    Sell for <span><span *ngIf="!item.sellPrice">-</span>{{item.sellPrice}} z </span>
+  </div>
+  <div class="item-carry"> Carry <span>{{item.carry}}</span></div>
+
+  <div class="item-obtain">Obtained from <span>{{item.obtainedFrom}}</span></div>
 </article>

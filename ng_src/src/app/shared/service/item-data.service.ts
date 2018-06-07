@@ -39,19 +39,20 @@ export class ItemDataService {
   // Ahead are functions purely meant for dummydata/testing REMOVE
   returnDummyArray() : Item[] {
     let newItem  = [this.returnDummyItem(1, "Mat"),
-         this.returnDummyItem(2, "Mat"), this.returnDummyItem(3, "Mat"),
+         this.returnDummyItem(2, "Misc", "Zorah Magdaros Heat Scale"),
+         this.returnDummyItem(3, "Mat"),
          this.returnDummyItem(4, "Misc")];
     return newItem;
   }
 
-  returnDummyItem(id : number, cat : string) : Item {
+  returnDummyItem(id : number, cat : string, name? : string) : Item {
     let newItem = new Item();
     newItem.id = id;
-    newItem.name = "Iron Ore" + id;
-    newItem.desc = "Ore that can be smelted into metall and used for many purposes" + id;
+    newItem.name = (name) ? name : "Iron Ore" + id;
+    newItem.desc = "Ore that can be smelted into metal and used for many purposes";
     newItem.type = cat;
     newItem.rarity = 4;
-    newItem.obtainedFrom = "Places";
+    newItem.obtainedFrom = "Mining, Quest Rewards, Palico";
     newItem.carry = 99;
     newItem.sellPrice = 60;    
     return newItem;

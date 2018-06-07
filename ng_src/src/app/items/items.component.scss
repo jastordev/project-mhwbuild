@@ -93,6 +93,7 @@
   grid-template-columns: 40px 10% 2% 40% auto 8% 8% 8%;
 
   border-radius: 5px;
+  border: 1px solid transparent;
 
   font-size: 15px;
   font-family: DINPRO;
@@ -105,6 +106,10 @@
     margin: 0px 4px 0px 4px;
   }
 
+}
+
+.list-item:hover{
+  border: 1px solid rgba(227, 227, 228, 0.7);
 }
 
 .list-item-icon {

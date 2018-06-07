@@ -35,8 +35,10 @@ body {
   color: #c9c9c9;
   border-radius: 2px;
   box-shadow: 0px 0px 2px 1px black;
-  padding: 20px;
+  padding: 15px;
   z-index: 100;
+  font-family: DINPRO;
+
 }
 
 #overlay {
@@ -47,4 +49,15 @@ body {
   background: rgba(0,0,0,0.8);
   top: 0px;
   left: 0px;
+}
+
+#modal-header{
+  background-color: rgb(26, 32, 44);
+  height: 51px;
+  position: absolute;
+  z-index: -2;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 3px 3px 0px 0px;
 }
