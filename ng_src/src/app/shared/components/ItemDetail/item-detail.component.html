@@ -31,7 +31,7 @@
       <input class="item-name" formControlName="name" />
     </div>
 
-    <select class="item-type">
+    <select class="item-type" formControlName = "type">
       <option *ngFor="let type of types" [value]="type">{{type}}</option>
     </select>
   
