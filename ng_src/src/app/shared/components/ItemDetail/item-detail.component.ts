@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/observable';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { Item } from '../../models/item.model';
 
@@ -15,10 +16,47 @@ export class ItemDetailComponent implements OnInit {
 
   private item : Item;
 
-  constructor(private data : DataService) { }
+  private types = ["Material", "Consumable/Misc",
+    "Specialized Tool", "Decoration", "Ammo/Coating"];
+  private rarities = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  itemForm: FormGroup;
+
+  constructor(private data : DataService, private fb : FormBuilder) {
+    this.createForm();
+  }
 
   ngOnInit() {
     if(!this.item) this.item = new Item();
+    this.itemForm.setValue({
+      id : this.item.id,
+      name : this.item.name,
+      rarity : this.item.rarity,
+      type : this.changeTypeToFull(),
+      desc : this.item.desc,
+      buy : this.item.buyPrice || 0,
+      sell : this.item.sellPrice,
+      carry : this.item.carry,
+      obtained : this.item.obtainedFrom,
+      skillID : this.item.skillID || 0,
+      jewelLvl : this.item.jwlLvl || 0
+    });
+  }
+
+  createForm(){
+    this.itemForm = this.fb.group({
+      id : '',
+      name : '',
+      rarity : '',
+      type : '',
+      desc : '',
+      buy : '',
+      sell : '',
+      carry : '',
+      obtained : '',
+      skillID : '',
+      jewelLvl : ''
+    });
   }
 
   changeTypeToFull() : string{
@@ -34,6 +72,10 @@ export class ItemDetailComponent implements OnInit {
       case "Tool":
         return "Specialized Tool";
     }
+  }
+
+  onSubmit(event : any){
+    console.log(event.value);
   }
   
 
