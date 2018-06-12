@@ -26,16 +26,20 @@
   
     <div class="item-name-n-rarity">
       <select [ngClass]="'rare' + itemForm.get('rarity').value" formControlName="rarity">
-        <option *ngFor="let rarity of rarities" [value]="rarity">R{{rarity}}</option>
+        <option value="null" disabled="true" [selected]="true">R0</option>
+        <option *ngFor="let rarity of rarities" [ngClass]="'rare' + rarity" [value]="rarity">R{{rarity}}</option>
       </select>
-      <input class="item-name" formControlName="name" />
+      <input class="item-name" formControlName="name" placeholder="Name.."/>
     </div>
 
-    <select class="item-type" formControlName = "type">
+    <select class="item-type" formControlName="type">
+      <option value="null" disabled="true" [selected]="true">Type</option>
       <option *ngFor="let type of types" [value]="type">{{type}}</option>
     </select>
   
-    <textarea class="item-desc" formControlName="desc"></textarea>  
+    <textarea class="item-desc" 
+      placeholder="Item description here..." formControlName="desc">
+    </textarea>  
     
     <div class="item-buy">
       Buy for <input formControlName="buy" /> <span>z</span>

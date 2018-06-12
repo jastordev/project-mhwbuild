@@ -27,20 +27,23 @@ export class ItemDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!this.item) this.item = new Item();
-    this.itemForm.setValue({
-      id : this.item.id,
-      name : this.item.name,
-      rarity : this.item.rarity,
-      type : this.changeTypeToFull(),
-      desc : this.item.desc,
-      buy : this.item.buyPrice || 0,
-      sell : this.item.sellPrice,
-      carry : this.item.carry,
-      obtained : this.item.obtainedFrom,
-      skillID : this.item.skillID || 0,
-      jewelLvl : this.item.jwlLvl || 0
-    });
+    if(!this.item) {
+       this.item = new Item();
+    } else {
+      this.itemForm.setValue({
+        id : this.item.id,
+        name : this.item.name,
+        rarity : this.item.rarity,
+        type : this.changeTypeToFull(),
+        desc : this.item.desc,
+        buy : this.item.buyPrice || null,
+        sell : this.item.sellPrice || null,
+        carry : this.item.carry,
+        obtained : this.item.obtainedFrom,
+        skillID : this.item.skillID || null,
+        jewelLvl : this.item.jwlLvl || null
+      });
+    }    
   }
 
   createForm(){
@@ -75,7 +78,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   onSubmit(event : any){
-    console.log(event.value);
+    console.log(this.itemForm.value as Item);
   }
   
 

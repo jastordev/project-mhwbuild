@@ -110,7 +110,6 @@ export class ItemsComponent implements OnInit {
 
   showItemDetail(item : Item){
     let input = {
-      item : item,
       isForm: true
     }
     this.modal.init(ItemDetailComponent, input, {});
