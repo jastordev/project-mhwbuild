@@ -26,7 +26,7 @@ export class ItemsComponent implements OnInit {
   allowMisc : boolean;
   allowTool : boolean;
 
-  constructor(private data : DataService, private modal : ModalService) { }
+  constructor(private _data : DataService, private modal : ModalService) { }
 
   ngOnInit() {
     this.categories = ["Materials", "Ammo/Coatings", "Consumables and Misc", 
@@ -38,10 +38,14 @@ export class ItemsComponent implements OnInit {
     this.allowMisc = true;
     this.allowTool = true;
 
-    this.data.items.subscribe( data => {
+    this.loadData();
+  }
+
+  loadData(){
+    this._data.items.subscribe( data => {
       this._items = data;
       this.itemsFiltered = this._items;
-    });
+    })
   }
 
   itemsPerCategory(category : string) : Item[] {
@@ -50,19 +54,24 @@ export class ItemsComponent implements OnInit {
 
     switch(category){
       case "Materials":
-        if(this.allowMat) tempList = this.itemsFiltered.filter(item => item.type == "Mat");        
+        if(this.allowMat)
+          tempList = this.itemsFiltered.filter(item => item.type == "Material");        
         break;
       case "Consumables and Misc":
-        if(this.allowMisc) tempList = this.itemsFiltered.filter(item => item.type == "Misc");
+        if(this.allowMisc) 
+          tempList = this.itemsFiltered.filter(item => item.type == "Consumable/Misc");
         break;
       case "Specialized Tools":
-        if(this.allowTool) tempList = this.itemsFiltered.filter(item => item.type == "Tool");    
+        if(this.allowTool) 
+          tempList = this.itemsFiltered.filter(item => item.type == "Specialized Tool");    
         break;
       case "Decorations":
-        if(this.allowDeco) tempList =  this.itemsFiltered.filter(item => item.type == "Deco");
+        if(this.allowDeco) 
+          tempList =  this.itemsFiltered.filter(item => item.type == "Decoration");
         break;
       case "Ammo/Coatings":
-        if(this.allowAmmo) tempList =  this.itemsFiltered.filter(item => item.type == "Ammo");
+        if(this.allowAmmo) 
+          tempList =  this.itemsFiltered.filter(item => item.type == "Ammo/Coating");
         break;     
     }
 
@@ -114,5 +123,6 @@ export class ItemsComponent implements OnInit {
     }
     this.modal.init(ItemDetailComponent, input, {});
   }
+
 
 }

@@ -48,6 +48,13 @@ export class DataService {
     return Observable.of(99);
   }
 
+  itemAddOrUpdate(item : Item){   
+    if(item.id) {
+      this.itemService.updateItem(item);
+    } else {
+      this.itemService.addItem(item);
+    }
+  }
 
   // TEST REMOVE
   // TEST FUNCTION

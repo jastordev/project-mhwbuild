@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
-
 @Injectable()
 export class ItemDataService {
 
@@ -38,10 +37,10 @@ export class ItemDataService {
   // 
   // Ahead are functions purely meant for dummydata/testing REMOVE
   returnDummyArray() : Item[] {
-    let newItem  = [this.returnDummyItem(1, "Mat"),
-         this.returnDummyItem(2, "Misc", "Zorah Magdaros Heat Scale"),
-         this.returnDummyItem(3, "Mat"),
-         this.returnDummyItem(4, "Misc")];
+    let newItem  = [this.returnDummyItem(1, "Material"),
+         this.returnDummyItem(2, "Consumable/Misc", "Zorah Magdaros Heat Scale"),
+         this.returnDummyItem(3, "Material"),
+         this.returnDummyItem(4, "Consumable/Misc")];
     return newItem;
   }
 
@@ -65,7 +64,22 @@ export class ItemDataService {
   }
 
   testAdd(){
-    this.dataStore.items.unshift(this.returnDummyItem(5, "Mat"));
+    this.dataStore.items.unshift(this.returnDummyItem(5, "Material"));
+    this._items.next(Object.assign({}, this.dataStore).items);
+  }
+
+  addItem(item : Item){
+    // HTTP REQUEST HERE, IF SUCCESSFUL CONTINUE
+    this.dataStore.items.unshift(item);
+    this._items.next(Object.assign({}, this.dataStore).items);
+  }
+
+  updateItem(item : Item){
+    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
+    let index = this.dataStore.items.findIndex(storeItem => {
+      return storeItem.id == item.id;
+    });
+    this.dataStore.items[index] = item;
     this._items.next(Object.assign({}, this.dataStore).items);
   }
 

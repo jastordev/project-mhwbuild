@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AnimationStyles } from '@angular/core';
 import { Observable } from 'rxjs/observable';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,7 +34,7 @@ export class ItemDetailComponent implements OnInit {
         id : this.item.id,
         name : this.item.name,
         rarity : this.item.rarity,
-        type : this.changeTypeToFull(),
+        type : this.item.type,
         desc : this.item.desc,
         buy : this.item.buyPrice || null,
         sell : this.item.sellPrice || null,
@@ -62,23 +62,13 @@ export class ItemDetailComponent implements OnInit {
     });
   }
 
-  changeTypeToFull() : string{
-    switch(this.item.type){
-      case "Mat":
-        return "Material";
-      case "Ammo":
-        return "Ammo/Coating";
-      case "Deco":
-        return "Decoration"; 
-      case "Misc":
-        return "Consumable/Misc";
-      case "Tool":
-        return "Specialized Tool";
-    }
+  onSubmit(event : any){
+    this.data.itemAddOrUpdate(this.itemForm.value as Item);
   }
 
-  onSubmit(event : any){
-    console.log(this.itemForm.value as Item);
+  convertToItem(formValue : any){
+    let item = new Item();
+    item.id = formValue.id;
   }
   
 
