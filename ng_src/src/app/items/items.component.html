@@ -50,15 +50,15 @@
             <div class="list-item-desc">{{item.desc}}</div>
             <div class="list-item-obtained">
               Obtained <span> {{item.obtainedFrom}} </span>
-            </div>
+            </div>            
             <div>
-              Carry <span>{{item.carry}}</span>
-            </div>
-            <div>
-              Buy <span><span *ngIf="!item.buyPrice">-</span>{{item.buyPrice}} z </span>
+              Buy <span>{{item.buyPrice}} z </span>
             </div>
             <div>
               Sell <span>{{item.sellPrice}} z </span>
+            </div>
+            <div>
+              Carry <span>{{item.carry}}</span>
             </div>
           </div>
           <div *ngIf="false" class="list-item-extra">

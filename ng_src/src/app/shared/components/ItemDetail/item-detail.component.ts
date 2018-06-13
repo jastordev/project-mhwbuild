@@ -41,7 +41,7 @@ export class ItemDetailComponent implements OnInit {
         carry : this.item.carry,
         obtained : this.item.obtainedFrom,
         skillID : this.item.skillID || null,
-        jewelLvl : this.item.jwlLvl || null
+        jwlLvl : this.item.jwlLvl || null
       });
     }    
   }
@@ -58,17 +58,28 @@ export class ItemDetailComponent implements OnInit {
       carry : '',
       obtained : '',
       skillID : '',
-      jewelLvl : ''
+      jwlLvl : ''
     });
   }
 
   onSubmit(event : any){
-    this.data.itemAddOrUpdate(this.itemForm.value as Item);
+    this.data.itemAddOrUpdate(this.convertToItem(this.itemForm.value));
   }
 
-  convertToItem(formValue : any){
+  convertToItem(formValue : any) : Item{
     let item = new Item();
-    item.id = formValue.id;
+    item.id = +formValue.id;
+    item.name = formValue.name;
+    item.desc = formValue.desc;
+    item.type = formValue.type;
+    item.rarity = +formValue.rarity;
+    item.obtainedFrom = formValue.obtained;
+    item.carry = +formValue.carry;
+    item.buyPrice = +formValue.buy;
+    item.sellPrice = +formValue.sell;
+    item.skillID = +formValue.skillID;
+    item.jwlLvl = +formValue.jwlLvl;
+    return item;
   }
   
 

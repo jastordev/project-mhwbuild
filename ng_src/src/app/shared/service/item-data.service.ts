@@ -53,7 +53,10 @@ export class ItemDataService {
     newItem.rarity = 4;
     newItem.obtainedFrom = "Mining, Quest Rewards, Palico";
     newItem.carry = 99;
-    newItem.sellPrice = 60;    
+    newItem.sellPrice = 60;
+    newItem.buyPrice = 0;
+    newItem.skillID = 0;
+    newItem.jwlLvl = 0;    
     return newItem;
   }
 
