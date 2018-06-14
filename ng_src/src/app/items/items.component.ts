@@ -20,11 +20,13 @@ export class ItemsComponent implements OnInit {
   itemsFiltered : Item[];
   categories : string[];
 
-  allowMat : boolean;
-  allowAmmo : boolean;
-  allowDeco : boolean;
-  allowMisc : boolean;
-  allowTool : boolean;
+  private allowMat : boolean;
+  private allowAmmo : boolean;
+  private allowDeco : boolean;
+  private allowMisc : boolean;
+  private allowTool : boolean;
+
+  private editMode : boolean;
 
   constructor(private _data : DataService, private modal : ModalService) { }
 
@@ -37,6 +39,8 @@ export class ItemsComponent implements OnInit {
     this.allowMat = true;
     this.allowMisc = true;
     this.allowTool = true;
+
+    this.editMode = false;
 
     this.loadData();
   }
@@ -91,19 +95,19 @@ export class ItemsComponent implements OnInit {
 
     switch(category){
       case "mat":
-        this.allowMat = this.allowMat ? false : true;
+        this.allowMat = !this.allowMat;
         break;
       case "ammo":
-        this.allowAmmo = this.allowAmmo ? false : true;
+        this.allowAmmo = !this.allowAmmo;
         break;
       case "deco":
-        this.allowDeco = this.allowDeco ? false : true;    
+        this.allowDeco = !this.allowDeco;    
         break;
       case "misc":
-        this.allowMisc = this.allowMisc ? false : true; 
+        this.allowMisc = !this.allowMisc; 
         break;
       case "tool":
-        this.allowTool = this.allowTool ? false : true; 
+        this.allowTool = !this.allowTool; 
         break;     
     }
     
@@ -119,9 +123,26 @@ export class ItemsComponent implements OnInit {
 
   showItemDetail(item : Item){
     let input = {
-      isForm: true
+      item : item,
+      isForm : this.editMode
     }
     this.modal.init(ItemDetailComponent, input, {});
+  }
+
+  addNewItem(){
+    let input = {
+      isForm : true
+    }
+    this.modal.init(ItemDetailComponent, input, {});
+  }
+
+  toggleEditMode(event : any){
+    this.editMode = !this.editMode;
+    if (this.editMode) {     
+      event.target.innerHTML = "Edit Mode On";
+    } else {
+      event.target.innerHTML = "Edit Mode Off";
+    }
   }
 
 

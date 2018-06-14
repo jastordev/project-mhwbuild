@@ -1,10 +1,14 @@
 <header class="data-header">
-  <img class="test-img" src="assets/itemsHeader.png" />
-  <div class="test-search">
+  <img class="header-img" src="assets/itemsHeader.png" />
+  <div class="header-search">
       <img class="search-icon" src="assets/searchIcon.png" />
       <input (keyup)="searchFilter($event)" class="search" placeholder="Search..." />
   </div>
-  <div class="test-cats">
+  <div class="header-tools">
+    <button (click)=addNewItem()>Add New Item</button>
+    <button [ngClass]="editMode ? 'toggled-on' : ''" (click)=toggleEditMode($event)>Edit Mode Off</button>
+  </div>
+  <div class="header-cats">
     <div class="category" (click)="onCatClick($event, 'mat')">
       <img class="cat-img" src="assets/cats/mat-off.png" />
       <img class="cat-img top" src="assets/cats/mat-on.png" />
@@ -27,10 +31,6 @@
     </div>
   </div>
 </header>
-
-<!-- <div class="data-form">
-
-</div> -->
 
 <div class="data-container">
 

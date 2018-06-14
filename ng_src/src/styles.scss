@@ -62,7 +62,7 @@ body {
   border-radius: 3px 3px 0px 0px;
 }
 
-input, textarea, select { 
+input, textarea, select, button { 
   background: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   border: 1px solid #0c111d;
@@ -74,5 +74,12 @@ input, textarea, select {
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
   }
+
+}
+
+button.toggled-on {
+  border: 1px solid lightblue;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 

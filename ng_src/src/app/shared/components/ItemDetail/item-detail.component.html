@@ -5,7 +5,7 @@
     <h1 class="item-name"><span [ngClass]="'rare' + item.rarity"> R{{item.rarity}} </span>{{item.name}}</h1>
   </div>
   
-  <span class="item-type">{{changeTypeToFull()}}</span>
+  <span class="item-type">{{item.type}}</span>
 
   <p class="item-desc">{{item.desc}}</p>  
   
@@ -25,15 +25,13 @@
     <img class="item-icon" src="assets/items/OreIcon.png" alt="Iron Ore" />
   
     <div class="item-name-n-rarity">
-      <select [ngClass]="'rare' + itemForm.get('rarity').value" formControlName="rarity">
-        <option value="null" disabled="true" [selected]="true">R0</option>
+      <select [ngClass]="'rare' + itemForm.get('rarity').value" formControlName="rarity">        
         <option *ngFor="let rarity of rarities" [ngClass]="'rare' + rarity" [value]="rarity">R{{rarity}}</option>
       </select>
       <input class="item-name" formControlName="name" placeholder="Name.."/>
     </div>
 
     <select class="item-type" formControlName="type">
-      <option value="null" disabled="true" [selected]="true">Type</option>
       <option *ngFor="let type of types" [value]="type">{{type}}</option>
     </select>
   

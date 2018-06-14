@@ -7,20 +7,29 @@
 }
 
 // Header columns containers
-.test-search{
+.header-search {
   grid-column: 2;
   align-self: center;
   display: flex;
 }
 
-.test-cats{
+.header-cats {
   grid-column: 4;
   display:flex;
   justify-self: end;
 }
 
-.test-img{
+.header-img {
   grid-column: 1;
+}
+
+.header-tools {
+   grid-column: 3;
+   align-self: center;
+   display: flex;
+   flex-direction: column;
+
+   button { width: 130px; margin: 3px;}
 }
 
 // Search bar css
@@ -38,7 +47,7 @@
   }
 }
 
-.search-icon{
+.search-icon {
   width: 45px;
   min-width: 45px;
   padding-right: 6px;

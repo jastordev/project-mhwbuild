@@ -14,7 +14,9 @@ import { DataService } from '../../service/data.service';
 })
 export class ItemDetailComponent implements OnInit {
 
-  private item : Item;
+  // These variables are passed in as inputs.
+  private item : Item; 
+  private isForm : boolean; 
 
   private types = ["Material", "Consumable/Misc",
     "Specialized Tool", "Decoration", "Ammo/Coating"];
@@ -50,8 +52,8 @@ export class ItemDetailComponent implements OnInit {
     this.itemForm = this.fb.group({
       id : '',
       name : '',
-      rarity : '',
-      type : '',
+      rarity : 1,
+      type : 'Material',
       desc : '',
       buy : '',
       sell : '',
