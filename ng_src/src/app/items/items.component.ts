@@ -86,13 +86,6 @@ export class ItemsComponent implements OnInit {
 
   onCatClick(event : any, category : string){
 
-    // // Switch siblings' DOM location/classes with event.target
-    // let sibling = event.target.previousElementSibling;
-    // sibling.classList.add("top");
-    // sibling.remove();
-    // event.target.classList.remove("top");    
-    // event.target.parentNode.append(sibling);
-
     switch(category){
       case "mat":
         this.allowMat = !this.allowMat;
