@@ -10,24 +10,24 @@
   </div>
   <div class="header-cats">
     <div class="category" (click)="onCatClick($event, 'mat')">
-      <img class="cat-img" src="assets/cats/mat-off.png" />
-      <img class="cat-img top" src="assets/cats/mat-on.png" />
+      <img [ngClass]="allowMat ? '' : 'top'" src="assets/cats/mat-off.png" />
+      <img [ngClass]="!allowMat ? '' : 'top'" src="assets/cats/mat-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'ammo')">
-      <img class="cat-img" src="assets/cats/ammo-off.png" />
-      <img class="cat-img top" src="assets/cats/ammo-on.png" />
+      <img [ngClass]="allowAmmo ? '' : 'top'" src="assets/cats/ammo-off.png" />
+      <img [ngClass]="!allowAmmo ? '' : 'top'" src="assets/cats/ammo-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'deco')">
-      <img class="cat-img" src="assets/cats/deco-off.png" />
-      <img class="cat-img top" src="assets/cats/deco-on.png" />
+      <img [ngClass]="allowDeco ? '' : 'top'" src="assets/cats/deco-off.png" />
+      <img [ngClass]="!allowDeco ? '' : 'top'" src="assets/cats/deco-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'misc')">
-      <img class="cat-img" src="assets/cats/misc-off.png" />
-      <img class="cat-img top" src="assets/cats/misc-on.png" />
+      <img [ngClass]="allowMisc ? '' : 'top'" src="assets/cats/misc-off.png" />
+      <img [ngClass]="!allowMisc ? '' : 'top'" src="assets/cats/misc-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'tool')">
-      <img class="cat-img" src="assets/cats/tool-off.png" />
-      <img class="cat-img top" src="assets/cats/tool-on.png" />
+      <img [ngClass]="allowTool ? '' : 'top'" src="assets/cats/tool-off.png" />
+      <img [ngClass]="!allowTool ? '' : 'top'" src="assets/cats/tool-on.png" />
     </div>
   </div>
 </header>
