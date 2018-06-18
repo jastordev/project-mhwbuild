@@ -27,8 +27,17 @@ export class ModalService {
   }
 
   destroy(){
-    this.domService.removeComponent();
-    document.getElementById(this.modalId).className = "hidden";
-    document.getElementById(this.overlayId).className = "hidden";
+    let canDestroy = !this.domService.isComponentDirty();
+        
+    if(!canDestroy) {
+      confirm("If you navigate away, you will discard all changes."
+       + " Continue anyway?") ? canDestroy = true : canDestroy = false; 
+    }
+    
+    if(canDestroy){
+      this.domService.removeComponent();
+      document.getElementById(this.modalId).className = "hidden";
+      document.getElementById(this.overlayId).className = "hidden";
+    }    
   }
 }

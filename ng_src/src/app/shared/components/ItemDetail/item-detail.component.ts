@@ -1,5 +1,4 @@
 import { Component, OnInit, AnimationStyles } from '@angular/core';
-import { Observable } from 'rxjs/observable';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { Item } from '../../models/item.model';
@@ -84,12 +83,9 @@ export class ItemDetailComponent implements OnInit {
     return item;
   }
 
-  isFormActive() : boolean {
-    return this.isForm;
-  }
-
-  isFormDirty() : boolean {
+  isModalDirty() : boolean {
+    if (!this.isForm) return false;
     return this.itemForm.dirty;
-  }  
+  } 
 
 }

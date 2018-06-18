@@ -37,7 +37,7 @@ export class DOMService {
 
     this.childComponentRef = childComponentRef;
     this.appRef.attachView(childComponentRef.hostView);
-
+    
     const childDOMElem = (childComponentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
 
@@ -50,6 +50,10 @@ export class DOMService {
     document.body.classList.remove("noscroll");
     this.appRef.detachView(this.childComponentRef.hostView);
     this.childComponentRef.destroy();
+  }
+
+  public isComponentDirty() : boolean {
+    return this.childComponentRef.instance.isModalDirty();
   }
 
   private attachConfig(config, componentRef){
