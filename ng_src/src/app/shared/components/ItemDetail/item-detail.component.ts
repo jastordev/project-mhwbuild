@@ -22,7 +22,7 @@ export class ItemDetailComponent implements OnInit {
     "Specialized Tool", "Decoration", "Ammo/Coating"];
   private rarities = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  itemForm: FormGroup;
+  private itemForm: FormGroup;
 
   constructor(private data : DataService, private fb : FormBuilder) {
     this.createForm();
@@ -83,6 +83,13 @@ export class ItemDetailComponent implements OnInit {
     item.jwlLvl = +formValue.jwlLvl;
     return item;
   }
-  
+
+  isFormActive() : boolean {
+    return this.isForm;
+  }
+
+  isFormDirty() : boolean {
+    return this.itemForm.dirty;
+  }  
 
 }

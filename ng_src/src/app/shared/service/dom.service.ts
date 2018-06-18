@@ -41,16 +41,17 @@ export class DOMService {
     const childDOMElem = (childComponentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
 
+    document.body.classList.add("noscroll");
     document.getElementById(parentId).appendChild(childDOMElem);
 
   }
 
   public removeComponent(){
+    document.body.classList.remove("noscroll");
     this.appRef.detachView(this.childComponentRef.hostView);
     this.childComponentRef.destroy();
   }
 
-  // Not entirely sure about this method, look a bit more into its purpose.
   private attachConfig(config, componentRef){
     let inputs = config.inputs;
     let outputs = config.outputs;

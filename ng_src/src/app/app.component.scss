@@ -44,7 +44,7 @@ img.header-logo {
 
 
 // Main container rules here
-.main-container {
+#main-container {
   background-color: #262f3e;
   grid-column: 2 / span 1;
   grid-row: 2 / span 1;  
@@ -52,7 +52,7 @@ img.header-logo {
 }
 
 // Sidebar rules here
-.sidebar-container {
+#sidebar-container {
   background-color: #27303f;
   grid-column: 4 / span 1;
   grid-row: 2 / span 1;
