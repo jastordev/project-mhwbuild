@@ -65,6 +65,7 @@ export class ItemDetailComponent implements OnInit {
 
   onSubmit(event : any){
     this.data.itemAddOrUpdate(this.convertToItem(this.itemForm.value));
+    this.itemForm.reset(this.itemForm.value);
   }
 
   convertToItem(formValue : any) : Item{
