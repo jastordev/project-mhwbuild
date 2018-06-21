@@ -1,9 +1,11 @@
-import { Component, OnInit, AnimationStyles } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import '../../validators/item.validator';
 
 import { Item } from '../../models/item.model';
 
 import { DataService } from '../../service/data.service';
+import { validateType } from '../../validators/item.validator';
 
 
 @Component({
@@ -15,8 +17,8 @@ export class ItemDetailComponent implements OnInit {
 
   // These variables are passed in as inputs.
   private item : Item; 
-  private isForm : boolean; 
-
+  private isForm : boolean;
+  
   private types = ["Material", "Consumable/Misc",
     "Specialized Tool", "Decoration", "Ammo/Coating"];
   private rarities = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -48,24 +50,38 @@ export class ItemDetailComponent implements OnInit {
   }
 
   createForm(){
+    const DigitOnly = "^[0-9]*$";
+
     this.itemForm = this.fb.group({
-      id : '',
-      name : '',
-      rarity : 1,
-      type : 'Material',
-      desc : '',
-      buy : '',
-      sell : '',
-      carry : '',
-      obtained : '',
-      skillID : '',
-      jwlLvl : ''
+      id : ['', Validators.pattern(DigitOnly)],
+      name : ['', 
+        [ Validators.required,
+          Validators.minLength(2), Validators.maxLength(35)] ],
+      rarity : [1, 
+        [ Validators.required, Validators.pattern("^[1,2,3,4,5,6,7,8]{1}$")] ],
+      type : ['Material',
+        [ Validators.required, validateType ] ],
+      desc : ['', 
+        [ Validators.required,
+          Validators.minLength(5), Validators.maxLength(120)] ],
+      buy : ['', 
+        [ Validators.maxLength(7), Validators.pattern(DigitOnly)] ],
+      sell : ['',
+        [ Validators.maxLength(7), Validators.pattern(DigitOnly)] ],
+      carry : ['', 
+        [ Validators.pattern(DigitOnly), Validators.maxLength(2)] ],
+      obtained : [ '', Validators.maxLength(120) ],
+      skillID : ['', Validators.pattern(DigitOnly)],
+      jwlLvl : ['', Validators.pattern("^[1,2,3]?$") ]        
     });
   }
 
   onSubmit(event : any){
-    this.data.itemAddOrUpdate(this.convertToItem(this.itemForm.value));
-    this.itemForm.reset(this.itemForm.value);
+    console.log(this.itemForm.errors);
+    if(this.itemForm.valid){
+      this.data.itemAddOrUpdate(this.convertToItem(this.itemForm.value));
+      this.itemForm.reset(this.itemForm.value);
+    }
   }
 
   convertToItem(formValue : any) : Item{
