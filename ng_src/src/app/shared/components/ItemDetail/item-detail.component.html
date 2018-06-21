@@ -21,12 +21,14 @@
 </article>
 
 <ng-template #formBlock>
-  <form class="item-detail" (submit)="onSubmit($event)" [formGroup]="itemForm">
+  <form [ngClass]="formSubmitted ? 'item-detail form-submitted' : 'item-detail'"
+    (submit)="onSubmit($event)" [formGroup]="itemForm">
     <img class="item-icon" src="assets/items/OreIcon.png" alt="Iron Ore" />
   
     <div class="item-name-n-rarity">
       <select [ngClass]="'rare' + itemForm.get('rarity').value" formControlName="rarity">        
-        <option *ngFor="let rarity of rarities" [ngClass]="'rare' + rarity" [value]="rarity">R{{rarity}}</option>
+        <option *ngFor="let rarity of rarities" 
+          [ngClass]="'rare' + rarity" [value]="rarity">R{{rarity}}</option>
       </select>
       <input class="item-name" formControlName="name" placeholder="Name.."/>
     </div>
@@ -55,9 +57,9 @@
 
     <input class="item-submit" type="submit" value="Submit Item" />
   </form>
-  <div *ngIf="itemForm.invalid && itemForm.dirty">
+  <div *ngIf="itemForm.invalid && formSubmitted">
     <hr />    
-    <div *ngIf="itemForm.get('name').errors && (itemForm.get('name').dirty)">
+    <div *ngIf="itemForm.get('name').errors">
       <span *ngIf="itemForm.get('name').errors.required">
         An item name is required.
       </span>
@@ -68,7 +70,7 @@
         Item name must be at most 35 characters.
       </span>
     </div>
-    <div *ngIf="itemForm.get('rarity').errors && (itemForm.get('rarity').dirty)">
+    <div *ngIf="itemForm.get('rarity').errors">
       <span *ngIf="itemForm.get('rarity').errors.required">
         An item rarity is required.
       </span>
@@ -76,7 +78,7 @@
         Item rarity can only be from 1 to 8.
       </span>      
     </div>
-    <div *ngIf="itemForm.get('type').errors && (itemForm.get('type').dirty)">
+    <div *ngIf="itemForm.get('type').errors">
       <span *ngIf="itemForm.get('type').errors.required">
         An item type is required.
       </span>
@@ -84,7 +86,7 @@
         Item type can only be one of the 5 provided options.
       </span>      
     </div>
-    <div *ngIf="itemForm.get('desc').errors && (itemForm.get('desc').dirty)">
+    <div *ngIf="itemForm.get('desc').errors">
       <span *ngIf="itemForm.get('desc').errors.required">
         A description is required.
       </span>
@@ -95,7 +97,7 @@
         The description must be at most 120 characters.
       </span>
     </div>
-    <div *ngIf="itemForm.get('buy').errors && (itemForm.get('buy').dirty)">
+    <div *ngIf="itemForm.get('buy').errors">
       <span *ngIf="itemForm.get('buy').errors.pattern">
         Item buy price can only be a number.
       </span>
@@ -103,7 +105,7 @@
         Item buy price can only have a max of 7 digits.
       </span>      
     </div>
-    <div *ngIf="itemForm.get('sell').errors && (itemForm.get('sell').dirty)">
+    <div *ngIf="itemForm.get('sell').errors">
       <span *ngIf="itemForm.get('sell').errors.pattern">
         Item sell price can only be a number.
       </span>
@@ -111,7 +113,7 @@
         Item sell price can only have a max of 7 digits.
       </span>      
     </div>  
-    <div *ngIf="itemForm.get('carry').errors && (itemForm.get('carry').dirty)">
+    <div *ngIf="itemForm.get('carry').errors">
       <span *ngIf="itemForm.get('carry').errors.maxlength">
         Carry cannot be more than 2 digits.
       </span>
@@ -119,12 +121,12 @@
         Carry can only be a number.
       </span>
     </div>
-    <div *ngIf="itemForm.get('obtained').errors && (itemForm.get('obtained').dirty)">
+    <div *ngIf="itemForm.get('obtained').errors">
       <span *ngIf="itemForm.get('obtained').errors.maxlength">
         Item obtained text can be at most 120 characters long.
       </span>
     </div>
-    <!-- <div *ngIf="itemForm.get('jwlLvl').errors && (itemForm.get('jwlLvl').dirty)">
+    <!-- <div *ngIf="itemForm.get('jwlLvl').errors">
       <span *ngIf="itemForm.get('jwlLvl').errors.pattern">
         Jewel can only be either level 1, 2 or 3.
       </span>

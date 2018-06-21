@@ -18,6 +18,7 @@ export class ItemDetailComponent implements OnInit {
   // These variables are passed in as inputs.
   private item : Item; 
   private isForm : boolean;
+  private formSubmitted : boolean;
   
   private types = ["Material", "Consumable/Misc",
     "Specialized Tool", "Decoration", "Ammo/Coating"];
@@ -30,23 +31,28 @@ export class ItemDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!this.item) {
-       this.item = new Item();
-    } else {
-      this.itemForm.setValue({
-        id : this.item.id,
-        name : this.item.name,
-        rarity : this.item.rarity,
-        type : this.item.type,
-        desc : this.item.desc,
-        buy : this.item.buyPrice || null,
-        sell : this.item.sellPrice || null,
-        carry : this.item.carry,
-        obtained : this.item.obtainedFrom,
-        skillID : this.item.skillID || null,
-        jwlLvl : this.item.jwlLvl || null
-      });
-    }    
+    if(this.isForm){      
+      this.formSubmitted = false;
+
+      if(!this.item) {
+        this.item = new Item();
+      } else {
+        this.itemForm.setValue({
+          id : this.item.id,
+          name : this.item.name,
+          rarity : this.item.rarity,
+          type : this.item.type,
+          desc : this.item.desc,
+          buy : this.item.buyPrice || null,
+          sell : this.item.sellPrice || null,
+          carry : this.item.carry,
+          obtained : this.item.obtainedFrom,
+          skillID : this.item.skillID || null,
+          jwlLvl : this.item.jwlLvl || null
+        });
+      }    
+    }
+    
   }
 
   createForm(){
@@ -77,10 +83,12 @@ export class ItemDetailComponent implements OnInit {
   }
 
   onSubmit(event : any){
-    console.log(this.itemForm.errors);
+    this.formSubmitted = true;
+    
     if(this.itemForm.valid){
       this.data.itemAddOrUpdate(this.convertToItem(this.itemForm.value));
       this.itemForm.reset(this.itemForm.value);
+      this.formSubmitted = false;
     }
   }
 

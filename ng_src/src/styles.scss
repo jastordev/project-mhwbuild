@@ -85,6 +85,16 @@ button.toggled-on {
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 
-.ng-invalid.ng-dirty {
-  border-color: red;
+.form-submitted{
+  .ng-invalid {
+    border-color: red;
+  }
+}
+
+.form-submitted.ng-invalid {
+  input[type="submit"]{
+    border-color: gray;
+    background-color: darkgray;
+    pointer-events:none;
+  }
 }
