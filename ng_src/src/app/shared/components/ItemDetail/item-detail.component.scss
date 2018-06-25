@@ -40,7 +40,7 @@
     select { font-size: 1.4em; }
 }
 
-input.item-name{
+.item-name input{
     font-size: 1.4em;
     width: 275px;
 }
@@ -55,14 +55,16 @@ input.item-name{
 .item-desc {
     @extend %row-2-shared;
     grid-column: col 2 / span 3;    
-    font-style: italic;
     margin: 0;
     color: #a0a0a0;
-}
+    width:100%;
 
-textarea.item-desc {
-    width: 100%;
-    resize: none;
+    textarea{
+        width:100%;
+        resize: none;
+        font-style: italic;
+        overflow-y: hidden;
+    }
 }
 
 .item-buy {

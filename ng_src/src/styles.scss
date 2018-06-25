@@ -93,8 +93,52 @@ button.toggled-on {
 
 .form-submitted.ng-invalid {
   input[type="submit"]{
-    border-color: gray;
-    background-color: darkgray;
+    color: gray;
+    opacity: 0.4;
     pointer-events:none;
   }
+}
+
+// Styles for tooltips that can be used across the site
+.tooltip {
+  display: inline-block;
+  position:relative;
+}
+
+.tooltip .tooltip-content {
+  visibility: hidden;
+  background-color: darkred;
+  color: white;
+  text-align: left;
+  padding: 5px;
+  border-radius: 6px;
+
+  position:absolute;
+  z-index: 1;
+  bottom: 15%;
+  left: 100%;
+  margin-left: 5px;  
+
+  font-style: italic;
+  font-size: 0.7em;
+  white-space: nowrap;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltip-content::after {
+  content: "";
+  position: absolute;
+  left: 0%;
+  margin-left: -11px;
+  margin-top: -15px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent darkred transparent transparent;
+}
+
+.tooltip:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
 }
