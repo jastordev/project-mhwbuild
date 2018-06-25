@@ -71,8 +71,10 @@ input, textarea, select, button {
   color: #c9c9c9;
   font-family: DINPRO;
 
+  transition: border 0.4s, background 0.4s, box-shadow 0.4s; 
+
   &:hover, &:focus{
-    border: 1px solid gray;
+    border: 1px solid gray;    
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
   }
