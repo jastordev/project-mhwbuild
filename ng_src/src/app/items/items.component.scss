@@ -102,6 +102,8 @@
   border-radius: 5px;
   border: 1px solid transparent;
 
+  transition: border 0.4s;
+
   font-size: 15px;
   font-family: DINPRO;
 
@@ -153,5 +155,5 @@
   padding: 5px 0px 5px 5px;
 }
 
-.top{  z-index: 1; }
+.top{  z-index: 1; transition: opacity 0.3s;}
 .top:hover{ opacity: 0.4; }
