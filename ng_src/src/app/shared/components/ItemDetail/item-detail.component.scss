@@ -58,11 +58,11 @@
     margin: 0;
     color: #a0a0a0;
     width:100%;
+    font-style: italic;
 
     textarea{
         width:100%;
-        resize: none;
-        font-style: italic;
+        resize: none;        
         overflow-y: hidden;
     }
 }

@@ -35,9 +35,17 @@ export class ModalService {
     }
     
     if(canDestroy){
-      this.domService.removeComponent();
-      document.getElementById(this.modalId).className = "hidden";
-      document.getElementById(this.overlayId).className = "hidden";
+
+      document.getElementById(this.modalId).classList.add("fade-out");
+      document.getElementById(this.overlayId).classList.add("fade-out");
+
+      // Delay value tied with the transition property of both modal and overlay ids
+      setTimeout(() => {
+        document.getElementById(this.modalId).className = "hidden";
+        document.getElementById(this.overlayId).className = "hidden";
+        this.domService.removeComponent();
+      } , 100);
+
     }    
   }
 }
