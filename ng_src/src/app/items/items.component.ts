@@ -20,6 +20,7 @@ export class ItemsComponent implements OnInit {
   itemsFiltered : Item[];
   categories : string[];
 
+  // Variables which toggle allowed categories.
   private allowMat : boolean;
   private allowAmmo : boolean;
   private allowDeco : boolean;
@@ -27,6 +28,9 @@ export class ItemsComponent implements OnInit {
   private allowTool : boolean;
 
   private editMode : boolean;
+
+  // Class name for item entries
+  private entryClassName : string; 
 
   constructor(private _data : DataService, private modal : ModalService) { }
 
@@ -41,6 +45,8 @@ export class ItemsComponent implements OnInit {
     this.allowTool = true;
 
     this.editMode = false;
+
+    this.entryClassName = "list-item";
 
     this.loadData();
   }
@@ -85,7 +91,6 @@ export class ItemsComponent implements OnInit {
   }
 
   onCatClick(event : any, category : string){
-
     switch(category){
       case "mat":
         this.allowMat = !this.allowMat;
@@ -103,7 +108,23 @@ export class ItemsComponent implements OnInit {
         this.allowTool = !this.allowTool; 
         break;     
     }
-    
+  }
+
+  onItemClick(event : any, item : Item) {
+    if(event.ctrlKey){  
+      let target = event.target;    
+      while(!target.classList.contains(this.entryClassName)) {
+        target = target.parentNode;
+      }
+      console.log(target);
+      if (target.classList.contains("selected")){
+        target.classList.remove("selected");
+      } else {
+        target.classList.add("selected");
+      }     
+    } else {
+      this.showItemDetail(item);
+    }
   }
 
   searchFilter(event : any){

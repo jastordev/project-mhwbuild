@@ -23,12 +23,9 @@ body {
 
 .noscroll { overflow: hidden; }
 
-@mixin absolute-width($width) {
-  margin-left: -($width/2);
-  width: $width;
-}
+.selected { border: 1px solid #d69230 !important; }
 
-// Modal styles
+// Styles related to the modal below.
 #modal-container {  
   position: fixed;
   top: 35%;
@@ -43,7 +40,6 @@ body {
   font-family: DINPRO;
   transition: opacity 0.1s;
 }
-
 #overlay {
   position: fixed;
   width: 100%;
@@ -54,7 +50,6 @@ body {
   left: 0px;
   transition: opacity 0.1s;
 }
-
 #modal-header{
   background-color: rgb(26, 32, 44);
   height: 51px;
@@ -83,19 +78,18 @@ input, textarea, select, button {
   }
 
 }
-
 button.toggled-on {
   border: 1px solid lightblue;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 
+// Styles for when a form is submitted, mainly for validation.
 .form-submitted{
   .ng-invalid {
     border-color: red;
   }
 }
-
 .form-submitted.ng-invalid {
   input[type="submit"]{
     color: gray;
@@ -109,7 +103,6 @@ button.toggled-on {
   display: inline-block;
   position:relative;
 }
-
 .tooltip .tooltip-content {
   visibility: hidden;
   background-color: darkred;
@@ -131,7 +124,6 @@ button.toggled-on {
   opacity: 0;
   transition: opacity 0.3s;
 }
-
 .tooltip .tooltip-content::after {
   content: "";
   position: absolute;
@@ -142,7 +134,6 @@ button.toggled-on {
   border-style: solid;
   border-color: transparent darkred transparent transparent;
 }
-
 .tooltip:hover .tooltip-content {
   visibility: visible;
   opacity: 1;

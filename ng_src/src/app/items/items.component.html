@@ -41,7 +41,7 @@
       </header>
       <ul>
         <li *ngFor="let item of catItems" >
-          <div (click)="showItemDetail(item)" class="list-item">
+          <div (click)="onItemClick($event, item)" [ngClass]="entryClassName">
             <div class="list-item-icon">
               <img src="assets/items/OreIcon.png" alt="Iron Ore"/>
             </div>
