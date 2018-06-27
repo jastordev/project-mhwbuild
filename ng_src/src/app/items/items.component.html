@@ -1,12 +1,21 @@
-<header class="data-header">
+<header id="data-header">
   <img class="header-img" src="assets/itemsHeader.png" />
   <div class="header-search">
       <img class="search-icon" src="assets/searchIcon.png" />
       <input (keyup)="searchFilter($event)" class="search" placeholder="Search..." />
   </div>
   <div class="header-tools">
-    <button (click)=addNewItem()>Add New Item</button>
-    <button [ngClass]="editMode ? 'toggled-on' : ''" (click)=toggleEditMode($event)>Edit Mode Off</button>
+    <div>
+      <button (click)=addNewItem()>Add New Item</button>
+      <button [ngClass]="editMode ? 'toggled-on' : ''" (click)=toggleEditMode($event)>Edit Mode Off</button>  
+    </div>
+    <div>
+      <button (click)="onSelectClick($event)">
+        <span *ngIf="itemsSelected.length == 0, else deselectTxt">Select All</span>
+        <ng-template #deselectTxt >Deselect All</ng-template>
+      </button>
+      <button> Delete Selected</button>
+    </div>
   </div>
   <div class="header-cats">
     <div class="category" (click)="onCatClick($event, 'mat')">
@@ -32,7 +41,7 @@
   </div>
 </header>
 
-<div class="data-container">
+<div id="data-container">
 
   <ng-container *ngFor="let category of categories">
     <section *ngIf="itemsPerCategory(category) let catItems" class="data-category">
@@ -41,7 +50,8 @@
       </header>
       <ul>
         <li *ngFor="let item of catItems" >
-          <div (click)="onItemClick($event, item)" [ngClass]="entryClassName">
+          <div (click)="onItemClick($event, item)" 
+            [ngClass]="itemsSelected.includes(item) ? entryClassName + ' selected' : entryClassName">
             <div class="list-item-icon">
               <img src="assets/items/OreIcon.png" alt="Iron Ore"/>
             </div>

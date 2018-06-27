@@ -7,6 +7,7 @@ import { ItemDetailComponent }
 
 import { DataService } from '../shared/service/data.service';
 import { ModalService } from '../shared/service/modal.service';
+import { ElementRef } from '@angular/core';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ItemsComponent implements OnInit {
 
   private _items : Item[];
   itemsFiltered : Item[];
+  itemsSelected : Item[];
   categories : string[];
 
   // Variables which toggle allowed categories.
@@ -32,7 +34,8 @@ export class ItemsComponent implements OnInit {
   // Class name for item entries
   private entryClassName : string; 
 
-  constructor(private _data : DataService, private modal : ModalService) { }
+  constructor(private _data : DataService,
+    private modal : ModalService, private _elem: ElementRef) { }
 
   ngOnInit() {
     this.categories = ["Materials", "Ammo/Coatings", "Consumables and Misc", 
@@ -49,6 +52,7 @@ export class ItemsComponent implements OnInit {
     this.entryClassName = "list-item";
 
     this.loadData();
+    this.itemsSelected = [];
   }
 
   loadData(){
@@ -111,19 +115,22 @@ export class ItemsComponent implements OnInit {
   }
 
   onItemClick(event : any, item : Item) {
-    if(event.ctrlKey){  
-      let target = event.target;    
-      while(!target.classList.contains(this.entryClassName)) {
-        target = target.parentNode;
-      }
-      console.log(target);
-      if (target.classList.contains("selected")){
-        target.classList.remove("selected");
+    if(event.ctrlKey){          
+      if (this.itemsSelected.includes(item)){
+        this.itemsSelected.splice(this.itemsSelected.indexOf(item), 1);
       } else {
-        target.classList.add("selected");
+        this.itemsSelected.push(item);
       }     
     } else {
       this.showItemDetail(item);
+    }    
+  }
+
+  onSelectClick(event : any){    
+    if(this.itemsSelected.length == 0){      
+      this.itemsSelected = Array.from(this.itemsFiltered);      
+    } else {      
+      this.itemsSelected = [];
     }
   }
 
