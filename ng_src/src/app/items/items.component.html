@@ -6,7 +6,7 @@
   </div>
   <div class="header-tools">
     <div>
-      <button (click)=addNewItem()>Add New Item</button>
+      <button (click)=onAddClick()>Add New Item</button>
       <button [ngClass]="editMode ? 'toggled-on' : ''" (click)=toggleEditMode($event)>Edit Mode Off</button>  
     </div>
     <div>
@@ -14,7 +14,7 @@
         <span *ngIf="itemsSelected.length == 0, else deselectTxt">Select All</span>
         <ng-template #deselectTxt >Deselect All</ng-template>
       </button>
-      <button> Delete Selected</button>
+      <button (click)="onDeleteClick()"> Delete Selected</button>
     </div>
   </div>
   <div class="header-cats">

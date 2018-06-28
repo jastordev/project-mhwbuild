@@ -48,12 +48,16 @@ export class DataService {
     return Observable.of(99);
   }
 
-  itemAddOrUpdate(item : Item){   
+  addOrUpdateItem(item : Item){   
     if(item.id) {
       this.itemService.updateItem(item);
     } else {
       this.itemService.addItem(item);
     }
+  }
+
+  deleteItems(items : Item[]){
+    this.itemService.deleteItems(items);
   }
 
   // TEST REMOVE

@@ -86,4 +86,13 @@ export class ItemDataService {
     this._items.next(Object.assign({}, this.dataStore).items);
   }
 
+  deleteItems(items: Item[]){
+    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
+    for (let item of items) {
+      let index = this.dataStore.items.indexOf(item);
+      this.dataStore.items.splice(index, 1);
+    }
+    this._items.next(Object.assign({}, this.dataStore).items);
+  }
+
 }

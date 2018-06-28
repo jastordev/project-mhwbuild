@@ -94,6 +94,7 @@ export class ItemsComponent implements OnInit {
 
   }
 
+  // Functions which handle click events.
   onCatClick(event : any, category : string){
     switch(category){
       case "mat":
@@ -126,11 +127,37 @@ export class ItemsComponent implements OnInit {
     }    
   }
 
+  onDeleteClick(){
+    if (this.itemsSelected.length == 0 ) return;
+    let confirmed = confirm("Are you sure you wish to delete all selected ("
+      + this.itemsSelected.length + ") entries?");
+    if (confirmed){
+      this._data.deleteItems(this.itemsSelected);
+      this.itemsSelected = [];
+    }
+  }
+
   onSelectClick(event : any){    
     if(this.itemsSelected.length == 0){      
       this.itemsSelected = Array.from(this.itemsFiltered);      
     } else {      
       this.itemsSelected = [];
+    }
+  }
+
+  onAddClick(){
+    let input = {
+      isForm : true
+    }
+    this.modal.init(ItemDetailComponent, input, {});
+  }
+
+  toggleEditMode(event : any){
+    this.editMode = !this.editMode;
+    if (this.editMode) {     
+      event.target.innerHTML = "Edit Mode On";
+    } else {
+      event.target.innerHTML = "Edit Mode Off";
     }
   }
 
@@ -149,22 +176,4 @@ export class ItemsComponent implements OnInit {
     }
     this.modal.init(ItemDetailComponent, input, {});
   }
-
-  addNewItem(){
-    let input = {
-      isForm : true
-    }
-    this.modal.init(ItemDetailComponent, input, {});
-  }
-
-  toggleEditMode(event : any){
-    this.editMode = !this.editMode;
-    if (this.editMode) {     
-      event.target.innerHTML = "Edit Mode On";
-    } else {
-      event.target.innerHTML = "Edit Mode Off";
-    }
-  }
-
-
 }
