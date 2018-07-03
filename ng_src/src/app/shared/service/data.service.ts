@@ -10,21 +10,11 @@ import { ItemDataService } from './item-data.service';
 export class DataService {
 
   items : Observable <Item[]>;
+  serverCount : Observable <number>; // REMOVE
 
   constructor(private itemService : ItemDataService) {
-    this.itemService.loadAll();
-    this.items = this.itemService.getItems();    
-  }
-
-  getItemByIndex(i : number) : Observable<Item> {   
-    let placeItem : Observable<Item>;
-    
-    this.items.take(1).subscribe( data => {        
-      placeItem =  Observable.of(data[i]);
-      return placeItem;
-    }); 
-
-    return placeItem; 
+    this.items = this.itemService.getItems();
+    this.serverCount = this.itemService.getTestCount(); // REMOVE
   }
 
   // Count methods, modify as tables become available
@@ -48,6 +38,16 @@ export class DataService {
     return Observable.of(99);
   }
 
+  // TEST REMOVE
+  getTestCount() : Observable<number> {
+    return this.serverCount;
+  }
+  // TEST REMOVE
+  testReq() {
+    this.itemService.testReq();
+  }
+
+  // Item-data service functions
   addOrUpdateItem(item : Item){   
     if(item.id) {
       this.itemService.updateItem(item);
@@ -60,9 +60,19 @@ export class DataService {
     this.itemService.deleteItems(items);
   }
 
-  // TEST REMOVE
-  // TEST FUNCTION
-  testItemChange(i : number){
-    this.itemService.testDelete(0);
+  testError(){
+    this.itemService.testHttpError();
   }
+
+  // getItemByIndex(i : number) : Observable<Item> {   
+  //   let placeItem : Observable<Item>;
+    
+  //   this.items.take(1).subscribe( data => {        
+  //     placeItem =  Observable.of(data[i]);
+  //     return placeItem;
+  //   }); 
+
+  //   return placeItem; 
+  // }
+
 }

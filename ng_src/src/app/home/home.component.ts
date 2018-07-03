@@ -44,19 +44,4 @@ export class HomeComponent implements OnInit {
     return this.data.getBuildCount();
   }
 
-
-
-  // CHANGE METHOD TO BY ID
-  getItemByIndex(i : number) : Observable<Item> {   
-    return this.data.getItemByIndex(i);
-  }
-
-  // TEST FUNCTION REMOVE
-  testChange(){
-    this.data.testItemChange(0);
-  }
-
-  testModal(){
-    this.modal.init(ItemDetailComponent, {input: "This works!"}, {});
-  }
 }

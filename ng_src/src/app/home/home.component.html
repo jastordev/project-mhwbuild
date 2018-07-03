@@ -4,8 +4,6 @@
   </div>
 
   <div class="data-overview">
-    <button (click)=testChange() >Test Observable Change</button>
-    <button (click)=testModal() >Test Modal Display</button>  
     <ul class="list-overview">
       <li><span *ngIf="getItemCount() | async; let count" class="data-count">{{count}}</span> Items</li>
       <li><span *ngIf="getWepCount() | async; let count" class="data-count">{{count}}</span> Weapons</li>

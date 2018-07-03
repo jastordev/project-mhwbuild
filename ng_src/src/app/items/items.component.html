@@ -7,6 +7,9 @@
   <div class="header-tools">
     <div>
       <button (click)=onAddClick()>Add New Item</button>
+      <div>
+        Server Count: {{serverCount}} <button (click)=testReq()>Test HTTP</button>
+      </div>      
       <button [ngClass]="editMode ? 'toggled-on' : ''" (click)=toggleEditMode($event)>Edit Mode Off</button>  
     </div>
     <div>

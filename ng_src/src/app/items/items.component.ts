@@ -18,6 +18,7 @@ import { ElementRef } from '@angular/core';
 export class ItemsComponent implements OnInit {
 
   private _items : Item[];
+  private serverCount: number;
   itemsFiltered : Item[];
   itemsSelected : Item[];
   categories : string[];
@@ -51,6 +52,7 @@ export class ItemsComponent implements OnInit {
 
     this.entryClassName = "list-item";
 
+    this.getTestCount();
     this.loadData();
     this.itemsSelected = [];
   }
@@ -59,7 +61,18 @@ export class ItemsComponent implements OnInit {
     this._data.items.subscribe( data => {
       this._items = data;
       this.itemsFiltered = this._items;
-    })
+    }); // Remember to unsubscribe
+  }
+
+  testReq(){
+    this._data.testReq();
+  }
+
+  getTestCount(){
+    this._data.getTestCount()
+      .subscribe( data => {
+        this.serverCount = data;
+      });
   }
 
   itemsPerCategory(category : string) : Item[] {
@@ -150,6 +163,10 @@ export class ItemsComponent implements OnInit {
       isForm : true
     }
     this.modal.init(ItemDetailComponent, input, {});
+  }
+
+  testError(){
+    this._data.testError();
   }
 
   toggleEditMode(event : any){

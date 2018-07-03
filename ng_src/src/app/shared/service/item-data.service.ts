@@ -1,31 +1,61 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
+import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 @Injectable()
 export class ItemDataService {
 
   private _items : BehaviorSubject <Item[]>;
+  private serverCount : BehaviorSubject <number>; // DEL
   private dataStore: {
     items: Item[]
   }; 
 
-  constructor() {
+  constructor(private http : HttpClient) {
     this._items = <BehaviorSubject<Item[]>>new BehaviorSubject([]);
-    this.dataStore = { items: [] };    
+    this.dataStore = { items: [] };
+    this.serverCount = <BehaviorSubject<number>>new BehaviorSubject(0); // DEL   
   }
 
-  loadAll() {
-    // HTTP REQUEST HERE BUT FOR NOW SIMULATED WITH DUMMY DATA
-    this.dataStore.items = this.returnDummyArray();
+  // Actual CRUD operation functions ahead.
+  addItem(item : Item){
+    this.dataStore.items.unshift(item);
+    this._items.next(Object.assign({}, this.dataStore).items);     
+  }
+
+  updateItem(item : Item){
+    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
+    let index = this.dataStore.items.findIndex(storeItem => {
+      return storeItem.id == item.id;
+    });
+    this.dataStore.items[index] = item;
     this._items.next(Object.assign({}, this.dataStore).items);
   }
 
+  deleteItems(items: Item[]){
+    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
+    for (let item of items) {
+      let index = this.dataStore.items.indexOf(item);
+      this.dataStore.items.splice(index, 1);
+    }
+    this._items.next(Object.assign({}, this.dataStore).items);
+  }  
+
   getItems() : Observable <Item[]> {
+    this.loadAll();
     return this._items.asObservable();
+  }
+
+  loadAll() {
+    // HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
+    this.dataStore.items = this.returnDummyArray();
+    this._items.next(Object.assign({}, this.dataStore).items);
   }
 
   getItemCount() : Observable<number> {
@@ -60,39 +90,42 @@ export class ItemDataService {
     return newItem;
   }
 
-  testDelete(index : number){
-    // HTTP SUB HERE
-    this.dataStore.items.splice(index, 1);
-    this._items.next(Object.assign({}, this.dataStore).items);
+  // NOTE - DELETE
+  getTestCount(){
+    this.http
+      .get('http://localhost:4300/api/overview/test')
+      .subscribe((data : number)=> {
+        this.serverCount.next(data);
+      });
+    return this.serverCount.asObservable();
+  }
+  // NOTE - DELETE
+  testReq(){
+    this.http
+      .get('http://localhost:4300/api/overview/test')
+      .take(1)
+      .subscribe( data => {
+        this.serverCount.next(+data);
+      },
+      err => {
+        this.serverCount.next(99);
+      });
   }
 
-  testAdd(){
-    this.dataStore.items.unshift(this.returnDummyItem(5, "Material"));
-    this._items.next(Object.assign({}, this.dataStore).items);
-  }
-
-  addItem(item : Item){
+  // NOTE - DELETE
+  testHttpError(){
+    let httpRes = { success: true };    
     // HTTP REQUEST HERE, IF SUCCESSFUL CONTINUE
-    this.dataStore.items.unshift(item);
-    this._items.next(Object.assign({}, this.dataStore).items);
+    this.http
+      .get('http://localhost:4300/api/overview/error')
+      .catch((err : any) => Observable.throw(this.errorHandler(err)))
+      .subscribe(data => {
+        console.log(data);
+      });    
   }
 
-  updateItem(item : Item){
-    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
-    let index = this.dataStore.items.findIndex(storeItem => {
-      return storeItem.id == item.id;
-    });
-    this.dataStore.items[index] = item;
-    this._items.next(Object.assign({}, this.dataStore).items);
-  }
-
-  deleteItems(items: Item[]){
-    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
-    for (let item of items) {
-      let index = this.dataStore.items.indexOf(item);
-      this.dataStore.items.splice(index, 1);
-    }
-    this._items.next(Object.assign({}, this.dataStore).items);
+  errorHandler( error : any) : String{
+    return ("- " + error.message);
   }
 
 }
