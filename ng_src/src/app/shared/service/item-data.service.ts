@@ -8,6 +8,8 @@ import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
 import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { ToastService } from './toast.service';
+
 @Injectable()
 export class ItemDataService {
 
@@ -17,7 +19,7 @@ export class ItemDataService {
     items: Item[]
   }; 
 
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient, private toast : ToastService) {
     this._items = <BehaviorSubject<Item[]>>new BehaviorSubject([]);
     this.dataStore = { items: [] };
     this.serverCount = <BehaviorSubject<number>>new BehaviorSubject(0); // DEL   
@@ -106,9 +108,11 @@ export class ItemDataService {
       .take(1)
       .subscribe( data => {
         this.serverCount.next(+data);
+        this.toast.createToast("HTTP Test has suceeded", 2);
       },
       err => {
         this.serverCount.next(99);
+        this.toast.createToast("HTTP Test has failed", 0);
       });
   }
 

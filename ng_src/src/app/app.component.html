@@ -6,6 +6,12 @@
     </div>
   </header>
   <main id="main-container">
+    <div id="modal-container" class="hidden">
+      <div id="modal-header"></div>
+    </div>
+    <div id="overlay" (click)="removeModal()" class="hidden"></div>
+    <div id="toast-container">
+    </div>
     <router-outlet></router-outlet>
   </main>
   <nav id="sidebar-container">
@@ -13,7 +19,6 @@
   </nav>
 </div>
 
-<div id="modal-container" class="hidden">
-  <div id="modal-header"></div>
-</div>
-<div id="overlay" (click)="removeModal()" class="hidden"></div>
+
+
+

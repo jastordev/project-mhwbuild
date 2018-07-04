@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { HomeModule } from './home/home.module';
 import { ItemsModule } from './items/items.module';
@@ -15,15 +15,20 @@ import { DOMService } from './shared/service/dom.service';
 import { ModalService } from './shared/service/modal.service';
 import { DataService } from './shared/service/data.service';
 import { ItemDataService } from './shared/service/item-data.service';
+import { ToastService } from './shared/service/toast.service';
 
 import { ItemDetailComponent } 
-  from './shared/components/ItemDetail/item-detail.component';
+  from './shared/components/item-detail/item-detail.component';
+import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
+import { ToastComponent } from './shared/components/toast/toast.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +38,16 @@ import { ItemDetailComponent }
     AppRoutingModule,
     HttpClientModule    
   ],
-  providers: [ HttpClientModule, DOMService, ModalService,
-     DataService, ItemDataService],
+  providers: [
+    HttpClientModule,
+    DOMService,
+    ModalService,
+    ToastService,
+    DataService,
+    ItemDataService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ ItemDetailComponent ]
+  entryComponents: [ ItemDetailComponent, ToastComponent ]
 })
 export class AppModule { }

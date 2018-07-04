@@ -25,43 +25,6 @@ body {
 
 .selected { border: 1px solid #d69230 !important; }
 
-// Styles related to the modal below.
-#modal-container {  
-  position: fixed;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -35%); 
-  background: #262f3e;
-  color: #c9c9c9;
-  border-radius: 10px;
-  box-shadow: 0px 0px 2px 1px black;
-  padding: 15px;
-  z-index: 100;
-  font-family: DINPRO;
-  transition: opacity 0.1s;
-}
-#overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 99;
-  background: rgba(0,0,0,0.8);
-  top: 0px;
-  left: 0px;
-  transition: opacity 0.1s;
-}
-#modal-header{
-  background-color: rgb(26, 32, 44);
-  height: 51px;
-  position: absolute;
-  z-index: -2;
-  width: 100%;
-  top: 0;
-  left: 0;
-  border-radius: 10px 10px 0px 0px;
-}
-
-
 input, textarea, select, button { 
   background: rgba(0, 0, 0, 0.2);
   border-radius: 3px;

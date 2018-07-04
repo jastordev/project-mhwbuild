@@ -13,6 +13,7 @@ export class ModalService {
   // Maybe change this to be more flexible?
   private modalId = "modal-container";
   private overlayId = "overlay";
+  private modalCompId : number;
   
   constructor( private domService : DOMService) { }
 
@@ -21,13 +22,15 @@ export class ModalService {
       inputs:inputs,
       outputs:outputs
     }
-    this.domService.appendComponentTo(this.modalId, component, compConfig);
+    this.modalCompId = 
+      this.domService.appendComponentTo(this.modalId, component, compConfig);
+    document.body.classList.add("noscroll");
     document.getElementById(this.modalId).className = "show";
     document.getElementById(this.overlayId).className = "show";
   }
 
   destroy(){
-    let canDestroy = !this.domService.isComponentDirty();
+    let canDestroy = !this.domService.isComponentDirty(this.modalCompId);
         
     if(!canDestroy) {
       confirm("If you navigate away, you will discard all changes."
@@ -43,7 +46,8 @@ export class ModalService {
       setTimeout(() => {
         document.getElementById(this.modalId).className = "hidden";
         document.getElementById(this.overlayId).className = "hidden";
-        this.domService.removeComponent();
+        document.body.classList.remove("noscroll");
+        this.domService.removeComponent(this.modalCompId);
       } , 100);
 
     }    

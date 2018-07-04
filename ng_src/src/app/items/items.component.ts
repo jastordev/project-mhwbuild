@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/observable';
 
 import { Item } from '../shared/models/item.model';
 import { ItemDetailComponent }
-  from '../shared/components/ItemDetail/item-detail.component';
+  from '../shared/components/item-detail/item-detail.component';
 
 import { DataService } from '../shared/service/data.service';
 import { ModalService } from '../shared/service/modal.service';
