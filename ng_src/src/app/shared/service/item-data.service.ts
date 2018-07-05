@@ -28,7 +28,8 @@ export class ItemDataService {
   // Actual CRUD operation functions ahead.
   addItem(item : Item){
     this.dataStore.items.unshift(item);
-    this._items.next(Object.assign({}, this.dataStore).items);     
+    this._items.next(Object.assign({}, this.dataStore).items);
+    this.toast.createToast(`Successfully added ${item.name} to the item DB.`, 2);     
   }
 
   updateItem(item : Item){
@@ -38,6 +39,7 @@ export class ItemDataService {
     });
     this.dataStore.items[index] = item;
     this._items.next(Object.assign({}, this.dataStore).items);
+    this.toast.createToast(`The entry for ${item.name} has been updated.`, 2);
   }
 
   deleteItems(items: Item[]){
@@ -47,6 +49,15 @@ export class ItemDataService {
       this.dataStore.items.splice(index, 1);
     }
     this._items.next(Object.assign({}, this.dataStore).items);
+
+    // Code for success message.
+    let toastMsg : string;
+    if (items.length <= 1) {
+      toastMsg = `Entry for ${items[0].name} has been succesfully deleted.`;
+    } else {
+      toastMsg = `${items.length} items have been successfully deleted.`;
+    }
+    this.toast.createToast(toastMsg, 2);
   }  
 
   getItems() : Observable <Item[]> {
@@ -108,11 +119,13 @@ export class ItemDataService {
       .take(1)
       .subscribe( data => {
         this.serverCount.next(+data);
-        this.toast.createToast("HTTP Test has suceeded", 2);
+        this.toast
+        .createToast("The test HTTP Request has succeeded.", 2);
       },
       err => {
         this.serverCount.next(99);
-        this.toast.createToast("HTTP Test has failed", 0);
+        this.toast
+        .createToast("The test HTTP request has returned with an error.", 0);
       });
   }
 

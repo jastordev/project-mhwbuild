@@ -1,6 +1,21 @@
 .toast {
     pointer-events: all;
-    background-color:white;
     border-radius: 5px;
-    border: 1px solid blue;
+    border: 1px solid #929292;
+    margin: 4px;
+    font-family: DINPRO;
+    font-size: 14px;
+    color: white;
+    display: flex;
+
+    .vertical-rule { 
+        border: solid #929292;
+        border-width: 0px 1px 0px 0px;
+    }
+    i, .msg{ padding: 8px; }
 }
+
+.error-toast { background-color: #d12222;}
+.warn-toast { background-color: #e4850a;}
+.success-toast { background-color: #199219;}
+.info-toast { background-color: #3e3ee1;}

@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DataService } from '../shared/service/data.service';
-import { ModalService } from '../shared/service/modal.service';
-
-import { ItemDetailComponent } 
-  from '../shared/components/ItemDetail/item-detail.component';
 
 import { Observable } from 'rxjs/observable';
 
@@ -19,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   tableCounts : any;
 
-  constructor(private data: DataService, private modal: ModalService) { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {       
   }

@@ -1,3 +1,10 @@
-<div class="toast" (click)="removeToast()">
-  YEP HERE IT IS
+<div [ngClass]="[toastClass, 'toast']" (click)="removeToast()">
+  
+  <i *ngIf="toastType == 0" class="material-icons">error</i>
+  <i *ngIf="toastType == 1" class="material-icons">warning</i>
+  <i *ngIf="toastType == 2" class="material-icons">check_circle</i>
+  <i *ngIf="toastType == 3" class="material-icons">info</i>
+  
+  <div class="vertical-rule"></div>
+  <div class="msg">{{message}}</div>
 </div>

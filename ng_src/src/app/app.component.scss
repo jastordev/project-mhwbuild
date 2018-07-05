@@ -64,12 +64,18 @@ img.header-logo {
 // Toast rules here
 #toast-container {
   margin-left:22%;
+
   height: 100%;
-  position:fixed;
   width: 30%;
   min-width: 300px;
+  position:fixed;  
+ 
   z-index: 100;
   pointer-events: none;
+
+  display: flex;  
+  flex-direction: column;
+  align-items: center;
 }
 
 // Styles related to the modal below.
