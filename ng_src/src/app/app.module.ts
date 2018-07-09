@@ -6,9 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
-import { CoreModule } from './core.module';
-import { HomeModule } from './home/home.module';
-import { ItemsModule } from './items/items.module';
+import { CoreModule } from './core.module'; // Core services
+import { FeatureModule } from './feature.module'; // App features
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -31,8 +30,7 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     CoreModule,
-    HomeModule,
-    ItemsModule,
+    FeatureModule,
     AppRoutingModule,
     HttpClientModule    
   ],
