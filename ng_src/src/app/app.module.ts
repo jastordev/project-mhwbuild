@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -11,16 +12,18 @@ import { ItemsModule } from './items/items.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
+import { ItemDetailComponent } 
+  from './shared/components/item-detail/item-detail.component';
+import { ToastComponent } from './shared/components/toast/toast.component';
+
 import { DOMService } from './shared/service/dom.service';
 import { ModalService } from './shared/service/modal.service';
 import { DataService } from './shared/service/data.service';
 import { ItemDataService } from './shared/service/item-data.service';
 import { ToastService } from './shared/service/toast.service';
 
-import { ItemDetailComponent } 
-  from './shared/components/item-detail/item-detail.component';
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
-import { ToastComponent } from './shared/components/toast/toast.component';
+
 
 
 @NgModule({
@@ -32,6 +35,7 @@ import { ToastComponent } from './shared/components/toast/toast.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     HomeModule,
     ItemsModule,

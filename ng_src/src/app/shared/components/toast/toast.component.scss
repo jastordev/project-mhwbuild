@@ -8,11 +8,18 @@
     color: white;
     display: flex;
 
+    transition: transform 0.3s, border 0.3s;   
+
     .vertical-rule { 
         border: solid #929292;
         border-width: 0px 1px 0px 0px;
     }
     i, .msg{ padding: 8px; }
+}
+
+.toast:hover{
+    transform: scale(1.1);
+    border-color: white;
 }
 
 .error-toast { background-color: #d12222;}
