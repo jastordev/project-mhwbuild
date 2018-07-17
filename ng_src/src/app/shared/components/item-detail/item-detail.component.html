@@ -1,5 +1,7 @@
 <article *ngIf="!isForm, else formBlock" class="item-detail">
-  <img class="item-icon" src="assets/items/OreIcon.png" alt="Iron Ore" />
+  <div class="item-icon">
+      <img src="assets/items/OreIcon.png" alt="Iron Ore" />
+  </div>
 
   <div class="item-name-n-rarity" >
     <h1 class="item-name"><span [ngClass]="'rare' + item.rarity"> R{{item.rarity}} </span>{{item.name}}</h1>
@@ -24,7 +26,12 @@
   <form [ngClass]="formSubmitted ? 'item-detail form-submitted' : 'item-detail'"
     (submit)="onSubmit($event)" [formGroup]="itemForm">
 
-    <img class="item-icon" src="assets/items/OreIcon.png" alt="Iron Ore" />
+    <div class="item-icon" (click)="uploadImg()">
+      <img src="assets/items/OreIcon.png" alt="Iron Ore" />
+      <div class="upload-img">
+        <span>Upload Image</span>
+      </div>
+    </div>    
   
     <div class="item-name-n-rarity">      
       <div class="tooltip">

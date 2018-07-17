@@ -113,4 +113,8 @@ export class ItemDetailComponent implements OnInit {
     return this.itemForm.dirty;
   } 
 
+  uploadImg() {
+    alert("Image being uploaded!");
+  }
+
 }
