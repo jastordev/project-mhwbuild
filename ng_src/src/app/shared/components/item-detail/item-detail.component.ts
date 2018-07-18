@@ -6,6 +6,8 @@ import { Item } from '../../models/item.model';
 
 import { DataService } from '../../service/data.service';
 import { validateType } from '../../validators/item.validator';
+import { ImageUploadService } from '../../service/image-upload.service';
+import { ToastService } from '../../service/toast.service';
 
 
 @Component({
@@ -24,9 +26,12 @@ export class ItemDetailComponent implements OnInit {
     "Specialized Tool", "Decoration", "Ammo/Coating"];
   private rarities = [1, 2, 3, 4, 5, 6, 7, 8];
 
+  private defIconPath = "assets/items/OreIcon.png";
+
   private itemForm: FormGroup;
 
-  constructor(private data : DataService, private fb : FormBuilder) {
+  constructor(private data : DataService, private toast : ToastService,
+     private imgUp : ImageUploadService, private fb : FormBuilder) {
     this.createForm();
   }
 
@@ -113,8 +118,28 @@ export class ItemDetailComponent implements OnInit {
     return this.itemForm.dirty;
   } 
 
-  uploadImg() {
-    alert("Image being uploaded!");
+  onItemIconChange(files : any) {
+    var reader = new FileReader();    
+    var image = new Image();
+
+    if(!this.imgUp.checkImageFileType(files.item(0))){
+      this.toast.createToast("Image file type must be .jpg, .png or .gif", 0);
+      return;
+    }
+
+    reader.onload = (e : any) => {      
+      image.src = e.target.result;
+
+      image.onload = (e) => {
+        if(!this.imgUp.checkImageDimensions(image)) {
+          this.toast
+          .createToast("Image height and width must be the same and within 200x200px.", 0);
+          return;
+        } 
+        this.defIconPath = image.src;
+      }
+    }
+    reader.readAsDataURL(files.item(0));
   }
 
 }

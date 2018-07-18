@@ -26,9 +26,10 @@
   <form [ngClass]="formSubmitted ? 'item-detail form-submitted' : 'item-detail'"
     (submit)="onSubmit($event)" [formGroup]="itemForm">
 
-    <div class="item-icon" (click)="uploadImg()">
-      <img src="assets/items/OreIcon.png" alt="Iron Ore" />
+    <div class="item-icon">
+      <img src={{defIconPath}} alt="Iron Ore" />
       <div class="upload-img">
+        <input type="file" id="icon" (change)="onItemIconChange($event.target.files)" accept=".jpg, .jpeg, .png, .gif"/>
         <span>Upload Image</span>
       </div>
     </div>    
