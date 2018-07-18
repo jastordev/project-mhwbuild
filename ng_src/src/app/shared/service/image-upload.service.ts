@@ -5,6 +5,7 @@ export class ImageUploadService {
 
     private maxWidth = 200;
     private maxHeight = 200;
+    private maxFileSize = 1000; // in KB
 
     constructor() {}
 
@@ -28,6 +29,11 @@ export class ImageUploadService {
             default:
                 return false;
         }
+    }
+
+    checkImageFileSize(file: any) : boolean{
+        if(Math.round(file.size/1024) > this.maxFileSize) return false;
+        return true;
     }
 
 }

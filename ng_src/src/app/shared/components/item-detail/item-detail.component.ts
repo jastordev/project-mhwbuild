@@ -125,6 +125,9 @@ export class ItemDetailComponent implements OnInit {
     if(!this.imgUp.checkImageFileType(files.item(0))){
       this.toast.createToast("Image file type must be .jpg, .png or .gif", 0);
       return;
+    } else if (!this.imgUp.checkImageFileSize(files.item(0))){
+      this.toast.createToast("Image file size exceeds the 1MB limit.", 0);
+      return;
     }
 
     reader.onload = (e : any) => {      
