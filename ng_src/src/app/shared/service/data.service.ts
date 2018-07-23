@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
 import { ItemDataService } from './item-data.service';
+import { NgIfContext } from '../../../../node_modules/@angular/common';
 
 @Injectable()
 export class DataService {
@@ -48,11 +49,11 @@ export class DataService {
   }
 
   // Item-data service functions
-  addOrUpdateItem(item : Item){   
+  addOrUpdateItem(item : Item, iconFile? : any){   
     if(item.id) {
       this.itemService.updateItem(item);
     } else {
-      this.itemService.addItem(item);
+      this.itemService.addItem(item, iconFile ? iconFile : null);
     }
   }
 

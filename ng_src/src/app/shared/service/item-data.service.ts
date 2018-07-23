@@ -9,6 +9,7 @@ import 'rxjs/add/observable/of';
 import { Item } from '../models/item.model';
 import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { ToastService } from './toast.service';
+import { ImageUploadService } from './image-upload.service';
 
 @Injectable()
 export class ItemDataService {
@@ -19,14 +20,20 @@ export class ItemDataService {
     items: Item[]
   }; 
 
-  constructor(private http : HttpClient, private toast : ToastService) {
+  constructor(private http : HttpClient, private toast : ToastService,
+              private imageUpload : ImageUploadService) {
     this._items = <BehaviorSubject<Item[]>>new BehaviorSubject([]);
     this.dataStore = { items: [] };
     this.serverCount = <BehaviorSubject<number>>new BehaviorSubject(0); // DEL   
   }
 
   // Actual CRUD operation functions ahead.
-  addItem(item : Item){
+  addItem(item : Item, iconFile? : any){
+    item.iconUrl = "default/path/to/img";
+
+    if(iconFile){
+     // PICKUP HERE item.iconUrl = this.imageUpload.uploadImage(iconFile);
+    }
     this.dataStore.items.unshift(item);
     this._items.next(Object.assign({}, this.dataStore).items);
     this.toast.createToast(`Successfully added ${item.name} to the item DB.`, 2);     
@@ -89,6 +96,7 @@ export class ItemDataService {
 
   returnDummyItem(id : number, cat : string, name? : string) : Item {
     let newItem = new Item();
+    newItem.iconUrl = "default/path";
     newItem.id = id;
     newItem.name = (name) ? name : "Iron Ore" + id;
     newItem.desc = "Ore that can be smelted into metal and used for many purposes";

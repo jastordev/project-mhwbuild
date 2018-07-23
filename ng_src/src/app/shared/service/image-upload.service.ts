@@ -9,8 +9,10 @@ export class ImageUploadService {
 
     constructor() {}
 
-    public loadImage(file : any) : any {
-     
+    public uploadImage(fileName : string, file : any) : string {
+        let imageUrl : string;
+
+        return imageUrl;
     }
 
     public checkImageDimensions(img: any) : boolean{

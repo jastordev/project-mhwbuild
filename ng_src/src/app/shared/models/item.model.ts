@@ -3,7 +3,7 @@ import { Deserializable } from './deserializable.model';
 // Model file for Items
 export class Item implements Deserializable{
 
-  // icon : string; to be added when more concrete
+  iconUrl : string;
   id : number;
   name : string;
   desc : string;

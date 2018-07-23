@@ -21,6 +21,9 @@ export class ItemDetailComponent implements OnInit {
   private item : Item; 
   private isForm : boolean;
   private formSubmitted : boolean;
+
+  private iconProvided : boolean;
+  private iconFile : any;
   
   private types = ["Material", "Consumable/Misc",
     "Specialized Tool", "Decoration", "Ammo/Coating"];
@@ -35,9 +38,10 @@ export class ItemDetailComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     if(this.isForm){      
       this.formSubmitted = false;
+      this.iconProvided = false;
 
       if(!this.item) {
         this.item = new Item();
@@ -57,7 +61,7 @@ export class ItemDetailComponent implements OnInit {
         });
       }    
     }
-    
+    console.log(this.item.iconUrl);    
   }
 
   createForm(){
@@ -91,9 +95,14 @@ export class ItemDetailComponent implements OnInit {
     this.formSubmitted = true;
     
     if(this.itemForm.valid){
-      this.data.addOrUpdateItem(this.convertToItem(this.itemForm.value));
+      this.data.addOrUpdateItem(
+        this.convertToItem(this.itemForm.value),
+        this.iconProvided ? this.iconFile : null
+      );
       this.itemForm.reset(this.itemForm.value);
       this.formSubmitted = false;
+      this.iconProvided = false;
+      this.iconFile = null;
     }
   }
 
@@ -140,6 +149,8 @@ export class ItemDetailComponent implements OnInit {
           return;
         } 
         this.defIconPath = image.src;
+        this.iconProvided = true;
+        this.iconFile = files.item(0);
       }
     }
     reader.readAsDataURL(files.item(0));
