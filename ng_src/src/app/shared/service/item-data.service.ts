@@ -29,10 +29,12 @@ export class ItemDataService {
 
   // Actual CRUD operation functions ahead.
   addItem(item : Item, iconFile? : any){
-    item.iconUrl = "default/path/to/img";
+    item.iconUrl = "default/path/to/img";    
 
     if(iconFile){
-     // PICKUP HERE item.iconUrl = this.imageUpload.uploadImage(iconFile);
+      let fileName = item.name.trim();
+      fileName = fileName.replace(/ /g,"_");
+      item.iconUrl = this.imageUpload.uploadImage("items", fileName, iconFile);
     }
     this.dataStore.items.unshift(item);
     this._items.next(Object.assign({}, this.dataStore).items);

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ImageUploadService {
@@ -7,11 +8,14 @@ export class ImageUploadService {
     private maxHeight = 200;
     private maxFileSize = 1000; // in KB
 
-    constructor() {}
+    constructor( private http : HttpClient) {}
 
-    public uploadImage(fileName : string, file : any) : string {
+    public uploadImage(category : string, fileName : string, file : any) : string {
         let imageUrl : string;
-
+        const imageFormData = new FormData();
+        imageFormData.append("imageFile", file, fileName);
+        this.http.post("localhost:4300/upload", imageFormData)
+            .subscribe();
         return imageUrl;
     }
 
