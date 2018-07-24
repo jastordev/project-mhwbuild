@@ -8,7 +8,7 @@ alteredVal = 0;
 router.get('', async (req, res, next) => {
   // Get overview from DB
   try {
-    const queryRes = await db.query('SELECT COUNT(*) AS ItemCount FROM Iems');
+    const queryRes = await db.query('SELECT COUNT(*) AS ItemCount FROM Items');
 
     // Hardcoded counts, changed later when respective tables introduced.
     queryRes[0]["WeaponCount"] = 0;

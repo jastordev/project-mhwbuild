@@ -29,16 +29,33 @@ export class ItemDataService {
 
   // Actual CRUD operation functions ahead.
   addItem(item : Item, iconFile? : any){
-    item.iconUrl = "default/path/to/img";    
+    item.iconUrl = "default/path/to/img";
+    
+    let itemFormData = new FormData();
 
     if(iconFile){
       let fileName = item.name.trim();
       fileName = fileName.replace(/ /g,"_");
-      item.iconUrl = this.imageUpload.uploadImage("items", fileName, iconFile);
+      fileName += iconFile.type.replace("image/", ".");      
+      itemFormData.append("imageFile", iconFile, fileName);
     }
-    this.dataStore.items.unshift(item);
-    this._items.next(Object.assign({}, this.dataStore).items);
-    this.toast.createToast(`Successfully added ${item.name} to the item DB.`, 2);     
+    itemFormData.append('item', JSON.stringify(item));   
+
+    this.http
+      .post('http://localhost:4300/api/items/', itemFormData)
+      .take(1)
+      .subscribe( data => {
+        this.toast
+        .createToast("The new add item has succeded!", 2);
+      },
+      err => {
+        this.toast
+        .createToast("The new add item has failed.", 0);
+      });
+
+    // this.dataStore.items.unshift(item);
+    // this._items.next(Object.assign({}, this.dataStore).items);
+    // this.toast.createToast(`Successfully added ${item.name} to the item DB.`, 2);     
   }
 
   updateItem(item : Item){

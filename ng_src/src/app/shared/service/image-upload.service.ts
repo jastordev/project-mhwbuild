@@ -12,10 +12,7 @@ export class ImageUploadService {
 
     public uploadImage(category : string, fileName : string, file : any) : string {
         let imageUrl : string;
-        const imageFormData = new FormData();
-        imageFormData.append("imageFile", file, fileName);
-        this.http.post("localhost:4300/upload", imageFormData)
-            .subscribe();
+        
         return imageUrl;
     }
 
