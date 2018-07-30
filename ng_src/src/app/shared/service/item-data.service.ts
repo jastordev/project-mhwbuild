@@ -44,9 +44,12 @@ export class ItemDataService {
     this.http
       .post('http://localhost:4300/api/items/', itemFormData)
       .take(1)
-      .subscribe( data => {
+      .subscribe( (data : {iconUrl : string}) => {
         this.toast
         .createToast("The new add item has succeded!", 2);
+        item.iconUrl = data.iconUrl;
+        this.dataStore.items.unshift(item);
+        this._items.next(Object.assign({}, this.dataStore).items);
       },
       err => {
         this.toast
@@ -115,7 +118,7 @@ export class ItemDataService {
 
   returnDummyItem(id : number, cat : string, name? : string) : Item {
     let newItem = new Item();
-    newItem.iconUrl = "default/path";
+    newItem.iconUrl = "http://localhost:4300/images/items/default_icon.png";
     newItem.id = id;
     newItem.name = (name) ? name : "Iron Ore" + id;
     newItem.desc = "Ore that can be smelted into metal and used for many purposes";

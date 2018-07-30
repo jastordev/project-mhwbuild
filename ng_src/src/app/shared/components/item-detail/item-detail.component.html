@@ -1,6 +1,6 @@
 <article *ngIf="!isForm, else formBlock" class="item-detail">
   <div class="item-icon">
-      <img src="assets/items/OreIcon.png" alt="Iron Ore" />
+      <img src={{item.iconUrl}} alt={{item.name}}/>
   </div>
 
   <div class="item-name-n-rarity" >

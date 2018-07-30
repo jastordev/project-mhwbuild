@@ -10,6 +10,8 @@ app.use(cors());
 const apiOverview = require("./routes/overview");
 const apiItems = require("./routes/items");
 
+app.use(express.static("public"));
+
 app.use("/api/overview", apiOverview);
 app.use("/api/items", apiItems);
 

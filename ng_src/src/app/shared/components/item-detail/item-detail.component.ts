@@ -29,7 +29,7 @@ export class ItemDetailComponent implements OnInit {
     "Specialized Tool", "Decoration", "Ammo/Coating"];
   private rarities = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  private defIconPath = "assets/items/OreIcon.png";
+  private defIconPath = "http://localhost:4300/images/items/default_icon.png";
 
   private itemForm: FormGroup;
 
@@ -61,7 +61,6 @@ export class ItemDetailComponent implements OnInit {
         });
       }    
     }
-    console.log(this.item.iconUrl);    
   }
 
   createForm(){

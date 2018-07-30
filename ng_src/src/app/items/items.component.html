@@ -54,7 +54,7 @@
           <div (click)="onItemClick($event, item)" 
             [ngClass]="itemsSelected.includes(item) ? entryClassName + ' selected' : entryClassName">
             <div class="list-item-icon">
-              <img src="assets/items/OreIcon.png" alt="Iron Ore"/>
+              <img src={{item.iconUrl}} alt={{item.name}}/>
             </div>
             <div class="list-item-name">{{item.name}}</div>
             <div [ngClass]="'rare' + item.rarity">R{{item.rarity}}</div>
