@@ -54,6 +54,7 @@
           <div *ngIf="itemForm.get('name').errors.required">An item name is required.</div>
           <div *ngIf="itemForm.get('name').errors.minlength">Item name must be at least 2 characters.</div>
           <div *ngIf="itemForm.get('name').errors.maxlength">Item name must be at most 35 characters.</div>
+          <div *ngIf="itemForm.get('name').errors.pattern">Item name must be have valid characters. (Alphanumeric and/or +/-)</div>
         </div>
       </div>
     </div>
@@ -77,6 +78,7 @@
         <div *ngIf="itemForm.get('desc').errors.required">A description is required.</div>
         <div *ngIf="itemForm.get('desc').errors.minlength">The description must be at least 5 characters.</div>
         <div *ngIf="itemForm.get('desc').errors.maxlength">The description must be at most 120 characters.</div>
+        <div *ngIf="itemForm.get('desc').errors.pattern">The description must have valid characters (Alphanumeric and/or +/-/!/.)</div>
       </div>
     </div>
     

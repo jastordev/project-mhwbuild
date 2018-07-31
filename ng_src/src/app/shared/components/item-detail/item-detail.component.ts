@@ -63,19 +63,19 @@ export class ItemDetailComponent implements OnInit {
   }
 
   private createForm(){
-    const DigitOnly = "^[0-9]*$";
+    const DigitOnly = "^\\d*$";
 
     this.itemForm = this.fb.group({
       id : ['', Validators.pattern(DigitOnly)],
       name : ['', 
-        [ Validators.required,
+        [ Validators.required, Validators.pattern("[\\w\-+\\s]+"),
           Validators.minLength(2), Validators.maxLength(35)] ],
       rarity : [1, 
-        [ Validators.required, Validators.pattern("^[1,2,3,4,5,6,7,8]{1}$")] ],
+        [ Validators.required, Validators.pattern("^[1-8]{1}$")] ],
       type : ['Material',
         [ Validators.required, validateType ] ],
       desc : ['', 
-        [ Validators.required,
+        [ Validators.required, Validators.pattern("[\\w\\.\\-+\\s!]+"),
           Validators.minLength(5), Validators.maxLength(120)] ],
       buy : ['', 
         [ Validators.maxLength(7), Validators.pattern(DigitOnly)] ],
@@ -84,8 +84,8 @@ export class ItemDetailComponent implements OnInit {
       carry : ['', 
         [ Validators.pattern(DigitOnly), Validators.maxLength(2)] ],
       obtained : [ '', Validators.maxLength(120) ],
-      skillID : ['', Validators.pattern(DigitOnly)],
-      jwlLvl : ['', Validators.pattern("^[1,2,3]?$") ]        
+      skillID : ['', Validators.pattern(DigitOnly) ],
+      jwlLvl : ['', Validators.pattern("^[1-3]?$") ]        
     });
   }
 
@@ -140,11 +140,11 @@ export class ItemDetailComponent implements OnInit {
   private convertToItem(formValue : any) : Item{
     let item = new Item();
     item.id = +formValue.id;
-    item.name = formValue.name;
-    item.desc = formValue.desc;
+    item.name = formValue.name.trim();
+    item.desc = formValue.desc.trim();
     item.type = formValue.type;
     item.rarity = +formValue.rarity;
-    item.obtainedFrom = formValue.obtained;
+    item.obtainedFrom = formValue.obtained.trim();
     item.carry = +formValue.carry;
     item.buyPrice = +formValue.buy;
     item.sellPrice = +formValue.sell;
