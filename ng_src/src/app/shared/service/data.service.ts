@@ -5,7 +5,7 @@ import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
 import { ItemDataService } from './item-data.service';
-import { NgIfContext } from '../../../../node_modules/@angular/common';
+import { NgIfContext } from '@angular/common';
 
 @Injectable()
 export class DataService {

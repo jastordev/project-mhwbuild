@@ -6,7 +6,7 @@ import { Item } from '../../models/item.model';
 
 import { DataService } from '../../service/data.service';
 import { validateType } from '../../validators/item.validator';
-import { ImageUploadService } from '../../service/image-upload.service';
+import { ImageValidationService } from '../../service/image-validation.service';
 import { ToastService } from '../../service/toast.service';
 
 
@@ -17,24 +17,23 @@ import { ToastService } from '../../service/toast.service';
 })
 export class ItemDetailComponent implements OnInit {
 
-  // These variables are passed in as inputs.
   private item : Item; 
+
   private isForm : boolean;
   private formSubmitted : boolean;
+  private itemForm: FormGroup;
 
   private iconProvided : boolean;
   private iconFile : any;
-  
+
+  // Constant variables.
   private types = ["Material", "Consumable/Misc",
     "Specialized Tool", "Decoration", "Ammo/Coating"];
   private rarities = [1, 2, 3, 4, 5, 6, 7, 8];
-
   private defIconPath = "http://localhost:4300/images/items/default_icon.png";
 
-  private itemForm: FormGroup;
-
   constructor(private data : DataService, private toast : ToastService,
-     private imgUp : ImageUploadService, private fb : FormBuilder) {
+     private imgUp : ImageValidationService, private fb : FormBuilder) {
     this.createForm();
   }
 
@@ -63,7 +62,7 @@ export class ItemDetailComponent implements OnInit {
     }
   }
 
-  createForm(){
+  private createForm(){
     const DigitOnly = "^[0-9]*$";
 
     this.itemForm = this.fb.group({
@@ -90,7 +89,7 @@ export class ItemDetailComponent implements OnInit {
     });
   }
 
-  onSubmit(event : any){
+  private onSubmit(event : any){
     this.formSubmitted = true;
     
     if(this.itemForm.valid){
@@ -105,28 +104,7 @@ export class ItemDetailComponent implements OnInit {
     }
   }
 
-  convertToItem(formValue : any) : Item{
-    let item = new Item();
-    item.id = +formValue.id;
-    item.name = formValue.name;
-    item.desc = formValue.desc;
-    item.type = formValue.type;
-    item.rarity = +formValue.rarity;
-    item.obtainedFrom = formValue.obtained;
-    item.carry = +formValue.carry;
-    item.buyPrice = +formValue.buy;
-    item.sellPrice = +formValue.sell;
-    item.skillID = +formValue.skillID;
-    item.jwlLvl = +formValue.jwlLvl;
-    return item;
-  }
-
-  isModalDirty() : boolean {
-    if (!this.isForm) return false;
-    return this.itemForm.dirty;
-  } 
-
-  onItemIconChange(files : any) {
+  private onItemIconChange(files : any) {
     var reader = new FileReader();    
     var image = new Image();
 
@@ -154,5 +132,31 @@ export class ItemDetailComponent implements OnInit {
     }
     reader.readAsDataURL(files.item(0));
   }
+
+
+  /*
+  * Helper functions down below.
+  */
+  private convertToItem(formValue : any) : Item{
+    let item = new Item();
+    item.id = +formValue.id;
+    item.name = formValue.name;
+    item.desc = formValue.desc;
+    item.type = formValue.type;
+    item.rarity = +formValue.rarity;
+    item.obtainedFrom = formValue.obtained;
+    item.carry = +formValue.carry;
+    item.buyPrice = +formValue.buy;
+    item.sellPrice = +formValue.sell;
+    item.skillID = +formValue.skillID;
+    item.jwlLvl = +formValue.jwlLvl;
+    return item;
+  }
+
+  // Used by DOMService.
+  isModalDirty() : boolean {
+    if (!this.isForm) return false;
+    return this.itemForm.dirty;
+  }   
 
 }

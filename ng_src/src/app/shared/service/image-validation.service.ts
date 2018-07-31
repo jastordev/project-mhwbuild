@@ -2,19 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class ImageUploadService {
+export class ImageValidationService {
 
     private maxWidth = 200;
     private maxHeight = 200;
     private maxFileSize = 1000; // in KB
 
     constructor( private http : HttpClient) {}
-
-    public uploadImage(category : string, fileName : string, file : any) : string {
-        let imageUrl : string;
-        
-        return imageUrl;
-    }
 
     public checkImageDimensions(img: any) : boolean{
         if(img.width != img.height) return false;

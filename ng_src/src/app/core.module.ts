@@ -5,14 +5,14 @@ import { ModalService } from './shared/service/modal.service';
 import { ToastService } from './shared/service/toast.service';
 import { DataService } from './shared/service/data.service';
 import { ItemDataService } from './shared/service/item-data.service';
-import { ImageUploadService } from './shared/service/image-upload.service';
+import { ImageValidationService } from './shared/service/image-validation.service';
 
 @NgModule({
   providers: [
     DOMService,
     ModalService,
     ToastService,
-    ImageUploadService,
+    ImageValidationService,
     DataService,
     ItemDataService ]
 })
