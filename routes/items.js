@@ -3,10 +3,9 @@ const router = express.Router();
 
 const multer = require("multer");
 
-const mainUrl = "http://localhost:4300";
-const imageDestUrl = "/images/items/";
 
-const defaultIconUrl = mainUrl + imageDestUrl + "default_icon.png";
+const imageDestUrl = "/images/items/";
+const defaultIconUrl = imageDestUrl + "default_icon.png";
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -24,7 +23,7 @@ router.post('/', upload.single('imageFile'), async (req, res, next) => {
   if(req.file){
     res.json({
       iconUrl:
-        mainUrl + imageDestUrl + req.file.originalname
+        imageDestUrl + req.file.originalname
     });
   } else {
     res.json({ iconUrl: defaultIconUrl });

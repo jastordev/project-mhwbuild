@@ -13,6 +13,8 @@ import { ToastService } from './toast.service';
 @Injectable()
 export class ItemDataService {
 
+  private backEndDomain = "http://localhost:4300";
+
   private _items : BehaviorSubject <Item[]>;
   private serverCount : BehaviorSubject <number>; // DEL
   private dataStore: {
@@ -27,8 +29,6 @@ export class ItemDataService {
 
   // Actual CRUD operation functions ahead.
   addItem(item : Item, iconFile? : any){
-    item.iconUrl = "default/path/to/img";
-    
     let itemFormData = new FormData();
 
     if(iconFile){
@@ -40,12 +40,12 @@ export class ItemDataService {
     itemFormData.append('item', JSON.stringify(item));   
 
     this.http
-      .post('http://localhost:4300/api/items/', itemFormData)
+      .post(this.backEndDomain + '/api/items/', itemFormData)
       .take(1)
       .subscribe( (data : {iconUrl : string}) => {
         this.toast
         .createToast("The new add item has succeded!", 2);
-        item.iconUrl = data.iconUrl;
+        item.iconUrl = this.backEndDomain + data.iconUrl;
         this.dataStore.items.unshift(item);
         this._items.next(Object.assign({}, this.dataStore).items);
       },
@@ -116,7 +116,7 @@ export class ItemDataService {
 
   returnDummyItem(id : number, cat : string, name? : string) : Item {
     let newItem = new Item();
-    newItem.iconUrl = "http://localhost:4300/images/items/default_icon.png";
+    newItem.iconUrl = this.backEndDomain + "/images/items/default_icon.png";
     newItem.id = id;
     newItem.name = (name) ? name : "Iron Ore" + id;
     newItem.desc = "Ore that can be smelted into metal and used for many purposes";
@@ -134,7 +134,7 @@ export class ItemDataService {
   // NOTE - DELETE
   getTestCount(){
     this.http
-      .get('http://localhost:4300/api/overview/test')
+      .get(this.backEndDomain + '/api/overview/test')
       .subscribe((data : number)=> {
         this.serverCount.next(data);
       });
@@ -143,7 +143,7 @@ export class ItemDataService {
   // NOTE - DELETE
   testReq(){
     this.http
-      .get('http://localhost:4300/api/overview/test')
+      .get(this.backEndDomain + '/api/overview/test')
       .take(1)
       .subscribe( data => {
         this.serverCount.next(+data);
@@ -162,7 +162,7 @@ export class ItemDataService {
     let httpRes = { success: true };    
     // HTTP REQUEST HERE, IF SUCCESSFUL CONTINUE
     this.http
-      .get('http://localhost:4300/api/overview/error')
+      .get(this.backEndDomain + '/api/overview/error')
       .catch((err : any) => Observable.throw(this.errorHandler(err)))
       .subscribe(data => {
         console.log(data);
