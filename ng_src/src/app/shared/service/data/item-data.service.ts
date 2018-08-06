@@ -6,9 +6,9 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 
-import { Item } from '../models/item.model';
+import { Item } from '../../models/item.model';
 import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
-import { ToastService } from './toast.service';
+import { ToastService } from '../toast.service';
 
 @Injectable()
 export class ItemDataService {

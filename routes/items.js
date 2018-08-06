@@ -19,7 +19,6 @@ var storage = multer.diskStorage({
 const upload = multer({storage: storage});
 
 router.post('/', upload.single('imageFile'), async (req, res, next) => {
-  let apple = 1;
   if(req.file){
     res.json({
       iconUrl:
@@ -27,8 +26,7 @@ router.post('/', upload.single('imageFile'), async (req, res, next) => {
     });
   } else {
     res.json({ iconUrl: defaultIconUrl });
-  } 
-  
+  }  
 });
 
 module.exports = router;

@@ -4,8 +4,9 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
-import { ItemDataService } from './item-data.service';
-import { NgIfContext } from '@angular/common';
+import { ItemDataService } from './data/item-data.service';
+import { SkillDataService } from './data/skill-data.service';
+
 
 @Injectable()
 export class DataService {
