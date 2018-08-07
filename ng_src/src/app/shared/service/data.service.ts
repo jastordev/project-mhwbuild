@@ -4,24 +4,29 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
 
 import { Item } from '../models/item.model';
+import { Skill } from '../models/skill.model';
+
 import { ItemDataService } from './data/item-data.service';
 import { SkillDataService } from './data/skill-data.service';
+
 
 
 @Injectable()
 export class DataService {
 
   items : Observable <Item[]>;
+  skills : Observable <Skill[]>;
   serverCount : Observable <number>; // REMOVE
 
-  constructor(private itemService : ItemDataService) {
-    this.items = this.itemService.getItems();
-    this.serverCount = this.itemService.getTestCount(); // REMOVE
+  constructor(private itemServ : ItemDataService, private skillServ : SkillDataService) {
+    this.items = this.itemServ.getItems();
+    this.skills = this.skillServ.getSkills();
+    this.serverCount = this.itemServ.getTestCount(); // REMOVE
   }
 
   // Count methods, modify as tables become available
   getItemCount(){
-    return this.itemService.getItemCount();
+    return this.itemServ.getItemCount();
   }
 
   getWepCount() : Observable<number>{
@@ -46,24 +51,24 @@ export class DataService {
   }
   // TEST REMOVE
   testReq() {
-    this.itemService.testReq();
+    this.itemServ.testReq();
   }
 
   // Item-data service functions
   addOrUpdateItem(item : Item, iconFile? : any){   
     if(item.id) {
-      this.itemService.updateItem(item);
+      this.itemServ.updateItem(item);
     } else {
-      this.itemService.addItem(item, iconFile ? iconFile : null);
+      this.itemServ.addItem(item, iconFile ? iconFile : null);
     }
   }
 
   deleteItems(items : Item[]){
-    this.itemService.deleteItems(items);
+    this.itemServ.deleteItems(items);
   }
 
   testError(){
-    this.itemService.testHttpError();
+    this.itemServ.testHttpError();
   }
 
   // getItemByIndex(i : number) : Observable<Item> {   
