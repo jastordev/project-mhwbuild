@@ -92,7 +92,7 @@ export class ItemDataService {
     return this._items.asObservable();
   }
 
-  loadAll() {
+  private loadAll() {
     // HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
     this.dataStore.items = this.returnDummyArray();
     this._items.next(Object.assign({}, this.dataStore).items);
