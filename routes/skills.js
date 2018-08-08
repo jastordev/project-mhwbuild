@@ -48,25 +48,24 @@ var resToSkillList = function(queryRes) {
 
     if (existingSkill.length == 0){
       let newSkill = {
-        skillId : skill["SkillId"][0],
+        skillId : +skill["SkillId"][0],
         name : skill["Name"],
         desc : skill["Description"],
         iconPath : skill["IconPath"],
         skillLvls : [{
-          skillLvl : skill["SkillLvl"],
+          skillLvl : +skill["SkillLvl"],
           lvlDesc : skill["LvlDesc"]
         }]
       }
       skillList.push(newSkill);
     } else {
        let newSkillLvl = {
-         skillLvl : skill["SkillLvl"],
+         skillLvl : +skill["SkillLvl"],
          lvlDesc : skill["LvlDesc"]
        }
        existingSkill[0].skillLvls.push(newSkillLvl);
     }
   }
-  console.log(skillList[0].skillLvls);
   return skillList;
 }
 

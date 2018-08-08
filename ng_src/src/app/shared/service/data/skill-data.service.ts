@@ -30,7 +30,7 @@ export class SkillDataService {
   private loadAll() {
     this.http.get(this.backEndDomain + '/api/skills/')
       .subscribe( (data : Skill[]) => {
-        console.log(data);
+        this._skills.next(Object.assign({}, data));
       },
       err => {
         console.log(err);

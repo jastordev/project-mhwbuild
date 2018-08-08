@@ -119,20 +119,26 @@
       </div>
     </div>
 
-    <!-- <div class="tooltip item-jewelLvl">
-      SOME INPUT HERE
-      <div *ngIf="itemForm.get('jwlLvl').errors && formSubmitted" class="tooltip-content">
-        <span *ngIf="itemForm.get('jwlLvl').errors.pattern">Jewel can only be either level 1, 2 or 3.</span>
-      </div>             
-    </div>
-
-    <div class="tooltip item-skillId">
-      SKILL ID SELECTOR here
-      <div class="tooltip-content">
-        validator errors
+    <div *ngIf="itemForm.get('type').value == 'Decoration'" class="item-extra">
+      <div class="tooltip item-jewelLvl">
+        <label> Jewel Level </label>
+        <select formControlName="jwlLvl">        
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+        </select>
+        <div *ngIf="itemForm.get('jwlLvl').errors && formSubmitted" class="tooltip-content">
+          <span *ngIf="itemForm.get('jwlLvl').errors.pattern">Jewel can only be either level 1, 2 or 3.</span>
+        </div>             
       </div>
-    </div> -->
-
+    
+      <div class="tooltip item-skillId">
+        CUSTOM SELECT FOR SKILLS
+        <div *ngIf="itemForm.get('skillId').errors && formSubmitted" class="tooltip-content">
+        </div>
+      </div>
+    </div>
+    
     <input class="item-submit" type="submit" value="Submit Item" />
   </form>
 

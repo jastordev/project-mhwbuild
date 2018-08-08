@@ -3,10 +3,10 @@ import { Deserializable } from './deserializable.model';
 
 export class Skill implements Deserializable{
 
-  iconUrl : string;
   skillId : number;
   name : string;
   desc : string;
+  iconPath : string;
   skillLvls : [{
     skillLvl : number,
     lvlDesc : string

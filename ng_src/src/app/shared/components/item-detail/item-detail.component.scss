@@ -140,6 +140,11 @@
     input { width: 100%; }
 }
 
+.item-extra{
+    grid-column: col / span 4;
+    
+}
+
 // Form style rules
 .item-submit {
     grid-row: row 6;
