@@ -8,11 +8,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { CoreModule } from './core.module'; // Core services
 import { FeatureModule } from './feature.module'; // App features
+import { MhSelectModule } from './shared/module/mh-select/mh-select.module';
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-import { ItemDetailComponent } 
+import { ItemDetailComponent }
   from './shared/components/item-detail/item-detail.component';
 import { ToastComponent } from './shared/components/toast/toast.component';
 
@@ -32,13 +33,14 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     CoreModule,
     FeatureModule,
     AppRoutingModule,
-    HttpClientModule    
+    HttpClientModule,
+    MhSelectModule
   ],
   providers: [
     HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  bootstrap: [ AppComponent ],
-  entryComponents: [ ItemDetailComponent, ToastComponent ]
+  bootstrap: [AppComponent],
+  entryComponents: [ItemDetailComponent, ToastComponent]
 })
 export class AppModule { }
