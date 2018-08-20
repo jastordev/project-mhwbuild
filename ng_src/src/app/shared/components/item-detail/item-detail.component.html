@@ -127,16 +127,16 @@
           <option value=2>2</option>
           <option value=3>3</option>
         </select>
-        <div *ngIf="itemForm.get('jwlLvl').errors && formSubmitted" class="tooltip-content">
+        <!-- <div *ngIf="itemForm.get('jwlLvl').errors && formSubmitted" class="tooltip-content">
           <span *ngIf="itemForm.get('jwlLvl').errors.pattern">Jewel can only be either level 1, 2 or 3.</span>
-        </div>             
+        </div>              -->
       </div>
     
       <div class="tooltip item-skillId">
         <!-- TESTING NEW SELECT MODULE -->
         <mh-select></mh-select>
-        <div *ngIf="itemForm.get('skillId').errors && formSubmitted" class="tooltip-content">
-        </div>
+        <!-- <div *ngIf="itemForm.get('skillId').errors && formSubmitted" class="tooltip-content">
+        </div> -->
       </div>
     </div>
     
