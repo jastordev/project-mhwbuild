@@ -1,39 +1,50 @@
 #mh-select-container{
     color:#c9c9c9;
     font-family: DINPRO;
+
+    .expanded {
+        @extend %focus;
+        border-radius: 3px 3px 0px 0px;
+    }
+
+}
+
+%focus {
+    border: 1px solid gray;    
+    background: rgb(19, 23, 31);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+
+    .mh-vr, .mh-arrow {
+        border-color: gray;
+    }
 }
 
 
+
 .mh-select-input-container { 
-    background: rgba(0, 0, 0, 0.2);
+    background: rgb(30, 38, 50);
     border-radius: 3px;
     border: 1px solid #0c111d; 
-    padding: 3px;
-
+    padding: 3px 0px 3px 0px;    
     display: inline-flex;
+    width: 100%;
 
     transition: border 0.4s, background 0.4s, box-shadow 0.4s; 
 
     &:hover, &:focus {
-        border: 1px solid gray;    
-        background: rgba(0, 0, 0, 0.5);
-        box-shadow: 0 0 5px rgba(0,0,0,0.3);
-
-        .mh-vr, .mh-arrow {
-            border-color: gray;
-        }
-
+        @extend %focus;
     }
 
     input {
         border: 0px;
+        margin-left: 4px;
         box-shadow: none;
         background: none;
     }
 }
 
 .mh-arrow-wrapper {
-    margin: -3px 4px 0px 6px;    
+    margin: -3px 6px 0px 8px;    
 }
 
 .mh-arrow {
@@ -55,11 +66,14 @@
 .mh-select-option-container {
     height:100px;
 
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(19, 23, 31);
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
 
     border-width: 0px 1px 1px 1px;
     border-color: gray;
     border-style: solid;
     border-radius: 0px 0px 3px 3px;
+
+    position: absolute;
+    width: 100%;
 }

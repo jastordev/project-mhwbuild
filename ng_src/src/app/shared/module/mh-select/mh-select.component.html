@@ -1,5 +1,5 @@
 <div id="mh-select-container">
-    <div class="mh-select-input-container">
+    <div [ngClass]="{'expanded' : expanded, 'mh-select-input-container' : true}">
         <input (click)="expanded = true" type="text" />
         <span class="mh-vr"></span>
         <div (click)="expanded = !expanded" class="mh-arrow-wrapper">
