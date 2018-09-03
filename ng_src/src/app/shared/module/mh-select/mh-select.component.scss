@@ -1,9 +1,13 @@
+#mh-select-container{
+    color:#c9c9c9;
+    font-family: DINPRO;
+}
+
+
 .mh-select-input-container { 
     background: rgba(0, 0, 0, 0.2);
     border-radius: 3px;
-    border: 1px solid #0c111d;
-    color: #c9c9c9;
-    font-family: DINPRO;
+    border: 1px solid #0c111d; 
     padding: 3px;
 
     display: inline-flex;
@@ -15,7 +19,7 @@
         background: rgba(0, 0, 0, 0.5);
         box-shadow: 0 0 5px rgba(0,0,0,0.3);
 
-        .mh-vr, .mh-arrow-wrapper {
+        .mh-vr, .mh-arrow {
             border-color: gray;
         }
 
@@ -28,22 +32,34 @@
     }
 }
 
-
 .mh-arrow-wrapper {
+    margin: -3px 4px 0px 6px;    
+}
+
+.mh-arrow {
     border: solid #0c0e15;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
-    transform: rotate(45deg);
-    margin: -2px 4px 0px 6px;
-    align-self: center;
+    transform: rotate(45deg);      
     transition: border 0.4s
-
 }
 
 .mh-vr {
     border: solid #0c0e15;
     border-width: 0px 0px 0px 1px;
-    margin-left:4px;
+    margin-left: 4px;
     transition: border 0.4s
+}
+
+.mh-select-option-container {
+    height:100px;
+
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+
+    border-width: 0px 1px 1px 1px;
+    border-color: gray;
+    border-style: solid;
+    border-radius: 0px 0px 3px 3px;
 }
