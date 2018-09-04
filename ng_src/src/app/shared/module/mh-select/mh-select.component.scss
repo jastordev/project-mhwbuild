@@ -68,7 +68,6 @@
 }
 
 .mh-select-option-container {
-    height:100px;
 
     background: rgb(19, 23, 31);
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
@@ -80,4 +79,14 @@
 
     position: absolute;
     width: 100%;
+
+}
+    
+.mh-option {
+    padding: 3px;
+
+    &:hover, &:focus {
+        background: rgba(38, 47, 62, 0.5);
+        cursor: pointer;
+    }
 }

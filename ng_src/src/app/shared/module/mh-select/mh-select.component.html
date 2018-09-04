@@ -1,11 +1,16 @@
 <div id="mh-select-container">
     <div [ngClass]="{'expanded' : expanded, 'mh-select-input-container' : true}">
-        <input (click)="expanded = true" type="text" />
+        <input (click)="expanded = true" type="text" [value]="selectedOpt ? selectedOpt : ''"/>
         <span class="mh-vr"></span>
         <div (click)="expanded = !expanded" class="mh-arrow-wrapper">
             <span class="mh-arrow"></span>
         </div>
     </div>
-    <div *ngIf="expanded" class="mh-select-option-container">
+    <div *ngIf="expanded" class="mh-select-option-container">        
+        <div *ngFor="let option of options"
+            (click)="selectOption(option)" 
+                [ngClass]="{'opt-selected' : (selectedOpt == option), 'mh-option' : true}">
+            <span> {{option}}</span>
+        </div>        
     </div>   
 </div>

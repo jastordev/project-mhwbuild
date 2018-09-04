@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector:'mh-select',
@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
 })
 export class MhSelectComponent{
 
+    @Input() options : any[];
+    selectedOpt : any;
+
     constructor(){ }
+
+    private selectOption(option : any){        
+        this.selectedOpt = option;        
+    }
 }
