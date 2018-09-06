@@ -1,9 +1,9 @@
-<div id="mh-select-container" (clickOutside)="expanded = false">
+<div id="mh-select-container" (clickOutside)="expandOptions(false)">
     <div [ngClass]="{'expanded' : expanded, 'mh-select-input-container' : true}">
-        <!-- <div id="mh-select-value">{{selectedOpt}}</div> -->
-        <input id="mh-select-input" (click)="expanded = true" type="text" [value] ="selectedOpt"/>
+        <div id="mh-select-value" [ngClass]="{'hidden' : searchVal}">{{selectedOpt}}</div>
+        <input id="mh-select-input" (click)="expandOptions(true)" type="text" [(ngModel)]="searchVal"/>
         <span class="mh-vr"></span>
-        <div (click)="expanded = !expanded" class="mh-arrow-wrapper">
+        <div (click)="expandOptions(!expanded)" class="mh-arrow-wrapper">
             <span class="mh-arrow"></span>
         </div>
     </div>
