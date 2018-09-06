@@ -13,6 +13,9 @@
             (click)="selectOption(option)" 
                 [ngClass]="{'opt-selected' : (selectedOpt == option), 'mh-option' : true}">
             <span> {{option}}</span>
+        </div>
+        <div *ngIf="filteredOpts.length == 0" class="mh-option">
+            No options found.
         </div>        
     </div>   
 </div>
