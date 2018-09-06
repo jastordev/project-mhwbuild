@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { MhSelectComponent } from './mh-select.component';
 import { CommonModule } from '../../../../../node_modules/@angular/common';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 @NgModule({
     imports: [
@@ -11,7 +12,8 @@ import { CommonModule } from '../../../../../node_modules/@angular/common';
         MhSelectComponent
     ],
     declarations: [
-        MhSelectComponent
+        MhSelectComponent,
+        ClickOutsideDirective
     ]
 })
 export class MhSelectModule { }

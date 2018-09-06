@@ -1,5 +1,4 @@
-import { Directive, ElementRef, Output, HostListener } from '@angular/core';
-import { EventEmitter } from 'events';
+import { Directive, ElementRef, Output, HostListener, EventEmitter } from '@angular/core';
 
 // Code obtained from 
 // https://christianliebel.com/2016/05/angular-2-a-simple-click-outside-directive/
