@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector:'mh-select',
@@ -8,11 +8,17 @@ import { Component, Input } from '@angular/core';
 export class MhSelectComponent{
 
     @Input() options : any[];
+    @Input() optType : string;
+    filteredOpts : any[];
     selectedOpt : any;
     searchVal : string;
     expanded : boolean;
 
     constructor(){ }
+
+    ngOnInit(){
+        this.resetOptions();
+    }
 
     private selectOption(option : any){        
         this.selectedOpt = option;
@@ -25,6 +31,25 @@ export class MhSelectComponent{
         } else {
             this.expanded = false;
             this.searchVal = '';
+            this.resetOptions();
         }
+    }
+
+    private filterOptions(){
+        if(this.searchVal == ''){
+            this.resetOptions();
+        } else {
+            // Search differently depending on the option type
+            switch(this.optType){
+                default:
+                    this.filteredOpts = 
+                        this.options.filter((opt : String) => opt.includes(this.searchVal));
+                    break;
+            }
+        }
+    }
+
+    private resetOptions(){
+        this.filteredOpts = this.options;
     }
 }
