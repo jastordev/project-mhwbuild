@@ -9,10 +9,12 @@ export class MhSelectComponent{
 
     @Input() options : any[];
     selectedOpt : any;
+    expanded : boolean;
 
     constructor(){ }
 
     private selectOption(option : any){        
-        this.selectedOpt = option;        
+        this.selectedOpt = option;
+        this.expanded = false;        
     }
 }
