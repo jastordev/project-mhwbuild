@@ -17,7 +17,7 @@
         </div>
     </div>
     <div *ngIf="expanded" class="mh-select-option-container">        
-        <div *ngFor="let option of options"
+        <div *ngFor="let option of filteredOpts"
             (click)="selectOption(option)" 
                 [ngClass]="{'opt-selected' : (selectedOpt == option), 'mh-option' : true}">
             <div *ngIf="!optType"> {{option}}</div>

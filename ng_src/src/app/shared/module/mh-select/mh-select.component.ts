@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Skill } from '../../models/skill.model';
 
 @Component({
     selector:'mh-select',
@@ -41,6 +42,11 @@ export class MhSelectComponent{
         } else {
             // Search differently depending on the option type
             switch(this.optType){
+                case 'Skill':
+                    this.filteredOpts = 
+                        this.options.filter((opt : Skill) => 
+                            opt.name.includes(this.searchVal) || opt.desc.includes(this.searchVal));
+                    break;
                 default:
                     this.filteredOpts = 
                         this.options.filter((opt : String) => opt.includes(this.searchVal));
