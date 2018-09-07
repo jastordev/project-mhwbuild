@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import '../../validators/item.validator';
 
 import { Item } from '../../models/item.model';
+import { Skill } from '../../models/skill.model';
 
 import { DataService } from '../../service/data.service';
-import { validateType } from '../../validators/item.validator';
 import { ImageValidationService } from '../../service/image-validation.service';
 import { ToastService } from '../../service/toast.service';
+
+import { validateType } from '../../validators/item.validator';
+
 
 
 @Component({
@@ -18,6 +20,7 @@ import { ToastService } from '../../service/toast.service';
 export class ItemDetailComponent implements OnInit {
 
   private item : Item; 
+  private skills : Array<Skill>;
 
   private isForm : boolean;
   private formSubmitted : boolean;
@@ -37,7 +40,7 @@ export class ItemDetailComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit() {    
+  ngOnInit() {   
     if(this.isForm){      
       this.formSubmitted = false;
       this.iconProvided = false;

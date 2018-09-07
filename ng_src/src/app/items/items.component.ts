@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/observable';
 
 import { Item } from '../shared/models/item.model';
+import { Skill } from '../shared/models/skill.model';
+
 import { ItemDetailComponent }
   from '../shared/components/item-detail/item-detail.component';
 
@@ -18,6 +20,7 @@ import { ElementRef } from '@angular/core';
 export class ItemsComponent implements OnInit {
 
   private _items : Item[];
+  private _skills : Skill[];
   private serverCount: number;
   itemsFiltered : Item[];
   itemsSelected : Item[];
@@ -62,6 +65,10 @@ export class ItemsComponent implements OnInit {
       this._items = data;
       this.itemsFiltered = this._items;
     }); // Remember to unsubscribe
+    this._data.skills.subscribe( data => {
+      this._skills = data;
+    })
+    
   }
 
   testReq(){
@@ -160,7 +167,8 @@ export class ItemsComponent implements OnInit {
 
   onAddClick(){
     let input = {
-      isForm : true
+      isForm : true,
+      skills : this._skills
     }
     this.modal.init(ItemDetailComponent, input, {});
   }
@@ -189,7 +197,8 @@ export class ItemsComponent implements OnInit {
   showItemDetail(item : Item){
     let input = {
       item : item,
-      isForm : this.editMode
+      isForm : this.editMode,
+      skills : this._skills
     }
     this.modal.init(ItemDetailComponent, input, {});
   }

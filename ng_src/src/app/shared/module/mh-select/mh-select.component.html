@@ -9,10 +9,13 @@
         </div>
     </div>
     <div *ngIf="expanded" class="mh-select-option-container">        
-        <div *ngFor="let option of filteredOpts"
+        <div *ngFor="let option of options"
             (click)="selectOption(option)" 
                 [ngClass]="{'opt-selected' : (selectedOpt == option), 'mh-option' : true}">
-            <span> {{option}}</span>
+            <div *ngIf="!optType"> {{option}}</div>
+            <div *ngIf="optType == 'Skill'" class="mh-option-skill">
+                <img class="icon" src="{{option.iconPath}}" />
+            </div>
         </div>
         <div *ngIf="filteredOpts.length == 0" class="mh-option">
             No options found.

@@ -7,9 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MhSelectComponent{
 
-    @Input() options : any[];
+    @Input() options : Array<any>;
     @Input() optType : string;
-    filteredOpts : any[];
+    filteredOpts : Array<any>;
     selectedOpt : any;
     searchVal : string;
     expanded : boolean;
@@ -17,6 +17,7 @@ export class MhSelectComponent{
     constructor(){ }
 
     ngOnInit(){
+        console.log(this.optType);
         this.resetOptions();
     }
 

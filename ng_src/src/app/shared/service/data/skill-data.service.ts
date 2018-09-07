@@ -17,9 +17,13 @@ export class SkillDataService {
   private backEndDomain = "http://localhost:4300";
 
   private _skills : BehaviorSubject <Skill[]>;
+  private dataStore: {
+    skills : Skill[]
+  };
   
   constructor(private http : HttpClient, private toast : ToastService) {
-    this._skills = <BehaviorSubject<Skill[]>>new BehaviorSubject([]);  
+    this._skills = <BehaviorSubject<Skill[]>>new BehaviorSubject([]); 
+    this.dataStore = { skills : [] }; 
   }
 
   getSkills() : Observable <Skill[]> {
@@ -30,7 +34,11 @@ export class SkillDataService {
   private loadAll() {
     this.http.get(this.backEndDomain + '/api/skills/')
       .subscribe( (data : Skill[]) => {
-        this._skills.next(Object.assign({}, data));
+        data.forEach(skill => {
+          skill.iconPath = this.backEndDomain + skill.iconPath;
+        })
+        this.dataStore.skills = data;
+        this._skills.next(Object.assign({}, this.dataStore).skills);
       },
       err => {
         console.log(err);
