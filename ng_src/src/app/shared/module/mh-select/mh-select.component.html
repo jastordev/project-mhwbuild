@@ -1,6 +1,14 @@
 <div id="mh-select-container" (clickOutside)="expandOptions(false)">
     <div [ngClass]="{'expanded' : expanded, 'mh-select-input-container' : true}">
-        <div id="mh-select-value" [ngClass]="{'hidden' : searchVal}">{{selectedOpt}}</div>
+        <div id="mh-select-value" [ngClass]="{'hidden' : searchVal}">
+            <div *ngIf="selectedOpt">
+                <div *ngIf="!optType"> {{selectedOpt}}</div>
+                <div *ngIf="optType == 'Skill'" class="mh-option-skill selected-value">                    
+                    <img class="icon" src="{{selectedOpt.iconPath}}" />                
+                    <span class="name">{{selectedOpt.name}}</span>               
+                </div>
+            </div>            
+        </div>
         <input id="mh-select-input" (keyup) = "filterOptions()" 
             (click)="expandOptions(true)" type="text" [(ngModel)]="searchVal"/>
         <span class="mh-vr"></span>
