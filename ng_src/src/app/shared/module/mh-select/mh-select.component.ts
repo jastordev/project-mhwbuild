@@ -17,7 +17,6 @@ export class MhSelectComponent{
     constructor(){ }
 
     ngOnInit(){
-        console.log(this.optType);
         this.resetOptions();
     }
 

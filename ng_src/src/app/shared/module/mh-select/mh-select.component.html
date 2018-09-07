@@ -14,7 +14,11 @@
                 [ngClass]="{'opt-selected' : (selectedOpt == option), 'mh-option' : true}">
             <div *ngIf="!optType"> {{option}}</div>
             <div *ngIf="optType == 'Skill'" class="mh-option-skill">
-                <img class="icon" src="{{option.iconPath}}" />
+                <div>
+                    <img class="icon" src="{{option.iconPath}}" />                
+                    <span class="name">{{option.name}}</span>
+                </div>                
+                <span class="desc">{{option.desc}}</span>                        
             </div>
         </div>
         <div *ngIf="filteredOpts.length == 0" class="mh-option">

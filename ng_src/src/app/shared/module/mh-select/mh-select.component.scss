@@ -97,9 +97,19 @@
 }
 
 .mh-option-skill{
-    .icon {
+    display: inline-grid;    
+    grid-template-rows: auto auto;
+
+    .icon { 
         width:20px;
         height: 20px;
+        vertical-align: text-bottom;
+    }
+    .desc {
+        grid-row: 2;
+        font-size: 10px;
+        font-style: italic;
+        color: gray;
     }
 }
 
