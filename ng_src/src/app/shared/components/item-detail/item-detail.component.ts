@@ -58,7 +58,7 @@ export class ItemDetailComponent implements OnInit {
           sell : this.item.sellPrice || null,
           carry : this.item.carry,
           obtained : this.item.obtainedFrom,
-          skillID : this.item.skillID || null,
+          skillID : this.skills.find(skill => skill.skillId == this.item.skillID) || null,
           jwlLvl : this.item.jwlLvl || null
         });
       }    
@@ -87,7 +87,7 @@ export class ItemDetailComponent implements OnInit {
       carry : ['', 
         [ Validators.pattern(DigitOnly), Validators.maxLength(2)] ],
       obtained : [ '', Validators.maxLength(120) ],
-      skillID : ['', Validators.pattern(DigitOnly) ],
+      skillID : [''],
       jwlLvl : ['', Validators.pattern("^[1-3]?$") ]        
     });
   }
@@ -151,8 +151,10 @@ export class ItemDetailComponent implements OnInit {
     item.carry = +formValue.carry;
     item.buyPrice = +formValue.buy;
     item.sellPrice = +formValue.sell;
-    item.skillID = +formValue.skillID;
-    item.jwlLvl = +formValue.jwlLvl;
+    if(item.type == "Decoration") {
+      item.skillID = +formValue.skillID.skillId || null;
+      item.jwlLvl = +formValue.jwlLvl;
+    }    
     return item;
   }
 
