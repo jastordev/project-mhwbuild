@@ -1,12 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { Skill } from '../../models/skill.model';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
     selector:'mh-select',
     templateUrl: './mh-select.component.html',
-    styleUrls: ['./mh-select.component.scss']
+    styleUrls: ['./mh-select.component.scss'],
+    providers: [
+        { provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => MhSelectComponent),
+        multi: true
+    }]
 })
-export class MhSelectComponent{
+export class MhSelectComponent implements ControlValueAccessor {
 
     @Input() options : Array<any>;
     @Input() optType : string;
@@ -21,8 +27,23 @@ export class MhSelectComponent{
         this.resetOptions();
     }
 
+    private propagateChange = (_: any) => {};
+
+    public writeValue(obj : any){
+        if(obj) {
+            this.selectedOpt = obj;
+        }
+    }
+
+    public registerOnChange(fn: any) {
+        this.propagateChange = fn;
+    }
+
+    public registerOnTouched() {}
+
     private selectOption(option : any){        
         this.selectedOpt = option;
+        this.propagateChange(this.selectedOpt);
         this.expandOptions(false);        
     }
 
