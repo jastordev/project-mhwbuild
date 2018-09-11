@@ -45,6 +45,9 @@ export class ItemDetailComponent implements OnInit {
       this.formSubmitted = false;
       this.iconProvided = false;
 
+      this.itemForm.get('type').valueChanges
+        .subscribe(val => this.setDecoValidators(val));
+
       if(!this.item) {
         this.item = new Item();
       } else {
@@ -88,8 +91,23 @@ export class ItemDetailComponent implements OnInit {
         [ Validators.pattern(DigitOnly), Validators.maxLength(2)] ],
       obtained : [ '', Validators.maxLength(120) ],
       skillID : [''],
-      jwlLvl : ['', Validators.pattern("^[1-3]?$") ]        
+      jwlLvl : ['']        
     });
+  }
+
+  private setDecoValidators(type : string) {
+    const jwlLvlControl = this.itemForm.get('jwlLvl');
+    const skillControl = this.itemForm.get('skillID');
+    if (type == "Decoration") {
+      jwlLvlControl.setValidators(
+        [Validators.required, Validators.pattern("^[1-3]?$")]);
+      skillControl.setValidators(Validators.required);
+    } else {
+      jwlLvlControl.clearValidators();
+      skillControl.clearValidators();
+    }
+    jwlLvlControl.updateValueAndValidity();
+    skillControl.updateValueAndValidity();
   }
 
   private onSubmit(event : any){
@@ -142,6 +160,7 @@ export class ItemDetailComponent implements OnInit {
   */
   private convertToItem(formValue : any) : Item{
     let item = new Item();
+    item.iconUrl = this.item.iconUrl || null;
     item.id = +formValue.id;
     item.name = formValue.name.trim();
     item.desc = formValue.desc.trim();
@@ -154,7 +173,7 @@ export class ItemDetailComponent implements OnInit {
     if(item.type == "Decoration") {
       item.skillID = +formValue.skillID.skillId || null;
       item.jwlLvl = +formValue.jwlLvl;
-    }    
+    }
     return item;
   }
 

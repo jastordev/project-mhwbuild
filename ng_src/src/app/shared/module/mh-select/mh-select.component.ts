@@ -25,7 +25,6 @@ export class MhSelectComponent implements ControlValueAccessor {
 
     ngOnInit(){
         this.resetOptions();
-        console.log(this.selectedOpt);
     }
 
     private propagateChange = (_: any) => {};

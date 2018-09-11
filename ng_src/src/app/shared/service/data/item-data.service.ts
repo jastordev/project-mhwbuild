@@ -44,14 +44,14 @@ export class ItemDataService {
       .take(1)
       .subscribe( (data : {iconUrl : string}) => {
         this.toast
-        .createToast("The new add item has succeded!", 2);
+        .createToast("[Success] Item added successfully.", 2);
         item.iconUrl = this.backEndDomain + data.iconUrl;
         this.dataStore.items.unshift(item);
         this._items.next(Object.assign({}, this.dataStore).items);
       },
       err => {
         this.toast
-        .createToast("The new add item has failed.", 0);
+        .createToast("[Error] Add Item operation has failed.", 0);
       });
 
     // this.dataStore.items.unshift(item);
