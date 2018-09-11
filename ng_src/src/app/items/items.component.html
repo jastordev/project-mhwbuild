@@ -73,12 +73,10 @@
             </div>
           </div>
           <div *ngIf="category == 'Decorations'" class="list-item-extra">
-            <div>
-              <!-- <div>Icon</div>
-              <div>SkillName</div>
-              <div>SkillDesc</div>
-              <div>SkillLevels</div>
-              Skill - {{item.skillID}} -->
+            <div *ngIf = "getItemSkill(item.skillID) as skill" class="list-item-skill">
+              <img src="{{skill.iconPath}}" />
+              <span>{{skill.name}}</span>
+              <span class="skill-desc">{{skill.desc}}</span>
             </div>
           </div>
         </li>

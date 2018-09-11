@@ -30,7 +30,6 @@ export class MhSelectComponent implements ControlValueAccessor {
     private propagateChange = (_: any) => {};
 
     public writeValue(obj : any){
-        console.log(obj);
         if(obj) {
             this.selectedOpt = obj;
         }

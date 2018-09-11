@@ -177,6 +177,10 @@ export class ItemsComponent implements OnInit {
     this._data.testError();
   }
 
+  private getItemSkill(id : number) : Skill {
+    return this._skills.find( s => s.skillId == id);
+  }
+
   toggleEditMode(event : any){
     this.editMode = !this.editMode;
     if (this.editMode) {     

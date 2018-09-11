@@ -1,3 +1,8 @@
+%small-italic {
+  font-style: italic;
+  font-size: 10px;
+}
+
 // Header CSS
 #data-header {
   height: 92px;
@@ -148,13 +153,25 @@
   margin-left: 40px;
   background-color: #12161e;
   color: white;
-
   display:flex;
-
   border-radius: 0px 0px 4px 4px;
-
   padding: 5px 0px 5px 5px;
 }
+
+.list-item-skill {
+  display: inline;
+  font-family: DINPRO;
+  img {
+    width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+  }
+  .skill-desc {
+    @extend %small-italic;
+    color: gray;
+  }
+}
+
 
 .top{  z-index: 1; transition: opacity 0.3s;}
 .top:hover{ opacity: 0.4; }
