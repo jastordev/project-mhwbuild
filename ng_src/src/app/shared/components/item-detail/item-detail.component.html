@@ -19,7 +19,7 @@
   <div class="item-obtain">
     Obtained from <span>{{item.obtainedFrom}}</span>
   </div>
-  <div class="item-extra">
+  <div *ngIf="itemSkill" class="item-extra">
     <div class="item-skill">
       <img src="{{itemSkill.iconPath}}" />
       <span class="skill-name"> {{itemSkill.name}} </span>
