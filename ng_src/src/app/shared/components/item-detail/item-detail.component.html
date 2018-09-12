@@ -1,25 +1,31 @@
 <article *ngIf="!isForm, else formBlock" class="item-detail">
   <div class="item-icon">
-      <img src={{item.iconUrl}} alt={{item.name}}/>
+    <img src={{item.iconUrl}} alt={{item.name}}/>
   </div>
-
   <div class="item-name-n-rarity" >
     <h1 class="item-name"><span [ngClass]="'rare' + item.rarity"> R{{item.rarity}} </span>{{item.name}}</h1>
   </div>
-  
   <span class="item-type">{{item.type}}</span>
-
   <p class="item-desc">{{item.desc}}</p>  
-  
   <div class="item-buy">
     Buy for <span>{{item.buyPrice}} z </span>
   </div>
   <div class="item-sell">
     Sell for <span>{{item.sellPrice}} z </span>
   </div>
-  <div class="item-carry"> Carry <span>{{item.carry}}</span></div>
-
-  <div class="item-obtain">Obtained from <span>{{item.obtainedFrom}}</span></div>
+  <div class="item-carry">
+    Carry <span>{{item.carry}}</span>
+  </div>
+  <div class="item-obtain">
+    Obtained from <span>{{item.obtainedFrom}}</span>
+  </div>
+  <div class="item-extra">
+    <div class="item-skill">
+      <img src="{{itemSkill.iconPath}}" />
+      <span class="skill-name"> {{itemSkill.name}} </span>
+      <span class="skill-desc"> {{itemSkill.desc}} </span>
+    </div>    
+  </div>
 </article>
 
 <ng-template #formBlock>

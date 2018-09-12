@@ -19,7 +19,8 @@ import { validateType } from '../../validators/item.validator';
 })
 export class ItemDetailComponent implements OnInit {
 
-  private item : Item; 
+  private item : Item;
+  private itemSkill : Skill; 
   private skills : Array<Skill>;
 
   private isForm : boolean;
@@ -40,7 +41,12 @@ export class ItemDetailComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit() {   
+  ngOnInit() {
+    if(this.item) {
+      if(this.item.type == "Decoration") {
+        this.itemSkill = this.skills.find(s => s.skillId == this.item.skillID);
+      }
+    }
     if(this.isForm){      
       this.formSubmitted = false;
       this.iconProvided = false;
@@ -51,21 +57,25 @@ export class ItemDetailComponent implements OnInit {
       if(!this.item) {
         this.item = new Item();
       } else {
-        this.itemForm.setValue({
-          id : this.item.id,
-          name : this.item.name,
-          rarity : this.item.rarity,
-          type : this.item.type,
-          desc : this.item.desc,
-          buy : this.item.buyPrice || null,
-          sell : this.item.sellPrice || null,
-          carry : this.item.carry,
-          obtained : this.item.obtainedFrom,
-          skillID : this.skills.find(skill => skill.skillId == this.item.skillID) || null,
-          jwlLvl : this.item.jwlLvl || null
-        });
+        this.setFormValuesOnInit();
       }    
     }
+  }
+
+  private setFormValuesOnInit(){
+    this.itemForm.setValue({
+      id : this.item.id,
+      name : this.item.name,
+      rarity : this.item.rarity,
+      type : this.item.type,
+      desc : this.item.desc,
+      buy : this.item.buyPrice || null,
+      sell : this.item.sellPrice || null,
+      carry : this.item.carry,
+      obtained : this.item.obtainedFrom,
+      skillID : this.itemSkill || null,
+      jwlLvl : this.item.jwlLvl || null
+    });
   }
 
   private createForm(){
@@ -78,8 +88,7 @@ export class ItemDetailComponent implements OnInit {
           Validators.minLength(2), Validators.maxLength(35)] ],
       rarity : [1, 
         [ Validators.required, Validators.pattern("^[1-8]{1}$")] ],
-      type : ['Material',
-        [ Validators.required, validateType ] ],
+      type : ['Material', [ Validators.required, validateType ] ],
       desc : ['', 
         [ Validators.required, Validators.pattern("[\\w\\.\\-+\\s!]+"),
           Validators.minLength(5), Validators.maxLength(120)] ],

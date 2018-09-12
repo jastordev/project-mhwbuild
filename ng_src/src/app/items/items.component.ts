@@ -178,6 +178,7 @@ export class ItemsComponent implements OnInit {
   }
 
   private getItemSkill(id : number) : Skill {
+    console.log("Change detection.");
     return this._skills.find( s => s.skillId == id);
   }
 
