@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/observable';
 
 import { Item } from '../shared/models/item.model';
@@ -35,9 +35,6 @@ export class ItemsComponent implements OnInit {
 
   private editMode : boolean;
 
-  // Class name for item entries
-  private entryClassName : string; 
-
   constructor(private _data : DataService,
     private modal : ModalService, private _elem: ElementRef) { }
 
@@ -52,8 +49,6 @@ export class ItemsComponent implements OnInit {
     this.allowTool = true;
 
     this.editMode = false;
-
-    this.entryClassName = "list-item";
 
     this.getTestCount();
     this.loadData();
@@ -83,7 +78,7 @@ export class ItemsComponent implements OnInit {
   }
 
   itemsPerCategory(category : string) : Item[] {
-    
+    console.log("Change Detection - itemsPerCategory");
     let tempList : Item[] = [];
 
     switch(category){
@@ -114,7 +109,6 @@ export class ItemsComponent implements OnInit {
 
   }
 
-  // Functions which handle click events.
   onCatClick(event : any, category : string){
     switch(category){
       case "mat":
@@ -178,7 +172,7 @@ export class ItemsComponent implements OnInit {
   }
 
   private getItemSkill(id : number) : Skill {
-    console.log("Change detection.");
+    console.log("Change detection. - getItemSkill");
     return this._skills.find( s => s.skillId == id);
   }
 

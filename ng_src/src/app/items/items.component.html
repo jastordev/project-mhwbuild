@@ -8,7 +8,7 @@
     <div>
       <button (click)=onAddClick()>Add New Item</button>      
       <button (click)=testReq()>Test HTTP</button>       
-      <button [ngClass]="editMode ? 'toggled-on' : ''" (click)=toggleEditMode($event)>Edit Mode Off</button>  
+      <button [ngClass]="{'toggled-on' : editMode}" (click)=toggleEditMode($event)>Edit Mode Off</button>  
     </div>
     <div>
       <button (click)="onSelectClick($event)">
@@ -20,24 +20,24 @@
   </div>
   <div class="header-cats">
     <div class="category" (click)="onCatClick($event, 'mat')">
-      <img [ngClass]="allowMat ? '' : 'top'" src="assets/cats/mat-off.png" />
-      <img [ngClass]="!allowMat ? '' : 'top'" src="assets/cats/mat-on.png" />
+      <img [ngClass]="{'top' : !allowMat}" src="assets/cats/mat-off.png" />
+      <img [ngClass]="{'top' : allowMat}" src="assets/cats/mat-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'ammo')">
-      <img [ngClass]="allowAmmo ? '' : 'top'" src="assets/cats/ammo-off.png" />
-      <img [ngClass]="!allowAmmo ? '' : 'top'" src="assets/cats/ammo-on.png" />
+      <img [ngClass]="{'top' : !allowAmmo}" src="assets/cats/ammo-off.png" />
+      <img [ngClass]="{'top' : allowAmmo}" src="assets/cats/ammo-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'deco')">
-      <img [ngClass]="allowDeco ? '' : 'top'" src="assets/cats/deco-off.png" />
-      <img [ngClass]="!allowDeco ? '' : 'top'" src="assets/cats/deco-on.png" />
+      <img [ngClass]="{'top' : !allowDeco}" src="assets/cats/deco-off.png" />
+      <img [ngClass]="{'top' : allowDeco}" src="assets/cats/deco-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'misc')">
-      <img [ngClass]="allowMisc ? '' : 'top'" src="assets/cats/misc-off.png" />
-      <img [ngClass]="!allowMisc ? '' : 'top'" src="assets/cats/misc-on.png" />
+      <img [ngClass]="{'top' : !allowMisc}" src="assets/cats/misc-off.png" />
+      <img [ngClass]="{'top' : allowMisc}" src="assets/cats/misc-on.png" />
     </div>
     <div class="category" (click)="onCatClick($event, 'tool')">
-      <img [ngClass]="allowTool ? '' : 'top'" src="assets/cats/tool-off.png" />
-      <img [ngClass]="!allowTool ? '' : 'top'" src="assets/cats/tool-on.png" />
+      <img [ngClass]="{'top' : !allowTool}" src="assets/cats/tool-off.png" />
+      <img [ngClass]="{'top' : allowTool}" src="assets/cats/tool-on.png" />
     </div>
   </div>
 </header>
@@ -50,15 +50,21 @@
         <h3>{{category}}</h3>
       </header>
       <ul>
-        <li *ngFor="let item of catItems" >
-          <div (click)="onItemClick($event, item)" 
-            [ngClass]="itemsSelected.includes(item) ? entryClassName + ' selected' : entryClassName">
+        <li *ngFor="let item of catItems">
+          <div (click)="onItemClick($event, item)" class="list-item" 
+            [ngClass]="{'selected' : itemsSelected.includes(item)}">
             <div class="list-item-icon">
               <img src={{item.iconUrl}} alt={{item.name}}/>
             </div>
-            <div class="list-item-name">{{item.name}}</div>
-            <div [ngClass]="'rare' + item.rarity">R{{item.rarity}}</div>
-            <div class="list-item-desc">{{item.desc}}</div>
+            <div class="list-item-name">
+              {{item.name}}
+            </div>
+            <div [ngClass]="'rare' + item.rarity">
+              R{{item.rarity}}
+            </div>
+            <div class="list-item-desc">
+              {{item.desc}}
+            </div>
             <div class="list-item-obtained">
               Obtained <span> {{item.obtainedFrom}} </span>
             </div>            
@@ -73,7 +79,7 @@
             </div>
           </div>
           <div *ngIf="category == 'Decorations'" class="list-item-extra">
-            <div *ngIf = "getItemSkill(item.skillID) as skill" class="list-item-skill">
+            <div *ngIf="getItemSkill(item.skillID) as skill" class="list-item-skill">
               <img src="{{skill.iconPath}}" />
               <span>{{skill.name}}</span>
               <span class="skill-desc">{{skill.desc}}</span>
