@@ -26,14 +26,8 @@ export class ItemsComponent implements OnInit {
   private serverCount: number;
   private itemsFiltered;
   private itemsSelected;
-  
 
-  // Variables which toggle allowed categories.
-  private allowMat : boolean;
-  private allowAmmo : boolean;
-  private allowDeco : boolean;
-  private allowMisc : boolean;
-  private allowTool : boolean;
+  private categoryToggle = {}
 
   private editMode : boolean;
   private searchStr : String;
@@ -45,11 +39,13 @@ export class ItemsComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.allowAmmo = true;
-    this.allowDeco = true;
-    this.allowMat = true;
-    this.allowMisc = true;
-    this.allowTool = true;
+    this.categoryToggle = {
+      "Material" : true,
+      "Consumable/Misc" : true,
+      "Specialized Tool" : true,
+      "Decoration" : true,
+      "Ammo/Coating" : true
+    }
 
     this.editMode = false;
 
@@ -151,24 +147,8 @@ export class ItemsComponent implements OnInit {
     }    
   }
 
-  onCatClick(event : any, category : string){
-    switch(category){
-      case "mat":
-        this.allowMat = !this.allowMat;
-        break;
-      case "ammo":
-        this.allowAmmo = !this.allowAmmo;
-        break;
-      case "deco":
-        this.allowDeco = !this.allowDeco;    
-        break;
-      case "misc":
-        this.allowMisc = !this.allowMisc; 
-        break;
-      case "tool":
-        this.allowTool = !this.allowTool; 
-        break;     
-    }
+  toggleCat(event : any, category : string){
+    this.categoryToggle[category] = !this.categoryToggle[category];
   }
 
   testError(){
