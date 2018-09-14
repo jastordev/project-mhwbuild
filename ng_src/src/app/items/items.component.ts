@@ -59,6 +59,16 @@ export class ItemsComponent implements OnInit {
     this.loadData();
   }
 
+  loadData(){
+    this._data.skills.subscribe( data => {
+      this._skills = data;
+    });
+    this._data.items.subscribe( data => {
+      this._items = this.itemsSortByCategory(data);
+      this.itemsFiltered = Object.assign({},this._items);
+    });     
+  }
+
   private itemsSortByCategory(items : Item[]){
     let categories = ["Material", "Consumable/Misc", "Specialized Tool", "Decoration", "Ammo/Coating"];
     let sortedItems = {};
@@ -72,27 +82,63 @@ export class ItemsComponent implements OnInit {
     }
     console.log(sortedItems);
     return sortedItems;
-  }
+  } 
 
-  loadData(){
-    this._data.skills.subscribe( data => {
-      this._skills = data;
-    });
-    this._data.items.subscribe( data => {
-      this._items = this.itemsSortByCategory(data);
-      this.itemsFiltered = this._items;
-    });     
-  }
-
-  testReq(){
-    this._data.testReq();
-  }
-
-  getTestCount(){
-    this._data.getTestCount()
-      .subscribe( data => {
-        this.serverCount = data;
+  searchFilter(event : any){
+    let searchStr = event.target.value.toLowerCase();
+    for (var category in this._items){
+      this.itemsFiltered[category] = this._items[category].filter(item => {
+        return item.name.toLowerCase().includes(searchStr);
       });
+    }
+  }
+
+  onAddClick(){
+    let input = {
+      isForm : true,
+      skills : this._skills
+    }
+    this.modal.init(ItemDetailComponent, input, {});
+  }
+
+  onDeleteClick(){
+    if (this.itemsSelected.length == 0 ) return;
+    let confirmed = confirm("Are you sure you wish to delete all selected ("
+      + this.itemsSelected.length + ") entries?");
+    if (confirmed){
+      this._data.deleteItems(this.itemsSelected);
+      this.itemsSelected = [];
+    }
+  }
+
+  onSelectClick(event : any){    
+    if(this.itemsSelected.length == 0){      
+      this.itemsSelected = Array.from(this.itemsFiltered);      
+    } else {      
+      this.itemsSelected = [];
+    }
+  }
+
+
+  showItemDetail(item : Item){
+    let input = {
+      item : item,
+      isForm : this.editMode,
+      skills : this._skills
+    }
+    this.modal.init(ItemDetailComponent, input, {});
+  }
+
+  onItemClick(event : any, item : Item) {
+    if(event.ctrlKey){          
+      if (this.itemsSelected.includes(item)){
+        this.itemsSelected.splice(this.itemsSelected.indexOf(item), 1);
+      } else {
+        this.itemsSelected.push(item);
+      }     
+    } else {
+      this.showItemDetail(item);
+    }    
   }
 
   onCatClick(event : any, category : string){
@@ -115,48 +161,6 @@ export class ItemsComponent implements OnInit {
     }
   }
 
-  onItemClick(event : any, item : Item) {
-    if(event.ctrlKey){          
-      if (this.itemsSelected.includes(item)){
-        this.itemsSelected.splice(this.itemsSelected.indexOf(item), 1);
-      } else {
-        this.itemsSelected.push(item);
-      }     
-    } else {
-      this.showItemDetail(item);
-    }    
-  }
-
-  onDeleteClick(){
-    if (this.itemsSelected.length == 0 ) return;
-    let confirmed = confirm("Are you sure you wish to delete all selected ("
-      + this.itemsSelected.length + ") entries?");
-    if (confirmed){
-      this._data.deleteItems(this.itemsSelected);
-      this.itemsSelected = [];
-    }
-  }
-
-  onSelectClick(event : any){    
-    if(this.itemsSelected.length == 0){      
-      this.itemsSelected = Array.from(this.itemsFiltered);      
-    } else {      
-      this.itemsSelected = [];
-    }
-  }
-
-  onAddClick(){
-    let input = {
-      isForm : true,
-      skills : this._skills
-    }
-    this.modal.init(ItemDetailComponent, input, {});
-  }
-
-  testError(){
-    this._data.testError();
-  }
-
   toggleEditMode(event : any){
     this.editMode = !this.editMode;
     if (this.editMode) {     
@@ -166,20 +170,18 @@ export class ItemsComponent implements OnInit {
     }
   }
 
-  searchFilter(event : any){
-    let searchStr = event.target.value.toLowerCase();      
-
-    this.itemsFiltered = this._items.filter(item => {
-      return item.name.toLowerCase().includes(searchStr);
-    })
+  testError(){
+    this._data.testError();
+  }
+  
+  testReq(){
+    this._data.testReq();
   }
 
-  showItemDetail(item : Item){
-    let input = {
-      item : item,
-      isForm : this.editMode,
-      skills : this._skills
-    }
-    this.modal.init(ItemDetailComponent, input, {});
+  getTestCount(){
+    this._data.getTestCount()
+      .subscribe( data => {
+        this.serverCount = data;
+      });
   }
 }
