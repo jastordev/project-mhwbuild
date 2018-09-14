@@ -100,18 +100,23 @@ export class ItemsComponent implements OnInit {
   }
 
   private deleteSelected(){
-    if (this.itemsSelected.length == 0 ) return;
-    let confirmed = confirm("Are you sure you wish to delete all selected ("
+    if (this.itemsSelected.length > 0 ) {
+      let confirmed = confirm("Are you sure you wish to delete all selected ("
       + this.itemsSelected.length + ") entries?");
-    if (confirmed){
-      this._data.deleteItems(this.itemsSelected);
-      this.itemsSelected = [];
-    }
+      if (confirmed){
+        this._data.deleteItems(this.itemsSelected);
+        this.itemsSelected = [];
+      }
+    }    
   }
 
   private selectAll(event : any){    
-    if(this.itemsSelected.length == 0){      
-      this.itemsSelected = Array.from(this.itemsFiltered);      
+    if(this.itemsSelected.length == 0){
+      Object.keys(this.itemsFiltered).forEach(category => {
+        if(this.categoryToggle[category]) {          
+          this.itemsSelected.push(...this.itemsFiltered[category]);
+        }
+      });  
     } else {      
       this.itemsSelected = [];
     }
