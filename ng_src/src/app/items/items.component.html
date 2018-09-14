@@ -6,16 +6,16 @@
   </div>
   <div class="header-tools">
     <div>
-      <button (click)=onAddClick()>Add New Item</button>      
+      <button (click)=addNewItem()>Add New Item</button>      
       <button (click)=testReq()>Test HTTP</button>       
       <button [ngClass]="{'toggled-on' : editMode}" (click)=toggleEditMode($event)>Edit Mode Off</button>  
     </div>
     <div>
-      <button (click)="onSelectClick($event)">
+      <button (click)="selectAll($event)">
         <span *ngIf="itemsSelected.length == 0, else deselectTxt">Select All</span>
         <ng-template #deselectTxt >Deselect All</ng-template>
       </button>
-      <button (click)="onDeleteClick()"> Delete Selected</button>
+      <button (click)="deleteSelected()"> Delete Selected</button>
     </div>
   </div>
   <div class="header-cats">

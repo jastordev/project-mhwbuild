@@ -83,7 +83,7 @@ export class ItemsComponent implements OnInit {
     return sortedItems;
   } 
 
-  searchFilter(){
+  private searchFilter(){
     if(this.searchStr.trim()){
       for (var category in this._items){
         this.itemsFiltered[category] = this._items[category].filter(item => {
@@ -95,7 +95,7 @@ export class ItemsComponent implements OnInit {
     }
   }
 
-  onAddClick(){
+  private addNewItem(){
     let input = {
       isForm : true,
       skills : this._skills
@@ -103,7 +103,7 @@ export class ItemsComponent implements OnInit {
     this.modal.init(ItemDetailComponent, input, {});
   }
 
-  onDeleteClick(){
+  private deleteSelected(){
     if (this.itemsSelected.length == 0 ) return;
     let confirmed = confirm("Are you sure you wish to delete all selected ("
       + this.itemsSelected.length + ") entries?");
@@ -113,7 +113,7 @@ export class ItemsComponent implements OnInit {
     }
   }
 
-  onSelectClick(event : any){    
+  private selectAll(event : any){    
     if(this.itemsSelected.length == 0){      
       this.itemsSelected = Array.from(this.itemsFiltered);      
     } else {      
@@ -121,8 +121,16 @@ export class ItemsComponent implements OnInit {
     }
   }
 
+  private toggleEditMode(event : any){
+    this.editMode = !this.editMode;
+    if (this.editMode) {     
+      event.target.innerHTML = "Edit Mode On";
+    } else {
+      event.target.innerHTML = "Edit Mode Off";
+    }
+  }
 
-  showItemDetail(item : Item){
+  private showItemDetail(item : Item){
     let input = {
       item : item,
       isForm : this.editMode,
@@ -131,7 +139,7 @@ export class ItemsComponent implements OnInit {
     this.modal.init(ItemDetailComponent, input, {});
   }
 
-  onItemClick(event : any, item : Item) {
+  private onItemClick(event : any, item : Item) {
     if(event.ctrlKey){          
       if (this.itemsSelected.includes(item)){
         this.itemsSelected.splice(this.itemsSelected.indexOf(item), 1);
@@ -160,15 +168,6 @@ export class ItemsComponent implements OnInit {
       case "tool":
         this.allowTool = !this.allowTool; 
         break;     
-    }
-  }
-
-  toggleEditMode(event : any){
-    this.editMode = !this.editMode;
-    if (this.editMode) {     
-      event.target.innerHTML = "Edit Mode On";
-    } else {
-      event.target.innerHTML = "Edit Mode Off";
     }
   }
 
