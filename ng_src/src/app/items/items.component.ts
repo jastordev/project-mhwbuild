@@ -19,13 +19,14 @@ import { ElementRef, ChangeDetectorRef } from '@angular/core';
 })
 export class ItemsComponent implements OnInit {
 
+  objectKeys = Object.keys;
+
   private _items;
   private _skills : Skill[];
   private serverCount: number;
   private itemsFiltered;
   private itemsSelected;
-  categories : string[];
-  objectKeys = Object.keys;
+  
 
   // Variables which toggle allowed categories.
   private allowMat : boolean;
@@ -35,6 +36,7 @@ export class ItemsComponent implements OnInit {
   private allowTool : boolean;
 
   private editMode : boolean;
+  private searchStr : String;
 
   constructor(private _data : DataService,
     private modal : ModalService, private _elem: ElementRef,
@@ -43,9 +45,6 @@ export class ItemsComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.categories = ["Materials", "Ammo/Coatings", "Consumables and Misc", 
-       "Decorations", "Specialized Tools"];
-
     this.allowAmmo = true;
     this.allowDeco = true;
     this.allowMat = true;
@@ -55,6 +54,7 @@ export class ItemsComponent implements OnInit {
     this.editMode = false;
 
     this.itemsSelected = [];
+    this.searchStr = "";
     this.getTestCount();
     this.loadData();
   }
@@ -65,7 +65,7 @@ export class ItemsComponent implements OnInit {
     });
     this._data.items.subscribe( data => {
       this._items = this.itemsSortByCategory(data);
-      this.itemsFiltered = Object.assign({},this._items);
+      this.searchFilter();
     });     
   }
 
@@ -80,16 +80,18 @@ export class ItemsComponent implements OnInit {
         });
       }
     }
-    console.log(sortedItems);
     return sortedItems;
   } 
 
-  searchFilter(event : any){
-    let searchStr = event.target.value.toLowerCase();
-    for (var category in this._items){
-      this.itemsFiltered[category] = this._items[category].filter(item => {
-        return item.name.toLowerCase().includes(searchStr);
-      });
+  searchFilter(){
+    if(this.searchStr.trim()){
+      for (var category in this._items){
+        this.itemsFiltered[category] = this._items[category].filter(item => {
+          return item.name.toLowerCase().includes(this.searchStr.toLowerCase());
+        });
+      }
+    } else {
+      this.itemsFiltered = Object.assign({},this._items);
     }
   }
 

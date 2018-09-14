@@ -2,7 +2,7 @@
   <img class="header-img" src="assets/itemsHeader.png" />
   <div class="header-search">
       <img class="search-icon" src="assets/searchIcon.png" />
-      <input (keyup)="searchFilter($event)" class="search" placeholder="Search..." />
+      <input (keyup)="searchFilter()" [(ngModel)]="searchStr" class="search" placeholder="Search..." />
   </div>
   <div class="header-tools">
     <div>
