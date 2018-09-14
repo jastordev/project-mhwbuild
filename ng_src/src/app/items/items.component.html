@@ -44,13 +44,13 @@
 
 <div id="data-container">
 
-  <ng-container *ngFor="let category of categories"> 
-    <section *ngIf="itemsPerCategory(category) let catItems" class="data-category">
+  <ng-container *ngFor="let category of objectKeys(itemsFiltered)"> 
+    <section *ngIf="itemsFiltered[category].length > 0" class="data-category">
       <header>
         <h3>{{category}}</h3>
       </header>
       <ul>
-        <li *ngFor="let item of catItems">
+        <li *ngFor="let item of itemsFiltered[category]">
           <div (click)="onItemClick($event, item)" class="list-item" 
             [ngClass]="{'selected' : itemsSelected.includes(item)}">
             <div class="list-item-icon">
@@ -78,11 +78,11 @@
               Carry <span>{{item.carry}}</span>
             </div>
           </div>
-          <div *ngIf="category == 'Decorations'" class="list-item-extra">
-            <div *ngIf="getItemSkill(item.skillID) as skill" class="list-item-skill">
-              <img src="{{skill.iconPath}}" />
-              <span>{{skill.name}}</span>
-              <span class="skill-desc">{{skill.desc}}</span>
+          <div *ngIf="item.skill" class="list-item-extra">
+            <div class="list-item-skill">
+              <img src="{{item.skill.iconPath}}" />
+              <span>{{item.skill.name}}</span>
+              <span class="skill-desc">{{item.skill.desc}}</span>
             </div>
           </div>
         </li>

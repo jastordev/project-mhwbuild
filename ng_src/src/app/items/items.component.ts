@@ -9,7 +9,7 @@ import { ItemDetailComponent }
 
 import { DataService } from '../shared/service/data.service';
 import { ModalService } from '../shared/service/modal.service';
-import { ElementRef } from '@angular/core';
+import { ElementRef, ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -19,12 +19,13 @@ import { ElementRef } from '@angular/core';
 })
 export class ItemsComponent implements OnInit {
 
-  private _items : Item[];
+  private _items;
   private _skills : Skill[];
   private serverCount: number;
-  itemsFiltered : Item[];
-  itemsSelected : Item[];
+  private itemsFiltered;
+  private itemsSelected;
   categories : string[];
+  objectKeys = Object.keys;
 
   // Variables which toggle allowed categories.
   private allowMat : boolean;
@@ -36,7 +37,10 @@ export class ItemsComponent implements OnInit {
   private editMode : boolean;
 
   constructor(private _data : DataService,
-    private modal : ModalService, private _elem: ElementRef) { }
+    private modal : ModalService, private _elem: ElementRef,
+    private changeDetector: ChangeDetectorRef ) {
+      //this.changeDetector.detach();
+    }
 
   ngOnInit() {
     this.categories = ["Materials", "Ammo/Coatings", "Consumables and Misc", 
@@ -50,20 +54,34 @@ export class ItemsComponent implements OnInit {
 
     this.editMode = false;
 
+    this.itemsSelected = [];
     this.getTestCount();
     this.loadData();
-    this.itemsSelected = [];
+  }
+
+  private itemsSortByCategory(items : Item[]){
+    let categories = ["Material", "Consumable/Misc", "Specialized Tool", "Decoration", "Ammo/Coating"];
+    let sortedItems = {};
+    for (let cat of categories) {
+      sortedItems[cat] = items.filter(item => item.type == cat);
+      if(cat == "Decoration") {
+        sortedItems[cat].forEach((item, index) => {
+          sortedItems[cat][index]["skill"] = this._skills.find(s => s.skillId == item.skillID);
+        });
+      }
+    }
+    console.log(sortedItems);
+    return sortedItems;
   }
 
   loadData(){
-    this._data.items.subscribe( data => {
-      this._items = data;
-      this.itemsFiltered = this._items;
-    }); // Remember to unsubscribe
     this._data.skills.subscribe( data => {
       this._skills = data;
-    })
-    
+    });
+    this._data.items.subscribe( data => {
+      this._items = this.itemsSortByCategory(data);
+      this.itemsFiltered = this._items;
+    });     
   }
 
   testReq(){
@@ -75,38 +93,6 @@ export class ItemsComponent implements OnInit {
       .subscribe( data => {
         this.serverCount = data;
       });
-  }
-
-  itemsPerCategory(category : string) : Item[] {
-    console.log("Change Detection - itemsPerCategory");
-    let tempList : Item[] = [];
-
-    switch(category){
-      case "Materials":
-        if(this.allowMat)
-          tempList = this.itemsFiltered.filter(item => item.type == "Material");        
-        break;
-      case "Consumables and Misc":
-        if(this.allowMisc) 
-          tempList = this.itemsFiltered.filter(item => item.type == "Consumable/Misc");
-        break;
-      case "Specialized Tools":
-        if(this.allowTool) 
-          tempList = this.itemsFiltered.filter(item => item.type == "Specialized Tool");    
-        break;
-      case "Decorations":
-        if(this.allowDeco) 
-          tempList =  this.itemsFiltered.filter(item => item.type == "Decoration");
-        break;
-      case "Ammo/Coatings":
-        if(this.allowAmmo) 
-          tempList =  this.itemsFiltered.filter(item => item.type == "Ammo/Coating");
-        break;     
-    }
-
-    if(tempList.length) { return tempList };
-    return null;
-
   }
 
   onCatClick(event : any, category : string){
@@ -169,11 +155,6 @@ export class ItemsComponent implements OnInit {
 
   testError(){
     this._data.testError();
-  }
-
-  private getItemSkill(id : number) : Skill {
-    console.log("Change detection. - getItemSkill");
-    return this._skills.find( s => s.skillId == id);
   }
 
   toggleEditMode(event : any){
