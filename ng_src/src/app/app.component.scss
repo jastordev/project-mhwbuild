@@ -81,10 +81,10 @@ img.header-logo {
 
 // Styles related to the modal below.
 #modal-container {  
-  position: absolute;
-  margin-left: 50%;
-  margin-top: 14%;
-  transform: translate(-50%, -14%); 
+  position: fixed;
+  margin-left: 32%;
+  margin-top: 8%;
+  transform: translate(-32%, -8%); 
   background: #262f3e;
   color: #c9c9c9;
   border-radius: 10px;
