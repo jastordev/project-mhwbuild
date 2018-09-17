@@ -80,6 +80,10 @@
     select { font-size: 1.4em; }
 }
 
+.item-rarity {
+    width: 49px;
+}
+
 .item-name input{
     font-size: 1.4em;
     width: 275px;
@@ -142,6 +146,10 @@
 
 .item-extra {
     grid-column: col / span 4;    
+}
+
+.item-jewel-lvl {
+    width: 49px;
 }
 
 .item-skill {

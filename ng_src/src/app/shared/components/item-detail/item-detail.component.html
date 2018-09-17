@@ -41,11 +41,10 @@
     </div>    
   
     <div class="item-name-n-rarity">      
-      <div class="tooltip">
-        <select [ngClass]="'rare' + itemForm.get('rarity').value" formControlName="rarity">        
-          <option *ngFor="let rarity of rarities" 
-            [ngClass]="'rare' + rarity" [value]="rarity">R{{rarity}}</option>
-        </select>
+      <div class="tooltip item-rarity">
+        <mh-select [options]="rarities"
+        [ngClass]="'rare' + itemForm.get('rarity').value" formControlName="rarity">
+        </mh-select>        
 
         <div *ngIf="itemForm.get('rarity').errors && formSubmitted" class="tooltip-content">
           <div *ngIf="itemForm.get('rarity').errors.required">
@@ -78,9 +77,7 @@
     </div>
 
     <div class="tooltip item-type">
-      <select formControlName="type">
-        <option *ngFor="let type of types" [value]="type">{{type}}</option>
-      </select>
+      <mh-select [options]="types" formControlName="type"></mh-select>
 
       <div *ngIf="itemForm.get('type').errors && formSubmitted" class="tooltip-content">
         <div *ngIf="itemForm.get('type').errors.required">
@@ -146,7 +143,7 @@
     </div>
   
     <div class="tooltip item-obtain">
-      Obtained from <input formControlName="obtained" />
+      <input formControlName="obtained" placeholder="Obtained from..."/>
 
       <div *ngIf="itemForm.get('obtained').errors && formSubmitted" class="tooltip-content">
         <div *ngIf="itemForm.get('obtained').errors.maxlength">
@@ -156,13 +153,9 @@
     </div>
 
     <div *ngIf="itemForm.get('type').value == 'Decoration'" class="item-extra">
-      <div class="tooltip item-jewelLvl">
+      <div class="tooltip item-jewel-lvl">
         <label> Jewel Level </label>
-        <select formControlName="jwlLvl">        
-          <option value=1>1</option>
-          <option value=2>2</option>
-          <option value=3>3</option>
-        </select>
+        <mh-select [options]="[1,2,3]"formControlName="jwlLvl"></mh-select>
         <div *ngIf="itemForm.get('jwlLvl').errors && formSubmitted" class="tooltip-content">
           <span *ngIf="itemForm.get('jwlLvl').errors.pattern">
             Jewel can only be either level 1, 2 or 3.

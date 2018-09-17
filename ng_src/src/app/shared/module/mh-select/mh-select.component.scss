@@ -1,4 +1,5 @@
 #mh-select-container {
+    width: inherit;
     border-color: inherit;
     color:#c9c9c9;
     font-family: DINPRO;
@@ -33,8 +34,9 @@
     border-color: inherit;
     border-radius: 3px; 
     padding: 3px 0px 2px 0px;    
-    display: inline-flex;
-    width: 100%;
+    display: inline-grid;
+    grid-template-columns: auto 29px;
+    width: inherit;
 
     transition: border 0.4s, background 0.4s, box-shadow 0.4s; 
 
@@ -42,12 +44,18 @@
         @extend %focus;
     }
 
-    input {
-        border: 0px;
-        margin-left: 4px;
-        box-shadow: none;
-        background: none;
-    }
+}
+
+#mh-select-value {
+    align-self:center;
+}
+#mh-select-input {    
+    border: 0px;
+    margin-left: 4px;
+    box-shadow: none;
+    background: none;
+    width: 100%;
+    min-width: 15px;
 }
 
 .mh-arrow-wrapper {
@@ -86,6 +94,8 @@
 
     position: absolute;
     width: 100%;
+
+    z-index: 1;
 
 }
     

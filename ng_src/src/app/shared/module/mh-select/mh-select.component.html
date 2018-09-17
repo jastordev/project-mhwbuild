@@ -11,9 +11,11 @@
         </div>
         <input id="mh-select-input" (keyup) = "filterOptions()" 
             (click)="expandOptions(true)" type="text" [(ngModel)]="searchVal"/>
-        <span class="mh-vr"></span>
-        <div (click)="expandOptions(!expanded)" class="mh-arrow-wrapper">
-            <span class="mh-arrow"></span>
+        <div class="inline-flex">
+            <span class="mh-vr"></span>
+            <div (click)="expandOptions(!expanded)" class="mh-arrow-wrapper">
+                <span class="mh-arrow"></span>
+            </div>
         </div>
     </div>
     <div *ngIf="expanded" class="mh-select-option-container">        
