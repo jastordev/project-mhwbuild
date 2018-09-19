@@ -1,42 +1,52 @@
-<article>
-  
-</article>
 
 <article *ngIf="!isForm, else formBlock" class="item-detail">
-  <div class="item-icon">
-    <img src={{item.iconUrl}} alt={{item.name}}/>
+  <div class="item-row-1">
+    <div class="item-icon">
+      <img src={{item.iconUrl}} alt={{item.name}}/>
+    </div>
+    <div class="item-desc-n-misc">
+        <div class="item-name-n-type">
+          <h1 class="item-name">
+            <span [ngClass]="'rare' + item.rarity"> R{{item.rarity}} </span>{{item.name}}
+          </h1>
+          <span class="item-type">{{item.type}}</span>  
+        </div>
+        <p class="item-desc">{{item.desc}}</p>
+        <div class="item-misc">
+          <div class="item-buy">
+            <label>Buy for</label>
+            <span>{{item.buyPrice}} z </span>
+          </div>
+          <div class="item-sell">
+            Sell for <span>{{item.sellPrice}} z </span>
+          </div>
+          <div class="item-carry">
+            Carry <span>{{item.carry}}</span>
+          </div>
+        </div>
+    </div>       
   </div>
-  <div class="item-name-n-rarity" >
-    <h1 class="item-name"><span [ngClass]="'rare' + item.rarity"> R{{item.rarity}} </span>{{item.name}}</h1>
+  <div class="item-row-2">
+    <div class="item-obtain">
+      Obtained from <span>{{item.obtainedFrom}}</span>
+    </div>
   </div>
-  <span class="item-type">{{item.type}}</span>
-  <p class="item-desc">{{item.desc}}</p>  
-  <div class="item-buy">
-    Buy for <span>{{item.buyPrice}} z </span>
-  </div>
-  <div class="item-sell">
-    Sell for <span>{{item.sellPrice}} z </span>
-  </div>
-  <div class="item-carry">
-    Carry <span>{{item.carry}}</span>
-  </div>
-  <div class="item-obtain">
-    Obtained from <span>{{item.obtainedFrom}}</span>
-  </div>
-  <div *ngIf="itemSkill" class="item-extra">
-    <div class="item-skill">
-      <img src="{{itemSkill.iconPath}}" />
-      <span class="skill-name"> {{itemSkill.name}} </span>
-      <span class="skill-desc"> {{itemSkill.desc}} </span>
-    </div>    
+  <div class="item-row-3">
+    <div *ngIf="itemSkill">
+      <div class="item-skill">
+        <img src="{{itemSkill.iconPath}}" />
+        <span class="skill-name"> {{itemSkill.name}} </span>
+        <span class="skill-desc"> {{itemSkill.desc}} </span>
+      </div>    
+    </div>
   </div>
 </article>
-
+  
 <ng-template #formBlock>
   <form [ngClass]="formSubmitted ? 'item-detail form-submitted' : 'item-detail'"
     (submit)="onSubmit($event)" [formGroup]="itemForm">
 
-    <div class="item-row-1">
+    <div class="item-edit-row-1">
       <div class="tooltip item-name">
         <input formControlName="name" placeholder="Name.."/>
         <div *ngIf="itemForm.get('name').errors && formSubmitted" class="tooltip-content">         
@@ -79,7 +89,7 @@
         </div>
       </div>  
     </div>
-    <div class="item-row-2">
+    <div class="item-edit-row-2">
       <div class="item-icon">
         <img src={{defIconPath}} alt="Iron Ore" />
         <div class="upload-img">
@@ -144,7 +154,7 @@
         </div>
       </div>    
     </div>
-    <div class="item-row-3">
+    <div class="item-edit-row-3">
       <div class="tooltip item-obtain">
         <input formControlName="obtained" placeholder="Obtained from..."/>  
         <div *ngIf="itemForm.get('obtained').errors && formSubmitted" class="tooltip-content">
@@ -154,7 +164,7 @@
         </div>
       </div>
     </div>
-    <div class="item-row-4">
+    <div class="item-edit-row-4">
       <div *ngIf="itemForm.get('type').value == 'Decoration'" class="item-extra">
         <div class="tooltip item-jewel-lvl">
           <label class="item-label" >SlotLvl</label>
@@ -181,151 +191,6 @@
       </div>
     </div>
     <input class="item-submit" type="submit" value="Submit Item" />
-    <!-- <div class="item-icon">
-      <img src={{defIconPath}} alt="Iron Ore" />
-      <div class="upload-img">
-        <input type="file" id="icon" (change)="onItemIconChange($event.target.files)" accept=".jpg, .jpeg, .png, .gif"/>
-        <span>Upload Image</span>
-      </div>
-    </div>    
-  
-    <div class="item-name-n-rarity">      
-      <div class="tooltip item-rarity">
-        <mh-select [options]="rarities"
-        [ngClass]="'rare' + itemForm.get('rarity').value" formControlName="rarity">
-        </mh-select>        
-
-        <div *ngIf="itemForm.get('rarity').errors && formSubmitted" class="tooltip-content">
-          <div *ngIf="itemForm.get('rarity').errors.required">
-            An item rarity is required.
-          </div>
-          <div *ngIf="itemForm.get('rarity').errors.pattern">
-            Item rarity can only be from 1 to 8.
-          </div>      
-        </div>
-      </div>      
-
-      <div class="tooltip item-name">
-        <input formControlName="name" placeholder="Name.."/>
-
-        <div *ngIf="itemForm.get('name').errors && formSubmitted" class="tooltip-content">         
-          <div *ngIf="itemForm.get('name').errors.required">
-            An item name is required.
-          </div>
-          <div *ngIf="itemForm.get('name').errors.minlength">
-            Item name must be at least 2 characters.
-          </div>
-          <div *ngIf="itemForm.get('name').errors.maxlength">
-            Item name must be at most 35 characters.
-          </div>
-          <div *ngIf="itemForm.get('name').errors.pattern">
-            Item name must be have valid characters. (Alphanumeric and/or +/-)
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tooltip item-type">
-      <mh-select [options]="types" formControlName="type"></mh-select>
-
-      <div *ngIf="itemForm.get('type').errors && formSubmitted" class="tooltip-content">
-        <div *ngIf="itemForm.get('type').errors.required">
-          An item type is required.
-        </div>
-        <div *ngIf="itemForm.get('type').errors.validType">
-          Item type can only be one of the 5 provided options.
-        </div>      
-      </div>
-    </div>
-    
-    <div class="tooltip item-desc">
-      <textarea placeholder="Item description here..." formControlName="desc">
-      </textarea>
-
-      <div *ngIf="itemForm.get('desc').errors && formSubmitted" class="tooltip-content">
-        <div *ngIf="itemForm.get('desc').errors.required">
-          A description is required.
-        </div>
-        <div *ngIf="itemForm.get('desc').errors.minlength">
-          The description must be at least 5 characters.
-        </div>
-        <div *ngIf="itemForm.get('desc').errors.maxlength">
-          The description must be at most 120 characters.
-        </div>
-        <div *ngIf="itemForm.get('desc').errors.pattern">
-          The description must have valid characters (Alphanumeric and/or +/-/!/.)
-        </div>
-      </div>
-    </div>
-    
-    
-    
-    <div class="tooltip item-buy">
-      Buy for <input formControlName="buy" /> <span>z</span>
-
-      <div *ngIf="itemForm.get('buy').errors && formSubmitted" class="tooltip-content">
-        <div *ngIf="itemForm.get('buy').errors.pattern">Item buy price can only be a number.</div>
-        <div *ngIf="itemForm.get('buy').errors.maxlength">Item buy price can only have a max of 7 digits.</div>      
-      </div>
-    </div>
-
-    <div class="tooltip item-sell">
-      Sell for <input formControlName="sell" /> <span>z</span>
-
-      <div *ngIf="itemForm.get('sell').errors && formSubmitted" class="tooltip-content">
-        <div *ngIf="itemForm.get('sell').errors.pattern">
-          Item sell price can only be a number.
-        </div>
-        <div *ngIf="itemForm.get('sell').errors.maxlength">
-          Item sell price can only have a max of 7 digits.
-        </div>      
-      </div>  
-    </div>
-
-    <div class="tooltip item-carry">
-      Carry <input formControlName="carry" />
-
-      <div *ngIf="itemForm.get('carry').errors && formSubmitted" class="tooltip-content">
-        <div *ngIf="itemForm.get('carry').errors.maxlength">Carry cannot be more than 2 digits.</div>
-        <div *ngIf="itemForm.get('carry').errors.pattern">Carry can only be a number.</div>
-      </div>
-    </div>
-  
-    <div class="tooltip item-obtain">
-      <input formControlName="obtained" placeholder="Obtained from..."/>
-
-      <div *ngIf="itemForm.get('obtained').errors && formSubmitted" class="tooltip-content">
-        <div *ngIf="itemForm.get('obtained').errors.maxlength">
-          Item obtained text can be at most 120 characters long.
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="itemForm.get('type').value == 'Decoration'" class="item-extra">
-      <div class="tooltip item-jewel-lvl">
-        <label> Jewel Level </label>
-        <mh-select [options]="[1,2,3]"formControlName="jwlLvl"></mh-select>
-        <div *ngIf="itemForm.get('jwlLvl').errors && formSubmitted" class="tooltip-content">
-          <span *ngIf="itemForm.get('jwlLvl').errors.pattern">
-            Jewel can only be either level 1, 2 or 3.
-          </span>
-          <div *ngIf="itemForm.get('jwlLvl').errors.required">
-            Decorations must have a jewel level.
-          </div>
-        </div>             
-      </div>
-    
-      <div class="tooltip item-skillId">
-        <mh-select [options]="skills" [optType]="'Skill'" formControlName="skillID"></mh-select>
-        <div *ngIf="itemForm.get('skillID').errors && formSubmitted" class="tooltip-content">
-          <div *ngIf="itemForm.get('skillID').errors.required">
-            Decorations require a related skill.
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <input class="item-submit" type="submit" value="Submit Item" /> -->
   </form>
 
 </ng-template>

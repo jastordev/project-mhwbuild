@@ -12,6 +12,13 @@
 .item-row-1 {
     grid-row: 1;
     display: inline-grid;
+    grid-template-columns: 106px auto;
+    grid-column-gap: 8px;
+}
+
+.item-edit-row-1 {
+    grid-row: 1;
+    display: inline-grid;
     grid-template-columns: repeat(3, [col] auto);
     grid-column-gap: 8px;
     align-items: center;
@@ -27,7 +34,18 @@
     justify-self: right;
 }
 
+.item-name-n-type {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 8px;
+    align-items: end;
+}
+
 .item-row-2 {
+    grid-row: 2; 
+}
+
+.item-edit-row-2 {
     grid-row: 2;
     display: inline-grid;
     grid-template-columns: 106px auto;
@@ -88,7 +106,6 @@
     color: #a0a0a0;
     width:100%;
     font-style: italic;
-    align-self: end;
 
     textarea{
         width:100%;
@@ -113,21 +130,21 @@
 }
 
 .item-buy {
-    @extend %span-color, %justify-n-align-center, %misc-input;
+    @extend %span-color, %justify-center, %misc-input;
     grid-column: col 1;
 }
 
 .item-sell {
-    @extend %span-color, %justify-n-align-center, %misc-input;
+    @extend %span-color, %justify-center, %misc-input;
     grid-column: col 2;    
 }
 
 .item-carry {
-    @extend %span-color, %justify-n-align-center, %misc-input;
+    @extend %span-color, %justify-center, %misc-input;
     grid-column: col 3;
 }
 
-.item-row-3 {
+.item-row-3, .item-edit-row-4 {
     grid-row: 3;
 }
 
@@ -137,7 +154,7 @@
     input { width: 100%; }
 }
 
-.item-row-4 {
+.item-row-4, .item-edit-row-4 {
     grid-row: 4;
 }
 
@@ -186,8 +203,7 @@
     input { width: 35px; text-align: right; }
 }
 
-%justify-n-align-center {
+%justify-center {
     justify-self: center;
-    align-self: center;
 }
 
