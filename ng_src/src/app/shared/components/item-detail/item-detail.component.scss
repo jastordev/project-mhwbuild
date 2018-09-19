@@ -1,7 +1,6 @@
 // Styles for item detail views.
 .item-detail {
     display: grid;
-    grid-template-columns: repeat(4, [col] auto);
     grid-template-rows: repeat(4, [row] auto);
     align-items: center;
     grid-row-gap: 5px;
@@ -10,25 +9,33 @@
     h1 { margin: 0px; }
 }
 
-%span-color{
-    span { color: #d69230; }
+.item-row-1 {
+    grid-row: 1;
+    display: inline-grid;
+    grid-template-columns: repeat(3, [col] auto);
+    grid-column-gap: 8px;
+    align-items: center;
 }
 
-%row-2-shared{
-    justify-self: left;
-    align-self: center;
-    grid-row: row 2;
+.item-name input{
+    font-size: 1.4em;
+    width: 275px;
 }
 
-%row-3-shared{    
-    align-self: start;
-    grid-row: row 3;
+.item-type {
+    font-style: italic;
+    justify-self: right;
+}
+
+.item-row-2 {
+    grid-row: 2;
+    display: inline-grid;
+    grid-template-columns: 106px auto;
+    grid-column-gap: 8px;    
 }
 
 .item-icon {
-    grid-row: row 2 / span 2;
-    grid-column: col;
-    position:relative;  
+    position: relative;
 
     img {
         width: 100px;
@@ -64,7 +71,6 @@
         }
     }
 }
-
 .item-icon:hover{
     
     .upload-img {
@@ -73,36 +79,16 @@
     }
 }
 
-.item-name-n-rarity {
-    grid-column: col 1 / span 3;
-    grid-row: row;
-
-    select { font-size: 1.4em; }
-}
-
-.item-rarity {
-    width: 49px;
-}
-
-.item-name input{
-    font-size: 1.4em;
-    width: 275px;
-}
-
-.item-type {
-    grid-column: col 4;
-    grid-row: row;
-    font-style: italic;
-    justify-self: right;
+.item-desc-n-misc {
+    display: grid;
 }
 
 .item-desc {
-    @extend %row-2-shared;
-    grid-column: col 2 / span 3;    
     margin: 0;
     color: #a0a0a0;
     width:100%;
     font-style: italic;
+    align-self: end;
 
     textarea{
         width:100%;
@@ -111,46 +97,62 @@
     }
 }
 
+.item-misc {
+    display: grid;
+    grid-template-columns: repeat(3, [col] auto);
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.item-label {
+    font-size: 10px;
+}
+
+.item-rarity {    
+    width: 49px;
+}
+
 .item-buy {
-    @extend %row-3-shared, %span-color;
-    justify-self: start;
-    grid-column: col 2;
-    
-    input { width: 35px; text-align: right;}
+    @extend %span-color, %justify-n-align-center, %misc-input;
+    grid-column: col 1;
 }
 
 .item-sell {
-    @extend %row-3-shared, %span-color;
-    justify-self: center;
-    grid-column: col 3;
-    
-    input { width: 35px; text-align: right;}
+    @extend %span-color, %justify-n-align-center, %misc-input;
+    grid-column: col 2;    
 }
 
 .item-carry {
-    @extend %row-3-shared, %span-color;
-    justify-self: start;
-    grid-column: col 4;
-    
-    input { width: 15px; text-align: right; }
+    @extend %span-color, %justify-n-align-center, %misc-input;
+    grid-column: col 3;
+}
+
+.item-row-3 {
+    grid-row: 3;
 }
 
 .item-obtain {
     @extend %span-color;
-    grid-column: col / span 4;
-    grid-row: row 4;
-    align-self: center;
-
+    width: 100%;
     input { width: 100%; }
 }
 
+.item-row-4 {
+    grid-row: 4;
+}
+
 .item-extra {
-    grid-column: col / span 4;    
+    display: inline-grid;
+    grid-template-columns: 49px auto;
+    grid-column-gap: 8px;
+    width: 100%;
+
 }
 
 .item-jewel-lvl {
     width: 49px;
 }
+
 
 .item-skill {
     display: inline-grid;
@@ -172,10 +174,20 @@
     }
 }
 
-// Form style rules
 .item-submit {
-    grid-row: row 6;
-    grid-column: col 4;
-    justify-self: end;
+    grid-row: row 5;
+}
+
+%span-color{
+    span { color: #d69230; }
+}
+
+%misc-input {
+    input { width: 35px; text-align: right; }
+}
+
+%justify-n-align-center {
+    justify-self: center;
+    align-self: center;
 }
 

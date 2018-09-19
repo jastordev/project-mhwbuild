@@ -7,6 +7,9 @@
                     <img class="icon" src="{{selectedOpt.iconPath}}" />                
                     <span class="name">{{selectedOpt.name}}</span>               
                 </div>
+                <div *ngIf="optType == 'Rarity'">
+                    <span [ngClass]="'rare'+ selectedOpt">R{{selectedOpt}}</span>
+                </div>
             </div>            
         </div>
         <input id="mh-select-input" (keyup) = "filterOptions()" 
@@ -29,6 +32,9 @@
                     <span class="name">{{option.name}}</span>
                 </div>                
                 <span class="desc">{{option.desc}}</span>                        
+            </div>
+            <div *ngIf="optType == 'Rarity'">
+                <span [ngClass]="'rare'+ option">R{{option}}</span>
             </div>
         </div>
         <div *ngIf="filteredOpts.length == 0" class="mh-option">

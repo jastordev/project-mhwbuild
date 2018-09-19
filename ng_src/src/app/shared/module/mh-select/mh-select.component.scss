@@ -10,45 +10,29 @@
     }
 }
 
-#mh-select-value {
-    position: absolute;
-    margin-left: 4px;
-    pointer-events: none;
-}
-
-%focus {
-    border: 1px solid gray;    
-    background: rgb(19, 23, 31);
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-
-    .mh-vr, .mh-arrow {
-        border-color: gray;
-    }
-}
-
-
-
 .mh-select-input-container { 
     background: rgb(30, 38, 50);    
     border: 1px solid;
     border-color: inherit;
-    border-radius: 3px; 
+    border-radius: 3px;
+    width: 100%; 
     padding: 3px 0px 2px 0px;    
     display: inline-grid;
     grid-template-columns: auto 29px;
-    width: inherit;
-
     transition: border 0.4s, background 0.4s, box-shadow 0.4s; 
 
     &:hover, &:focus {
         @extend %focus;
     }
-
 }
 
 #mh-select-value {
+    position: absolute;
+    margin-left: 4px;
     align-self:center;
+    pointer-events: none;
 }
+
 #mh-select-input {    
     border: 0px;
     margin-left: 4px;
@@ -56,6 +40,13 @@
     background: none;
     width: 100%;
     min-width: 15px;
+}
+
+.mh-vr {
+    border: solid #0c0e15;
+    border-width: 0px 0px 0px 1px;
+    margin-left: 4px;
+    transition: border 0.4s
 }
 
 .mh-arrow-wrapper {
@@ -73,13 +64,6 @@
     display: inline-block;    
     transform: rotate(45deg);      
     transition: border 0.4s;    
-}
-
-.mh-vr {
-    border: solid #0c0e15;
-    border-width: 0px 0px 0px 1px;
-    margin-left: 4px;
-    transition: border 0.4s
 }
 
 .mh-select-option-container {
@@ -138,4 +122,14 @@
 .opt-selected {
     background: rgba(37, 53, 80, 0.5);
     color: white;
+}
+
+%focus {
+    border: 1px solid gray;    
+    background: rgb(19, 23, 31);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+
+    .mh-vr, .mh-arrow {
+        border-color: gray;
+    }
 }
