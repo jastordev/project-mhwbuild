@@ -38,8 +38,9 @@
   align-items: center;
   &:hover {
     .header-btn-tooltip {
-      width: 100%;
       visibility: visible;
+      animation: reveal 1.5s forwards;
+      span { animation: slidein 1s forwards; }      
     }
   }
 }
@@ -64,8 +65,21 @@
   margin-right: 4px;
   width: 0px;
   display: inline-flex;
+  overflow: hidden;
+  white-space: nowrap;
   visibility: hidden;
 }
+
+@keyframes slidein {
+  0% { margin-left:-200px; }
+  100% { margin-left:0px; }
+}
+
+@keyframes reveal {
+  0% {opacity:0;width:0px;}
+  100% {opacity:1;width:100%;}
+}
+
 
 // Search bar css
 .search {
