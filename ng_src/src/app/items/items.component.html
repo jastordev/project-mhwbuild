@@ -5,18 +5,58 @@
       <input (keyup)="searchFilter()" [(ngModel)]="searchStr" class="search" placeholder="Search..." />
   </div>
   <div class="header-tools">
-    <div>
-      <button (click)=addNewItem()>Add New Item</button>      
-      <button (click)=testReq()>Test HTTP</button>       
-      <button [ngClass]="{'toggled-on' : editMode}" (click)=toggleEditMode($event)>Edit Mode Off</button>  
-    </div>
-    <div>
-      <button (click)="selectAll($event)">
-        <span *ngIf="itemsSelected.length == 0, else deselectTxt">Select All</span>
-        <ng-template #deselectTxt >Deselect All</ng-template>
+    
+    <div class="header-btn">
+      <button class="btn-round btn-sml btn-light" (click)=addNewItem()>
+        <i class="material-icons header-btn-icon">add</i>
       </button>
-      <button (click)="deleteSelected()"> Delete Selected</button>
+      <div class="header-btn-tooltip">
+        <div class="header-btn-vr"></div>
+        <span>Add New Item</span>
+      </div> 
     </div>
+
+    <div class="header-btn">
+        <button class="btn-round btn-sml btn-light"
+          [ngClass]="{'toggled-on' : editMode}"
+          (click)=toggleEditMode($event)>
+          <i class="material-icons header-btn-icon">edit</i>
+        </button>  
+      <div class="header-btn-tooltip">
+        <div class="header-btn-vr"></div>
+        <span>Toggle Edit Mode</span>
+      </div> 
+    </div>
+
+    <div class="header-btn">
+      <button class="btn-round btn-sml btn-light" (click)="selectAll($event)">
+        <i class="material-icons header-btn-icon"
+         *ngIf="itemsSelected.length == 0, else deselectTxt">reorder</i>
+      </button>
+      <div class="header-btn-tooltip">
+        <div class="header-btn-vr"></div>
+        <span> Select All </span>
+      </div> 
+    </div>
+    
+    <div class="header-btn">
+      <button class="btn-round btn-sml btn-light" (click)=deleteSelected()>
+        <i class="material-icons header-btn-icon">delete</i>
+      </button>
+      <div class="header-btn-tooltip">
+        <div class="header-btn-vr"></div>
+        <span> Delete Selected</span>
+      </div> 
+    </div>
+  
+     
+    <!-- 
+    <button (click)="selectAll($event)">
+      <span *ngIf="itemsSelected.length == 0, else deselectTxt">Select All</span>
+      <ng-template #deselectTxt >Deselect All</ng-template>
+    </button>
+     -->
+    
   </div>
   <div class="header-cats">
     <div class="category" (click)="toggleCat($event, 'Material')">

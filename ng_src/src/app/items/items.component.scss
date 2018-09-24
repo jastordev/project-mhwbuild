@@ -8,7 +8,7 @@
   height: 92px;
   background-color: #1f242c;
   display: grid;
-  grid-template-columns: 7% 35% auto auto;
+  grid-template-columns: 7% 35% 300px auto;
 }
 
 // Header columns containers
@@ -31,10 +31,40 @@
 .header-tools {
    grid-column: 3;
    align-self: center;
-   display: flex;
-   flex-direction: column;
+}
 
-   button { width: 130px; margin: 3px;}
+.header-btn{
+  display: inline-flex;
+  align-items: center;
+  &:hover {
+    .header-btn-tooltip {
+      width: 100%;
+      visibility: visible;
+    }
+  }
+}
+
+.header-btn-icon {
+  font-size: 22px;
+  position: relative;
+  right: 46%;
+  top: 2px;
+}
+
+.header-btn-vr {
+  width:2px;
+  margin-right: 5px;
+  border-top: 10px solid #cccdcf;
+  border-bottom: 10px solid #cccdcf;
+}
+
+.header-btn-tooltip {
+  color: #cccdcf;
+  margin-left: 4px;
+  margin-right: 4px;
+  width: 0px;
+  display: inline-flex;
+  visibility: hidden;
 }
 
 // Search bar css

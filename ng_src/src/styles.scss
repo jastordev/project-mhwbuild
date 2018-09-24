@@ -27,6 +27,19 @@ body {
 
 .selected { border: 1px solid #d69230 !important; }
 
+.btn-round { border-radius: 50%; }
+.btn-sml { 
+  width: 30px;
+  height: 30px;
+  border: 1px solid;
+}
+.btn-light {
+  background: #32373f;
+  border-color: #686e77;
+}
+
+button { cursor: pointer;}
+
 input, textarea, select, button { 
   background: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
