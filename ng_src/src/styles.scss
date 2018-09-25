@@ -34,8 +34,13 @@ body {
   border: 1px solid;
 }
 .btn-light {
-  background: #32373f;
-  border-color: #686e77;
+  background: #151a21;
+  border-color: #a5a5a5;;
+  color: #a5a5a5;;
+}
+.btn-light:hover {
+  border-color: white;
+  color: white;
 }
 
 button { cursor: pointer;}
@@ -47,7 +52,7 @@ input, textarea, select, button {
   color: #c9c9c9;
   font-family: DINPRO;
 
-  transition: border 0.4s, background 0.4s, box-shadow 0.4s; 
+  transition: border 0.4s, background 0.4s, box-shadow 0.4s, color 0.4s; 
 
   &:hover, &:focus{
     border: 1px solid gray;    
@@ -57,9 +62,9 @@ input, textarea, select, button {
 
 }
 button.toggled-on {
-  border: 1px solid lightblue;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  border: 1px solid rgb(143, 227, 255);
+  color: rgb(143, 227, 255);
+  &:hover{border: 1px solid rgb(143, 227, 255);}
 }
 
 // Styles for when a form is submitted, mainly for validation.

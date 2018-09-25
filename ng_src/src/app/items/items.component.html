@@ -17,11 +17,11 @@
     </div>
 
     <div class="header-btn">
-        <button class="btn-round btn-sml btn-light"
-          [ngClass]="{'toggled-on' : editMode}"
-          (click)=toggleEditMode($event)>
-          <i class="material-icons header-btn-icon">edit</i>
-        </button>  
+      <button class="btn-round btn-sml btn-light"
+        [ngClass]="{'toggled-on' : editMode}"
+        (click)="this.editMode = !this.editMode">
+        <i class="material-icons header-btn-icon">edit</i>
+      </button>  
       <div class="header-btn-tooltip">
         <div class="header-btn-vr"></div>
         <span>Toggle Edit Mode</span>
@@ -30,12 +30,12 @@
 
     <div class="header-btn">
       <button class="btn-round btn-sml btn-light" (click)="selectAll($event)">
-        <i class="material-icons header-btn-icon"
-         *ngIf="itemsSelected.length == 0, else deselectTxt">reorder</i>
+        <i class="material-icons header-btn-icon">reorder</i>
       </button>
       <div class="header-btn-tooltip">
         <div class="header-btn-vr"></div>
-        <span> Select All </span>
+        <span *ngIf="itemsSelected.length == 0, else deselectTxt"> Select All </span>
+        <ng-template #deselectTxt><span>Deselect All</span></ng-template>
       </div> 
     </div>
     

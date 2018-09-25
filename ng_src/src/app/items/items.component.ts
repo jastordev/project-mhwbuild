@@ -35,7 +35,6 @@ export class ItemsComponent implements OnInit {
   constructor(private _data : DataService,
     private modal : ModalService, private _elem: ElementRef,
     private changeDetector: ChangeDetectorRef ) {
-      //this.changeDetector.detach();
     }
 
   ngOnInit() {
@@ -119,15 +118,6 @@ export class ItemsComponent implements OnInit {
       });  
     } else {      
       this.itemsSelected = [];
-    }
-  }
-
-  private toggleEditMode(event : any){
-    this.editMode = !this.editMode;
-    if (this.editMode) {     
-      event.target.innerHTML = "Edit Mode On";
-    } else {
-      event.target.innerHTML = "Edit Mode Off";
     }
   }
 
