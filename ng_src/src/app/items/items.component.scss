@@ -104,6 +104,38 @@
 }
 
 // Categories css
+.item-category {
+  width:50px;
+  background: #151923;
+  border-left: 1px solid #3f4651;
+  color: white;
+  display:grid;
+  justify-items: center;
+
+  &:hover {
+    cursor: pointer;
+    .category-toggled {
+      height: 5px;
+      background: #d6923080;
+    }
+  }
+
+}
+
+.item-category:nth-child(odd){align-items: baseline;}
+.item-category:nth-child(even){align-items: last baseline;}
+
+.category-toggled {
+  height: 0px;
+  width: 100%;
+  background: #d69230;
+  transition: height 0.5s, background 0.5s;
+}
+
+.cat-on {
+  height: 10px;
+}
+
 .category {
   width: 70px;
   margin-right: 5px;

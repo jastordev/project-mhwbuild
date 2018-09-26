@@ -47,19 +47,37 @@
         <div class="header-btn-vr"></div>
         <span> Delete Selected</span>
       </div> 
-    </div>
-  
-     
-    <!-- 
-    <button (click)="selectAll($event)">
-      <span *ngIf="itemsSelected.length == 0, else deselectTxt">Select All</span>
-      <ng-template #deselectTxt >Deselect All</ng-template>
-    </button>
-     -->
-    
+    </div>    
   </div>
+
   <div class="header-cats">
-    <div class="category" (click)="toggleCat($event, 'Material')">
+    <div class="item-category" (click)="toggleCat($event, 'Material')">
+      <div class="category-toggled"
+      [ngClass]="{'cat-on' : categoryToggle['Material']}"></div>
+      <span>MATS</span>
+    </div>
+    <div class="item-category" (click)="toggleCat($event, 'Ammo/Coating')">
+      <span>AMMO</span>
+      <div class="category-toggled"
+      [ngClass]="{'cat-on' : categoryToggle['Ammo/Coating']}"></div>
+    </div>
+    <div class="item-category" (click)="toggleCat($event, 'Decoration')">
+      <div class="category-toggled"
+      [ngClass]="{'cat-on' : categoryToggle['Decoration']}"></div>
+      <span>DECO</span> 
+    </div>
+    <div class="item-category" (click)="toggleCat($event, 'Consumable/Misc')">
+      <span>MISC</span>
+      <div class="category-toggled"
+      [ngClass]="{'cat-on' : categoryToggle['Consumable/Misc']}"></div> 
+    </div>
+    <div class="item-category" (click)="toggleCat($event, 'Specialized Tool')">
+      <div class="category-toggled" 
+      [ngClass]="{'cat-on' : categoryToggle['Specialized Tool']}"></div>
+      <span>TOOL</span> 
+    </div>
+
+    <!-- <div class="category" (click)="toggleCat($event, 'Material')">
       <img class="top" src="assets/cats/mat-off.png" />
       <img [ngClass]="{'top' : categoryToggle['Material']}" src="assets/cats/mat-on.png" />
     </div>
@@ -78,7 +96,7 @@
     <div class="category" (click)="toggleCat($event, 'Specialized Tool')">
       <img class="top" src="assets/cats/tool-off.png" />
       <img [ngClass]="{'top' : categoryToggle['Specialized Tool']}" src="assets/cats/tool-on.png" />
-    </div>
+    </div> -->
   </div>
 </header>
 
