@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ItemsComponent } from './items.component';
 
 const routes: Routes = [
-  { path: 'items', component: ItemsComponent }
+  { path: 'items/:category', component: ItemsComponent },
+  { path: 'items', redirectTo: 'items/mats' }
 ];
 
 @NgModule({

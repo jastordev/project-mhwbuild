@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/observable';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 import { Item } from '../shared/models/item.model';
 import { Skill } from '../shared/models/skill.model';
@@ -9,7 +10,6 @@ import { ItemDetailComponent }
 
 import { DataService } from '../shared/service/data.service';
 import { ModalService } from '../shared/service/modal.service';
-import { ElementRef, ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -27,28 +27,51 @@ export class ItemsComponent implements OnInit {
   private itemsFiltered : Item[];
   private itemsSelected;
 
-  private category: String;
+  private category;
 
   private editMode : boolean;
   private searchStr : String;
 
-  constructor(private _data : DataService,
-    private modal : ModalService, private _elem: ElementRef,
-    private changeDetector: ChangeDetectorRef ) {
-    }
+  constructor(
+    private _data : DataService,
+    private modal : ModalService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.category = "Material";
-
     this.editMode = false;
-
     this.itemsSelected = [];
     this.searchStr = "";
-    this.getTestCount();
-    this.loadData();
+
+    this.getCategoryThenLoadData();
+    //this.getTestCount();    
   }
 
-  loadData(){
+  private getCategoryThenLoadData() {
+    this.route.params.subscribe( (params) => {
+      switch(params.category) {
+        case 'mats':
+          this.category = "Material";
+          break;
+        case 'deco':
+          this.category = "Decoration";
+          break;
+        case 'ammo':
+          this.category = "Ammo/Coating";
+          break;
+        case 'tool':
+          this.category = "Specialized Tool";
+          break;
+        case 'misc':
+          this.category = "Consumable/Misc";
+          break;
+      }
+      this.loadData();
+    });
+  }
+
+  private loadData(){
     this._data.skills.subscribe( data => {
       this._skills = data;
     });
@@ -127,10 +150,6 @@ export class ItemsComponent implements OnInit {
       this.showItemDetail(item);
     }    
   }
-
-  // toggleCat(event : any, category : string){
-  //   this.categoryToggle[category] = !this.categoryToggle[category];
-  // }
 
   testError(){
     this._data.testError();
