@@ -50,102 +50,49 @@
     </div>    
   </div>
 
-  <div class="header-cats">
-    <div class="item-category" (click)="toggleCat($event, 'Material')">
-      <div class="category-toggled"
-      [ngClass]="{'cat-on' : categoryToggle['Material']}"></div>
-      <span>MATS</span>
-    </div>
-    <div class="item-category" (click)="toggleCat($event, 'Ammo/Coating')">
-      <span>AMMO</span>
-      <div class="category-toggled"
-      [ngClass]="{'cat-on' : categoryToggle['Ammo/Coating']}"></div>
-    </div>
-    <div class="item-category" (click)="toggleCat($event, 'Decoration')">
-      <div class="category-toggled"
-      [ngClass]="{'cat-on' : categoryToggle['Decoration']}"></div>
-      <span>DECO</span> 
-    </div>
-    <div class="item-category" (click)="toggleCat($event, 'Consumable/Misc')">
-      <span>MISC</span>
-      <div class="category-toggled"
-      [ngClass]="{'cat-on' : categoryToggle['Consumable/Misc']}"></div> 
-    </div>
-    <div class="item-category" (click)="toggleCat($event, 'Specialized Tool')">
-      <div class="category-toggled" 
-      [ngClass]="{'cat-on' : categoryToggle['Specialized Tool']}"></div>
-      <span>TOOL</span> 
-    </div>
+  <h1 class="header-category">{{category}}</h1>
 
-    <!-- <div class="category" (click)="toggleCat($event, 'Material')">
-      <img class="top" src="assets/cats/mat-off.png" />
-      <img [ngClass]="{'top' : categoryToggle['Material']}" src="assets/cats/mat-on.png" />
-    </div>
-    <div class="category" (click)="toggleCat($event, 'Ammo/Coating')">
-      <img class="top" src="assets/cats/ammo-off.png" />
-      <img [ngClass]="{'top' : categoryToggle['Ammo/Coating']}" src="assets/cats/ammo-on.png" />
-    </div>
-    <div class="category" (click)="toggleCat($event, 'Decoration')">
-      <img class="top" src="assets/cats/deco-off.png" />
-      <img [ngClass]="{'top' : categoryToggle['Decoration']}" src="assets/cats/deco-on.png" />
-    </div>
-    <div class="category" (click)="toggleCat($event, 'Consumable/Misc')">
-      <img class="top" src="assets/cats/misc-off.png" />
-      <img [ngClass]="{'top' : categoryToggle['Consumable/Misc']}" src="assets/cats/misc-on.png" />
-    </div>
-    <div class="category" (click)="toggleCat($event, 'Specialized Tool')">
-      <img class="top" src="assets/cats/tool-off.png" />
-      <img [ngClass]="{'top' : categoryToggle['Specialized Tool']}" src="assets/cats/tool-on.png" />
-    </div> -->
-  </div>
 </header>
 
 <div id="data-container">
-
-  <ng-container *ngFor="let category of objectKeys(itemsFiltered)"> 
-    <section *ngIf="itemsFiltered[category].length > 0 && categoryToggle[category]" class="data-category">
-      <header>
-        <h3>{{category}}</h3>
-      </header>
-      <ul>
-        <li *ngFor="let item of itemsFiltered[category]">
-          <div (click)="onItemClick($event, item)" class="list-item" 
-            [ngClass]="{'selected' : itemsSelected.includes(item)}">
-            <div class="list-item-icon">
-              <img src={{item.iconUrl}} alt={{item.name}}/>
-            </div>
-            <div class="list-item-name">
-              {{item.name}}
-            </div>
-            <div [ngClass]="'rare' + item.rarity">
-              R{{item.rarity}}
-            </div>
-            <div class="list-item-desc">
-              {{item.desc}}
-            </div>
-            <div class="list-item-obtained">
-              Obtained <span> {{item.obtainedFrom}} </span>
-            </div>            
-            <div>
-              Buy <span>{{item.buyPrice}} z </span>
-            </div>
-            <div>
-              Sell <span>{{item.sellPrice}} z </span>
-            </div>
-            <div>
-              Carry <span>{{item.carry}}</span>
-            </div>
+  <section class="data-category">
+    <ul>
+      <li *ngFor="let item of itemsFiltered">
+        <div (click)="onItemClick($event, item)" class="list-item" 
+          [ngClass]="{'selected' : itemsSelected.includes(item)}">
+          <div class="list-item-icon">
+            <img src={{item.iconUrl}} alt={{item.name}}/>
           </div>
-          <div *ngIf="item.skill" class="list-item-extra">
-            <div class="list-item-skill">
-              <img src="{{item.skill.iconPath}}" />
-              <span>{{item.skill.name}}</span>
-              <span class="skill-desc">{{item.skill.desc}}</span>
-            </div>
+          <div class="list-item-name">
+            {{item.name}}
           </div>
-        </li>
-      </ul>
-    </section>
-  </ng-container>
-
+          <div [ngClass]="'rare' + item.rarity">
+            R{{item.rarity}}
+          </div>
+          <div class="list-item-desc">
+            {{item.desc}}
+          </div>
+          <div class="list-item-obtained">
+            Obtained <span> {{item.obtainedFrom}} </span>
+          </div>            
+          <div>
+            Buy <span>{{item.buyPrice}} z </span>
+          </div>
+          <div>
+            Sell <span>{{item.sellPrice}} z </span>
+          </div>
+          <div>
+            Carry <span>{{item.carry}}</span>
+          </div>
+        </div>
+        <div *ngIf="item.skill" class="list-item-extra">
+          <div class="list-item-skill">
+            <img src="{{item.skill.iconPath}}" />
+            <span>{{item.skill.name}}</span>
+            <span class="skill-desc">{{item.skill.desc}}</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
 </div>

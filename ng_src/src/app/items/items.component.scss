@@ -18,11 +18,16 @@
   display: flex;
 }
 
-.header-cats {
+.header-category {
   grid-column: 4;
-  display:flex;
   justify-self: end;
+  align-self: center;
+  padding-right: 50px;
+  padding-left: 20px;
+  color: #dbdbdb;
+  border-bottom: 1px solid #d69230;
 }
+
 
 .header-img {
   grid-column: 1;
@@ -122,30 +127,10 @@
 
 }
 
-.item-category:nth-child(odd){align-items: baseline;}
-.item-category:nth-child(even){align-items: last baseline;}
-
-.category-toggled {
-  height: 0px;
-  width: 100%;
-  background: #d69230;
-  transition: height 0.5s, background 0.5s;
-}
-
-.cat-on {
-  height: 10px;
-}
-
-.category {
-  width: 70px;
-  margin-right: 5px;
-  
-  img { position: absolute; }
-}
-
 // Data container CSS
 
 .data-category {
+  padding-top: 15px;
   ul, li {
     list-style-type: none;
     list-style-position: inside;

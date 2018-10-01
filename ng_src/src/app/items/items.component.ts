@@ -24,10 +24,10 @@ export class ItemsComponent implements OnInit {
   private _items;
   private _skills : Skill[];
   private serverCount: number;
-  private itemsFiltered;
+  private itemsFiltered : Item[];
   private itemsSelected;
 
-  private categoryToggle = {}
+  private category: String;
 
   private editMode : boolean;
   private searchStr : String;
@@ -38,13 +38,7 @@ export class ItemsComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.categoryToggle = {
-      "Material" : true,
-      "Consumable/Misc" : true,
-      "Specialized Tool" : true,
-      "Decoration" : true,
-      "Ammo/Coating" : true
-    }
+    this.category = "Material";
 
     this.editMode = false;
 
@@ -59,34 +53,44 @@ export class ItemsComponent implements OnInit {
       this._skills = data;
     });
     this._data.items.subscribe( data => {
-      this._items = this.itemsSortByCategory(data);
+      this._items = this.itemListSetUp(data);
+      console.log(this._items);
       this.searchFilter();
+      console.log(this.itemsFiltered);
     });     
   }
 
-  private itemsSortByCategory(items : Item[]){
-    let categories = ["Material", "Consumable/Misc", "Specialized Tool", "Decoration", "Ammo/Coating"];
-    let sortedItems = {};
-    for (let cat of categories) {
-      sortedItems[cat] = items.filter(item => item.type == cat);
-      if(cat == "Decoration") {
-        sortedItems[cat].forEach((item, index) => {
-          sortedItems[cat][index]["skill"] = this._skills.find(s => s.skillId == item.skillID);
-        });
-      }
+  private itemListSetUp(items : Item[]) {
+    let filteredItems = items.filter(item => item.type == this.category);
+    if (this.category == "Decoration") {
+      filteredItems.forEach((item, index) => {
+        filteredItems[index]["skill"] = this._skills.find(s => s.skillId == item.skillID);
+      });
     }
-    return sortedItems;
-  } 
+    return filteredItems;    
+  }
+
+  // private itemsSortByCategory(items : Item[]){
+  //   let categories = ["Material", "Consumable/Misc", "Specialized Tool", "Decoration", "Ammo/Coating"];
+  //   let sortedItems = {};
+  //   for (let cat of categories) {
+  //     sortedItems[cat] = items.filter(item => item.type == cat);
+  //     if(cat == "Decoration") {
+  //       sortedItems[cat].forEach((item, index) => {
+  //         sortedItems[cat][index]["skill"] = this._skills.find(s => s.skillId == item.skillID);
+  //       });
+  //     }
+  //   }
+  //   return sortedItems;
+  // } 
 
   private searchFilter(){
     if(this.searchStr.trim()){
-      for (var category in this._items){
-        this.itemsFiltered[category] = this._items[category].filter(item => {
-          return item.name.toLowerCase().includes(this.searchStr.toLowerCase());
-        });
-      }
+      this.itemsFiltered = this._items.filter(item => {
+        return item.name.toLowerCase().includes(this.searchStr.toLowerCase());
+      });      
     } else {
-      this.itemsFiltered = Object.assign({},this._items);
+      this.itemsFiltered = Object.assign([],this._items);
     }
   }
 
@@ -111,11 +115,11 @@ export class ItemsComponent implements OnInit {
 
   private selectAll(event : any){    
     if(this.itemsSelected.length == 0){
-      Object.keys(this.itemsFiltered).forEach(category => {
-        if(this.categoryToggle[category]) {          
-          this.itemsSelected.push(...this.itemsFiltered[category]);
-        }
-      });  
+      // Object.keys(this.itemsFiltered).forEach(category => {
+      //   if(this.categoryToggle[category]) {          
+      //     this.itemsSelected.push(...this.itemsFiltered[category]);
+      //   }
+      // });  
     } else {      
       this.itemsSelected = [];
     }
@@ -142,9 +146,9 @@ export class ItemsComponent implements OnInit {
     }    
   }
 
-  toggleCat(event : any, category : string){
-    this.categoryToggle[category] = !this.categoryToggle[category];
-  }
+  // toggleCat(event : any, category : string){
+  //   this.categoryToggle[category] = !this.categoryToggle[category];
+  // }
 
   testError(){
     this._data.testError();
