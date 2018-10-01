@@ -70,20 +70,6 @@ export class ItemsComponent implements OnInit {
     return filteredItems;    
   }
 
-  // private itemsSortByCategory(items : Item[]){
-  //   let categories = ["Material", "Consumable/Misc", "Specialized Tool", "Decoration", "Ammo/Coating"];
-  //   let sortedItems = {};
-  //   for (let cat of categories) {
-  //     sortedItems[cat] = items.filter(item => item.type == cat);
-  //     if(cat == "Decoration") {
-  //       sortedItems[cat].forEach((item, index) => {
-  //         sortedItems[cat][index]["skill"] = this._skills.find(s => s.skillId == item.skillID);
-  //       });
-  //     }
-  //   }
-  //   return sortedItems;
-  // } 
-
   private searchFilter(){
     if(this.searchStr.trim()){
       this.itemsFiltered = this._items.filter(item => {
@@ -115,11 +101,7 @@ export class ItemsComponent implements OnInit {
 
   private selectAll(event : any){    
     if(this.itemsSelected.length == 0){
-      // Object.keys(this.itemsFiltered).forEach(category => {
-      //   if(this.categoryToggle[category]) {          
-      //     this.itemsSelected.push(...this.itemsFiltered[category]);
-      //   }
-      // });  
+      this.itemsSelected.push(...this.itemsFiltered);
     } else {      
       this.itemsSelected = [];
     }

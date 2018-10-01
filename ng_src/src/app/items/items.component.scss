@@ -7,6 +7,7 @@
 #data-header {
   height: 92px;
   background-color: #1f242c;
+  border-bottom: 1px solid #0f1826;
   display: grid;
   grid-template-columns: 7% 35% 300px auto;
 }
@@ -53,7 +54,7 @@
 .header-btn-icon {
   font-size: 22px;
   position: relative;
-  right: 46%;
+  right: 5px;
   top: 2px;
 }
 
