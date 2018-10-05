@@ -1,55 +1,60 @@
-<div class="container-jic">
-  <div class="feat-nav">
-    <header class="feat-category">
-      <h2><a routerLink="/items">Items</a></h2>
-    </header>
-    <ul class="feat-sub-category">
-      <li><a routerLink="/items/mats">Materials</a></li>
-      <li><a routerLink="/items/ammo">Ammo/Coatings</a></li>
-      <li><a routerLink="/items/misc">Consumables and Misc</a></li>
-      <li><a routerLink="/items/deco">Decorations</a></li>
-      <li><a routerLink="/items/tools">Specialized Tools</a></li>
-    </ul>
+<div class="nav-container">
+  <div class="sidebar-button">
+    <img (click)="openOptions()" src="/assets/menuIcon.png" />
   </div>
-  <div class="feat-nav">
-    <header class="feat-category">
-      <h2><a routerLink="/weapons">Weapons</a></h2>
-    </header>
-    <ul class="feat-sub-category">
-      <li><a routerLink="/weapons/sns">Sword & Shield</a></li>
-      <li><a routerLink="/weapons/db">Dual Blades</a></li>
-      <li><a routerLink="/weapons/gs">Great Sword</a></li>
-      <li><a routerLink="/weapons/ls">Long Sword</a></li>
-      <li><a routerLink="/weapons/lnce">Lance</a></li>
-      <li><a routerLink="/weapons/glnce">Gunlance</a></li>
-      <li><a routerLink="/weapons/ham">Hammer</a></li>
-      <li><a routerLink="/weapons/horn">Hunting Horn</a></li>
-      <li><a routerLink="/weapons/cb">Charge Blade</a></li>
-      <li><a routerLink="/weapons/sa">Switch Axe</a></li>
-      <li><a routerLink="/weapons/ig">Insect Glaive | Kinsects</a></li>
-      <li><a routerLink="/weapons/hbg">Heavy Bowgun</a></li>
-      <li><a routerLink="/weapons/lbg">Light Bowgun</a></li>
-      <li><a routerLink="/weapons/bow">Bow</a></li>
-    </ul>
-  </div>
-  <div class="feat-nav">
-    <header class="feat-category">
-      <h2><a routerLink="/armor">Armor</a></h2>
-    </header>
-    <ul class="feat-sub-category">
-      <li><a routerLink="/armor/hr">Low Rank</a></li>
-      <li><a routerLink="/armor/lr">High Rank</a></li>
-      <li><a routerLink="/armor/charm">Charms</a></li>
-    </ul>
-  </div>
-  <div class="feat-nav">
-    <header class="feat-category">
-      <h2><a routerLink="/skills">Skills</a></h2>
-    </header>
-  </div>
-  <div class="feat-nav">
-    <header class="feat-category">
-      <h2><a routerLink="/builds">Builds</a></h2>
-    </header>
-  </div>
+  <div class="category-container">
+    <div class="feat-nav">
+      <header class="feat-category">
+        <h2><a routerLink="/items">Items</a></h2>
+      </header>
+      <ul class="feat-sub-category">
+        <li><a routerLink="/items/mats">Materials</a></li>
+        <li><a routerLink="/items/ammo">Ammo/Coatings</a></li>
+        <li><a routerLink="/items/misc">Consumables and Misc</a></li>
+        <li><a routerLink="/items/deco">Decorations</a></li>
+        <li><a routerLink="/items/tools">Specialized Tools</a></li>
+      </ul>
+    </div>
+    <div class="feat-nav">
+      <header class="feat-category">
+        <h2><a routerLink="/weapons">Weapons</a></h2>
+      </header>
+      <ul class="feat-sub-category">
+        <li><a routerLink="/weapons/sns">Sword & Shield</a></li>
+        <li><a routerLink="/weapons/db">Dual Blades</a></li>
+        <li><a routerLink="/weapons/gs">Great Sword</a></li>
+        <li><a routerLink="/weapons/ls">Long Sword</a></li>
+        <li><a routerLink="/weapons/lnce">Lance</a></li>
+        <li><a routerLink="/weapons/glnce">Gunlance</a></li>
+        <li><a routerLink="/weapons/ham">Hammer</a></li>
+        <li><a routerLink="/weapons/horn">Hunting Horn</a></li>
+        <li><a routerLink="/weapons/cb">Charge Blade</a></li>
+        <li><a routerLink="/weapons/sa">Switch Axe</a></li>
+        <li><a routerLink="/weapons/ig">Insect Glaive | Kinsects</a></li>
+        <li><a routerLink="/weapons/hbg">Heavy Bowgun</a></li>
+        <li><a routerLink="/weapons/lbg">Light Bowgun</a></li>
+        <li><a routerLink="/weapons/bow">Bow</a></li>
+      </ul>
+    </div>
+    <div class="feat-nav">
+      <header class="feat-category">
+        <h2><a routerLink="/armor">Armor</a></h2>
+      </header>
+      <ul class="feat-sub-category">
+        <li><a routerLink="/armor/hr">Low Rank</a></li>
+        <li><a routerLink="/armor/lr">High Rank</a></li>
+        <li><a routerLink="/armor/charm">Charms</a></li>
+      </ul>
+    </div>
+    <div class="feat-nav">
+      <header class="feat-category">
+        <h2><a routerLink="/skills">Skills</a></h2>
+      </header>
+    </div>
+    <div class="feat-nav">
+      <header class="feat-category">
+        <h2><a routerLink="/builds">Builds</a></h2>
+      </header>
+    </div>
+  </div>  
 </div>

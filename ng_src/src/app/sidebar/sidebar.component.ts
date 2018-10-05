@@ -12,4 +12,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
+  openOptions() {
+    console.log("yep");
+  }
+
 }

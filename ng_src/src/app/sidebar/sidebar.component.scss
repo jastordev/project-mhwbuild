@@ -1,3 +1,46 @@
+@media only screen and (min-width: 768px){
+  .sidebar-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .sidebar-button {
+    display: inline-block;
+  }
+  .category-container {
+    display: none;
+  }
+}
+
+.sidebar-button { 
+  z-index: 2;
+  justify-self: right;
+  height: 70px;
+  img {
+    height: 50px;
+    margin: 10px 4px;
+    border-radius: 6px;
+    &:hover {
+      background: #151a24;
+      cursor: pointer;
+    }  
+  }
+  
+}
+
+.nav-container {
+  display: grid;
+  grid-template-rows: 2;
+}
+
+.category-container {
+  background-color: #27303f;
+  border: 1px solid #3f4651;
+  border-bottom: none; /*Border bottom in sidebar*/
+  border-radius: 2px;
+}
+
 .feat-category {
   color: #dbdbdb;
   background: #171d27;

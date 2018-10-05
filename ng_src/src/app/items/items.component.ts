@@ -77,9 +77,7 @@ export class ItemsComponent implements OnInit {
     });
     this._data.items.subscribe( data => {
       this._items = this.itemListSetUp(data);
-      console.log(this._items);
       this.searchFilter();
-      console.log(this.itemsFiltered);
     });     
   }
 

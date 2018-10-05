@@ -1,7 +1,5 @@
 .grid-container {
   height: 100vh;
-  min-height:200px;
-  min-width:1000px;
   display: grid;
   grid-template-columns: 250px auto;
   grid-template-rows: 70px auto;
@@ -53,11 +51,8 @@ img.header-logo {
 }
 
 // Sidebar rules here
+
 #sidebar-container {
-  background-color: #27303f;
-  border: 1px solid #3f4651;
-  border-bottom: none; /*Border bottom in sidebar*/
-  border-radius: 2px;
   grid-column: 1;
   grid-row: 2 / span 1;
   margin: 20px 25px auto 15px;
@@ -113,4 +108,20 @@ img.header-logo {
   top: 0;
   left: 0;
   border-radius: 10px 10px 0px 0px;
+}
+
+@media only screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+
+  #sidebar-container {
+    grid-row: 1;
+    height: 70px;
+    width: 100%;
+    justify-self: right;
+    z-index: 2;
+    position: absolute;
+    margin: 0px;
+  }
 }
