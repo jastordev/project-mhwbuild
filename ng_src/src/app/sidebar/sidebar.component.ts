@@ -7,13 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
+  optionsVisible: boolean;
+
   constructor() { }
 
   ngOnInit() {
-  }
-
-  openOptions() {
-    console.log("yep");
+    this.optionsVisible = false;
   }
 
 }

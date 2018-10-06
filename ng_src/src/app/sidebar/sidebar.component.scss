@@ -11,6 +11,9 @@
   .category-container {
     display: none;
   }
+  .category-container.show {
+    display: block;
+  }
 }
 
 .sidebar-button { 

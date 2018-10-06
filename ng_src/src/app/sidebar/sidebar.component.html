@@ -1,8 +1,8 @@
 <div class="nav-container">
   <div class="sidebar-button">
-    <img (click)="openOptions()" src="/assets/menuIcon.png" />
+    <img (click)="optionsVisible = !optionsVisible" src="/assets/menuIcon.png" />
   </div>
-  <div class="category-container">
+  <div [ngClass]="{'show' : optionsVisible}"class="category-container">
     <div class="feat-nav">
       <header class="feat-category">
         <h2><a routerLink="/items">Items</a></h2>
