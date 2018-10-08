@@ -11,9 +11,7 @@
   .category-container {
     display: none;
   }
-  .category-container.show {
-    display: block;
-  }
+  
 }
 
 .sidebar-button { 
@@ -28,8 +26,7 @@
       background: #151a24;
       cursor: pointer;
     }  
-  }
-  
+  }  
 }
 
 .nav-container {
@@ -42,6 +39,8 @@
   border: 1px solid #3f4651;
   border-bottom: none; /*Border bottom in sidebar*/
   border-radius: 2px;
+
+  &.show { display: block; }
 }
 
 .feat-category {

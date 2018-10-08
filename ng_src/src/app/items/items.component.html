@@ -11,7 +11,6 @@
         <i class="material-icons header-btn-icon">add</i>
       </button>
       <div class="header-btn-tooltip">
-        <div class="header-btn-vr"></div>
         <span>Add New Item</span>
       </div> 
     </div>
@@ -23,7 +22,6 @@
         <i class="material-icons header-btn-icon">edit</i>
       </button>  
       <div class="header-btn-tooltip">
-        <div class="header-btn-vr"></div>
         <span>Toggle Edit Mode</span>
       </div> 
     </div>
@@ -33,7 +31,6 @@
         <i class="material-icons header-btn-icon">reorder</i>
       </button>
       <div class="header-btn-tooltip">
-        <div class="header-btn-vr"></div>
         <span *ngIf="itemsSelected.length == 0, else deselectTxt"> Select All </span>
         <ng-template #deselectTxt><span>Deselect All</span></ng-template>
       </div> 
@@ -44,7 +41,6 @@
         <i class="material-icons header-btn-icon">delete</i>
       </button>
       <div class="header-btn-tooltip">
-        <div class="header-btn-vr"></div>
         <span> Delete Selected</span>
       </div> 
     </div>    

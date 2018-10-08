@@ -42,11 +42,10 @@
 .header-btn{
   display: inline-flex;
   align-items: center;
-  &:hover {
-    .header-btn-tooltip {
-      visibility: visible;
-      animation: reveal 1.5s forwards;
-      span { animation: slidein 1s forwards; }      
+  margin-right: 5px;
+  & button:hover {
+    ~ .header-btn-tooltip {
+      opacity: 1;
     }
   }
 }
@@ -58,32 +57,18 @@
   top: 2px;
 }
 
-.header-btn-vr {
-  width:2px;
-  margin-right: 5px;
-  border-top: 10px solid #cccdcf;
-  border-bottom: 10px solid #cccdcf;
-}
-
 .header-btn-tooltip {
-  color: #cccdcf;
-  margin-left: 4px;
-  margin-right: 4px;
-  width: 0px;
-  display: inline-flex;
-  overflow: hidden;
-  white-space: nowrap;
-  visibility: hidden;
-}
-
-@keyframes slidein {
-  0% { margin-left:-200px; }
-  100% { margin-left:0px; }
-}
-
-@keyframes reveal {
-  0% {opacity:0;width:0px;}
-  100% {opacity:1;width:100%;}
+  background: #cccdcf;
+  margin-left: 33px;
+  padding: 2px 5px;
+  border: 1px solid #1c1d20;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  position: absolute;
+  z-index: 2;
+  transition: opacity 0.2s;
+  pointer-events: none;
 }
 
 
