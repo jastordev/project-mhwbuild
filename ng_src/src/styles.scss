@@ -124,3 +124,13 @@ button.toggled-on {
 
 // Default border color for mh-select
 mh-select {  border-color: #0c111d; }
+
+.chevron-down {
+  border: solid #70757e;
+  border-width: 0 3px 3px 0;
+  padding: 4px;
+  bottom: 3px;
+  position: relative;
+  transform: rotate(45deg);      
+  transition: border 0.4s;   
+}

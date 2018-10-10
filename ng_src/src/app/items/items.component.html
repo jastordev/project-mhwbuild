@@ -1,53 +1,69 @@
-<header id="data-header">
-  <img class="header-img" src="assets/itemsHeader.png" />
-  <div class="header-search">
-      <img class="search-icon" src="assets/searchIcon.png" />
-      <input (keyup)="searchFilter()" [(ngModel)]="searchStr" class="search" placeholder="Search..." />
-  </div>
-  <div class="header-tools">
-    
-    <div class="header-btn">
-      <button class="btn-round btn-sml btn-light" (click)=addNewItem()>
-        <i class="material-icons header-btn-icon">add</i>
-      </button>
-      <div class="header-btn-tooltip">
-        <span>Add New Item</span>
-      </div> 
-    </div>
-
-    <div class="header-btn">
-      <button class="btn-round btn-sml btn-light"
-        [ngClass]="{'toggled-on' : editMode}"
-        (click)="this.editMode = !this.editMode">
-        <i class="material-icons header-btn-icon">edit</i>
-      </button>  
-      <div class="header-btn-tooltip">
-        <span>Toggle Edit Mode</span>
-      </div> 
-    </div>
-
-    <div class="header-btn">
-      <button class="btn-round btn-sml btn-light" (click)="selectAll($event)">
-        <i class="material-icons header-btn-icon">reorder</i>
-      </button>
-      <div class="header-btn-tooltip">
-        <span *ngIf="itemsSelected.length == 0, else deselectTxt"> Select All </span>
-        <ng-template #deselectTxt><span>Deselect All</span></ng-template>
-      </div> 
-    </div>
-    
-    <div class="header-btn">
-      <button class="btn-round btn-sml btn-light" (click)=deleteSelected()>
-        <i class="material-icons header-btn-icon">delete</i>
-      </button>
-      <div class="header-btn-tooltip">
-        <span> Delete Selected</span>
-      </div> 
-    </div>    
-  </div>
-
+<header id="data-header">  
   <h1 class="header-category">{{category}}</h1>
+  <div class="header-tools">
+    <div class="tools-tab">
+      <div class="chevron-down"></div>
+    </div>
+    <div class="tools-btns">
 
+      <div class="header-btn">
+        <button class="btn-round btn-sml btn-light" >
+          <i class="material-icons header-btn-icon">search</i>
+        </button>
+        <div class="header-btn-tooltip">
+          <span>Search</span>
+        </div> 
+      </div>
+  
+      <div class="header-btn">
+        <button class="btn-round btn-sml btn-light" (click)=addNewItem()>
+          <i class="material-icons header-btn-icon">add</i>
+        </button>
+        <div class="header-btn-tooltip">
+          <span>Add New Item</span>
+        </div> 
+      </div>
+  
+      <div class="header-btn">
+        <button class="btn-round btn-sml btn-light"
+          [ngClass]="{'toggled-on' : editMode}"
+          (click)="this.editMode = !this.editMode">
+          <i class="material-icons header-btn-icon">edit</i>
+        </button>  
+        <div class="header-btn-tooltip">
+          <span>Toggle Edit Mode</span>
+        </div> 
+      </div>
+  
+      <div class="header-btn">
+        <button class="btn-round btn-sml btn-light" (click)="selectAll($event)">
+          <i class="material-icons header-btn-icon">reorder</i>
+        </button>
+        <div class="header-btn-tooltip">
+          <span *ngIf="itemsSelected.length == 0, else deselectTxt"> Select All </span>
+          <ng-template #deselectTxt><span>Deselect All</span></ng-template>
+        </div> 
+      </div>
+      
+      <div class="header-btn">
+        <button class="btn-round btn-sml btn-light" (click)=deleteSelected()>
+          <i class="material-icons header-btn-icon">delete</i>
+        </button>
+        <div class="header-btn-tooltip">
+          <span> Delete Selected</span>
+        </div> 
+      </div>    
+    </div>
+    <div class="tools-search">
+
+    </div>
+  </div>
+
+<!-- 
+  <div class="header-search">
+    <img class="search-icon" src="assets/searchIcon.png" />
+    <input (keyup)="searchFilter()" [(ngModel)]="searchStr" class="search" placeholder="Search..." />
+  </div> -->
 </header>
 
 <div id="data-container">

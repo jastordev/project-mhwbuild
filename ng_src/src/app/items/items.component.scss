@@ -2,47 +2,69 @@
   font-style: italic;
   font-size: 10px;
 }
+@media only screen and (min-width: 768px){
+  .tools-tab {
+    display: none;
+  }
+  .header-tools {
+    padding: 12px 2px;
+    border-bottom: 1px solid #3f4651;    
+  }
+}
+@media only screen and (max-width: 768px){
+  .tools-btns{ 
+    display: none;
+  }
+  .header-tools {
+    position: absolute;
+    top: 56px;
+    padding: 0px;
+    border: none;
+  }
+}
+
+// Header tools css, reorganize later
+.tools-tab {  
+  padding: 3px 14px;
+  border-radius: 2px;
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
+  border-color: #3f4651;
+  cursor: pointer;
+}
 
 // Header CSS
 #data-header {
-  height: 92px;
-  background-color: #1f242c;
-  border-bottom: 1px solid #0f1826;
-  display: grid;
-  grid-template-columns: 7% 35% 300px auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 // Header columns containers
 .header-search {
-  grid-column: 2;
   align-self: center;
   display: flex;
+  flex-grow: 1;
 }
 
 .header-category {
-  grid-column: 4;
-  justify-self: end;
-  align-self: center;
-  padding-right: 50px;
-  padding-left: 20px;
   color: #dbdbdb;
-  border-bottom: 1px solid #d69230;
-}
-
-
-.header-img {
-  grid-column: 1;
+  border-bottom: 1px solid #3f4651;
+  flex-grow: 1;
+  margin: 0;
+  background: #1f242c;
+  padding: 8px;
 }
 
 .header-tools {
-   grid-column: 3;
-   align-self: center;
+  background: #1f242c;
 }
 
 .header-btn{
   display: inline-flex;
   align-items: center;
   margin-right: 5px;
+  position: relative;
   & button:hover {
     ~ .header-btn-tooltip {
       opacity: 1;
@@ -59,18 +81,19 @@
 
 .header-btn-tooltip {
   background: #cccdcf;
-  margin-left: 33px;
+  margin-right: 33px;
   padding: 2px 5px;
   border: 1px solid #1c1d20;
   border-radius: 4px;
   font-size: 12px;
   opacity: 0;
   position: absolute;
+  left: 32px;
   z-index: 2;
   transition: opacity 0.2s;
   pointer-events: none;
+  white-space: nowrap;  
 }
-
 
 // Search bar css
 .search {
