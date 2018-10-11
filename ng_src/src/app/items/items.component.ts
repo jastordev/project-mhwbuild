@@ -15,21 +15,20 @@ import { ModalService } from '../shared/service/modal.service';
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
-  styleUrls: ['./items.component.scss']
+  styleUrls: ['./items.component.scss'] 
 })
 export class ItemsComponent implements OnInit {
 
-  objectKeys = Object.keys;
-
   private _items;
   private _skills : Skill[];
-  private serverCount: number;
   private itemsFiltered : Item[];
   private itemsSelected;
 
   private category;
 
   private editMode : boolean;
+  private toolsOpen : boolean;
+  private searchOpen : boolean;
   private searchStr : String;
 
   constructor(
@@ -43,9 +42,9 @@ export class ItemsComponent implements OnInit {
     this.editMode = false;
     this.itemsSelected = [];
     this.searchStr = "";
+    this.toolsOpen = false;
 
     this.getCategoryThenLoadData();
-    //this.getTestCount();    
   }
 
   private getCategoryThenLoadData() {
@@ -147,20 +146,5 @@ export class ItemsComponent implements OnInit {
     } else {
       this.showItemDetail(item);
     }    
-  }
-
-  testError(){
-    this._data.testError();
-  }
-  
-  testReq(){
-    this._data.testReq();
-  }
-
-  getTestCount(){
-    this._data.getTestCount()
-      .subscribe( data => {
-        this.serverCount = data;
-      });
   }
 }

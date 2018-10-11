@@ -9,11 +9,17 @@
   .header-tools {
     padding: 12px 2px;
     border-bottom: 1px solid #3f4651;    
+    background: #1f242c;     
   }
 }
 @media only screen and (max-width: 768px){
-  .tools-btns{ 
-    display: none;
+  .tools-btns { 
+    opacity: 0;
+    height: 0px;
+    padding: 0px 12px;
+    pointer-events: none;
+    border: 1px solid #3f4651;
+    border-top: none;
   }
   .header-tools {
     position: absolute;
@@ -31,6 +37,30 @@
   border-style: solid;
   border-color: #3f4651;
   cursor: pointer;
+  transition: border 0.4s; 
+  background: #1f242c;
+  width: 11px;
+  justify-self: center;  
+
+  &:hover {
+    border-color: #a4aebd;
+    .chevron-down {
+      border-color: #a4aebd;
+    }
+  }
+}
+
+.tab-pulled {
+  opacity: 1;
+  height: auto;
+  background: #1f242c;
+  padding: 6px 12px;  
+  pointer-events: all;
+}
+
+.tools-btns {
+  transition: all 0.3s;
+  overflow: hidden;
 }
 
 // Header CSS
@@ -57,7 +87,7 @@
 }
 
 .header-tools {
-  background: #1f242c;
+  display: grid;
 }
 
 .header-btn{
