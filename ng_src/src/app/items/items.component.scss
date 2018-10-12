@@ -2,79 +2,57 @@
   font-style: italic;
   font-size: 10px;
 }
-@media only screen and (min-width: 768px){
+// Styles for larger devices.
+@media only screen and (min-width: 769px){
   .tools-tab {
     display: none;
   }
+  .tools-search {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;  
+  }
   .header-tools {
-    padding: 12px 2px;
     border-bottom: 1px solid #3f4651;    
     background: #1f242c;     
   }
+  .tools-search, .search-pulled {
+    width: 60%;
+  }
 }
+// Styles for smaller devices.
 @media only screen and (max-width: 768px){
   .tools-btns { 
     opacity: 0;
     height: 0px;
     padding: 0px 12px;
     pointer-events: none;
-    border: 1px solid #3f4651;
-    border-top: none;
+    justify-self: center;
   }
   .header-tools {
     position: absolute;
     top: 56px;
     padding: 0px;
+    width: 65%;
     border: none;
   }
-}
-
-// Header tools css, reorganize later
-.tools-tab {  
-  padding: 3px 14px;
-  border-radius: 2px;
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: #3f4651;
-  cursor: pointer;
-  transition: border 0.4s; 
-  background: #1f242c;
-  width: 11px;
-  justify-self: center;  
-
-  &:hover {
-    border-color: #a4aebd;
-    .chevron-down {
-      border-color: #a4aebd;
-    }
+  .btns-pulled{
+    border: 1px solid #3f4651;
+    border-top: none;
+  }
+  .tools-search, .search-pulled {
+    width: 100%;
   }
 }
 
-.tab-pulled {
-  opacity: 1;
-  height: 31px;
-  background: #1f242c;
-  padding: 6px 12px;  
-  pointer-events: all;
-}
-
-.tools-btns {
-  transition: all 0.3s;
-  overflow: hidden;
-}
-
-// Header CSS
+// Header styles, in order of html appearance.
 #data-header {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-}
-
-// Header columns containers
-.header-search {
-  align-self: center;
-  display: flex;
-  flex-grow: 1;
 }
 
 .header-category {
@@ -90,6 +68,48 @@
   display: grid;
 }
 
+// Header search styles.
+.tools-search {
+  opacity: 0;
+  height: 0;
+  background: #1f242c;
+  overflow: hidden;
+  transition: all 0.3s;
+  justify-self: center;
+}
+.search-pulled {
+  opacity: 1;  
+  padding: 5px;
+  height: 28px;
+  border: 1px solid #3f4651;
+  border-top: none;
+}
+.search {
+  width: 100%;
+  font-size: 17px;
+  background: transparent;
+  border: 0px;
+  color: #ffffff;
+  border-bottom: 3px solid #141518;
+
+  ::placeholder{
+    color: #85878a;
+  }
+}
+
+// Header buttons styles.
+.tools-btns {
+  transition: all 0.3s;
+  overflow: hidden;
+  align-self: center;
+}
+.btns-pulled {
+  opacity: 1;
+  height: 31px;
+  background: #1f242c;
+  padding: 6px 12px;  
+  pointer-events: all;
+}
 .header-btn{
   display: inline-flex;
   align-items: center;
@@ -101,14 +121,12 @@
     }
   }
 }
-
 .header-btn-icon {
   font-size: 22px;
   position: relative;
   right: 5px;
   top: 2px;
 }
-
 .header-btn-tooltip {
   background: #cccdcf;
   margin-right: 33px;
@@ -125,49 +143,27 @@
   white-space: nowrap;  
 }
 
-// Search bar css
-.search {
-  width: 80%;
-  font-size: 28px;
-  background: transparent;
-  border: 0px;
-  color: #ffffff;
-  border-bottom: 3px solid #141518;
-  padding-left: 8px;
-
-  ::placeholder{
-    color: #85878a;
-  }
-}
-
-.search-icon {
-  width: 45px;
-  max-width: 45px;
-  max-height:45px;
-  padding-right: 6px;
-}
-
-// Categories css
-.item-category {
-  width:50px;
-  background: #151923;
-  border-left: 1px solid #3f4651;
-  color: white;
-  display:grid;
-  justify-items: center;
+// Header pull tab style.
+.tools-tab {  
+  padding: 3px 14px;
+  border-radius: 2px;
+  border: 1px solid #3f4651;
+  border-top: none;
+  cursor: pointer;
+  transition: border 0.4s; 
+  background: #1f242c;
+  width: 11px;
+  justify-self: center;  
 
   &:hover {
-    cursor: pointer;
-    .category-toggled {
-      height: 5px;
-      background: #d6923080;
+    border-color: #a4aebd;
+    .chevron-down {
+      border-color: #a4aebd; 
     }
   }
-
 }
 
 // Data container CSS
-
 .data-category {
   padding-top: 15px;
   ul, li {
@@ -176,29 +172,24 @@
     margin: 5px 0px 0px 10px;
     padding: 0;
   }
-  
 }
 
+// Individual item display styles. NOTE: CHANGE THESE TO SOMETHING BETTER
+// CARD BASED instead of LIST ENTRY
 .list-item {
   width:98%;
   min-height:35px;
   background-color: #161b24;
   color: #a0a0a0;
-
   display:inline-grid;
   grid-template-columns: 40px 10% 2% 40% auto 8% 8% 8%;
-
   border-radius: 5px;
   border: 1px solid transparent;
-
   transition: border 0.4s;
-
   font-size: 15px;
   font-family: DINPRO;
-
   align-items: center;
   vertical-align: bottom;
-
   span {
     color: #d69230;
     margin: 0px 4px 0px 4px;
@@ -216,7 +207,6 @@
   border-radius: 5px 0px 0px 5px;
   display:flex;
   align-items:center;
-
   img{ margin: 4px; max-width:32px; }
 }
 
