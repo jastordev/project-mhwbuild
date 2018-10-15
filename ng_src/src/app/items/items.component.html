@@ -64,9 +64,43 @@
 
 <div id="data-container">
   <section class="data-category">
-    <ul>
+    <ul class="item-card-list">
       <li *ngFor="let item of itemsFiltered">
-        <div (click)="onItemClick($event, item)" class="list-item" 
+        <div class="item-card">
+          <div class="item-card-icon">
+              <img src={{item.iconUrl}} alt={{item.name}}/>
+          </div>
+          <div class="item-card-name">{{item.name}}</div>
+          <div class="item-card-desc">{{item.desc}}</div>
+          <div [ngClass]="'item-card-rarity rare' + item.rarity">
+            Rarity {{item.rarity}}
+          </div>
+          <div class="item-card-misc">
+            <div class="item-card-buy">
+              <span>Buy</span>
+              <span class="item-count">{{item.buyPrice}}z</span>
+            </div>
+            <div class="item-card-sell">
+              <span>Sell</span>
+              <span class="item-count">{{item.sellPrice}}z</span>
+            </div>
+            <div class="item-card-carry">
+              <span>Carry</span>
+              <span class="item-count">{{item.carry}}</span>
+            </div>
+          </div>
+          <div class="item-card-obtained">
+            Obtained <span class="item-count"> {{item.obtainedFrom}}</span>
+          </div>
+          <div *ngIf="item.skill" class="item-card-skill">
+            <div class="list-item-skill">
+              <img src="{{item.skill.iconPath}}" />
+              <span>{{item.skill.name}}</span>
+              <span class="skill-desc">{{item.skill.desc}}</span>
+            </div>
+          </div>
+        </div> 
+        <!-- <div (click)="onItemClick($event, item)" class="list-item" 
           [ngClass]="{'selected' : itemsSelected.includes(item)}">
           <div class="list-item-icon">
             <img src={{item.iconUrl}} alt={{item.name}}/>
@@ -99,7 +133,7 @@
             <span>{{item.skill.name}}</span>
             <span class="skill-desc">{{item.skill.desc}}</span>
           </div>
-        </div>
+        </div> -->
       </li>
     </ul>
   </section>

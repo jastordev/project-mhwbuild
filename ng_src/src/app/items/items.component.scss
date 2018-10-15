@@ -166,12 +166,6 @@
 // Data container CSS
 .data-category {
   padding-top: 15px;
-  ul, li {
-    list-style-type: none;
-    list-style-position: inside;
-    margin: 5px 0px 0px 10px;
-    padding: 0;
-  }
 }
 
 // Individual item display styles. NOTE: CHANGE THESE TO SOMETHING BETTER
@@ -248,3 +242,78 @@
 
 .top{  z-index: 1; transition: opacity 0.3s;}
 .top:hover{ opacity: 0.4; }
+
+// Styles for new item cards
+.item-card {
+  width: 300px;
+  margin: 4px 4px 0px 4px;
+  border-radius: 5px;
+  border: 1px solid #343b4b;
+  background: #1c212c;
+  display: grid; 
+  grid-template-columns: 70px auto;  
+  grid-template-rows: 22px 48px 20px;
+}
+
+.item-card-icon {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  img {
+    width: 100%;
+  }
+}
+
+.item-card-name {
+  grid-column: 2;
+  color: white;
+  font-size: 18px;
+}
+
+.item-card-desc {
+  grid-column: 2;
+  grid-row: 2;
+  font-style: italic;
+  color: gray;
+  font-size: 12px;
+}
+
+.item-card-rarity {
+  grid-column: 1;
+  grid-row: 3;  
+  justify-self: center;
+  align-self: center;
+}
+
+.item-card-misc {
+  grid-column: 2;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  font-size: 13px;
+  color: #9b9a99;
+  align-self: center;
+}
+
+.item-card-skill {
+  grid-column: 1 / span 2;
+  background: #141924;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.item-count {
+  padding: 2px;
+  border-radius: 4px;
+  background: #373b44;
+  color: #d2d2d2;
+  margin: 0px 1px;
+}
+
+
+.item-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  margin: 5px 9px 0px 9px;
+  padding: 0px;
+}
