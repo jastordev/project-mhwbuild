@@ -112,7 +112,12 @@ img.header-logo {
 
 @media only screen and (max-width: 768px) {
   .grid-container {
-    grid-template-columns: auto;
+    grid-template-columns: 100%;
+  }
+
+  #main-container {
+    grid-column: 1;
+    margin: 0px;
   }
 
   #sidebar-container {
