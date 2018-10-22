@@ -18,6 +18,16 @@ body {
 .rare7{ color: #8c59ee; }
 .rare8{ color: #c76c46; }
 
+// Rarity box-shadows.
+.r1-shadow { box-shadow: 0px 0px 3px #a9a9a9;}
+.r2-shadow { box-shadow: 0px 0px 3px #dedede;}
+.r3-shadow { box-shadow: 0px 0px 3px #a1c32e;}
+.r4-shadow { box-shadow: 0px 0px 3px #48ab3f;}
+.r5-shadow { box-shadow: 0px 0px 3px #5caeba;}
+.r6-shadow { box-shadow: 0px 0px 3px #595cd9;}
+.r7-shadow { box-shadow: 0px 0px 3px #8c59ee;}
+.r8-shadow { box-shadow: 0px 0px 3px #c76c46;}
+
 .inline-flex { display: inline-flex; }
 .hidden { visibility: hidden; opacity: 0;}
 .show { visibility: visible; opacity: 1;}

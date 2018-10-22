@@ -59,7 +59,7 @@ export class ItemsComponent implements OnInit {
         case 'ammo':
           this.category = "Ammo/Coating";
           break;
-        case 'tool':
+        case 'tools':
           this.category = "Specialized Tool";
           break;
         case 'misc':

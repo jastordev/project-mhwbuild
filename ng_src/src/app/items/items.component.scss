@@ -244,13 +244,24 @@
 .top:hover{ opacity: 0.4; }
 
 // Styles for new item cards
-.item-card {
+.item-card-container {
   width: 300px;
-  margin: 4px 4px 0px 4px;
+  margin: 8px;
   border-radius: 5px;
   border: 1px solid #343b4b;
   background: #1c212c;
-  display: grid; 
+  transition: border 0.4s;
+}
+
+.item-card-container:hover{
+  border: 1px solid rgba(227, 227, 228, 0.7) !important;
+}
+
+.item-card { 
+  padding: 10px 5px;
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 2px; 
   grid-template-columns: 70px auto;  
   grid-template-rows: 22px 48px 20px;
 }
@@ -258,6 +269,8 @@
 .item-card-icon {
   grid-column: 1;
   grid-row: 1 / span 2;
+  border: 1px solid black;
+  border-radius: 4px;
   img {
     width: 100%;
   }
@@ -298,6 +311,29 @@
   grid-column: 1 / span 2;
   background: #141924;
   border-radius: 0px 0px 4px 4px;
+  padding: 5px;
+  border-top: 1px solid #343b4b;
+}
+
+.item-skill-name {
+  color: white;
+  img {
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+  }
+}
+
+.item-skill-desc {
+  @extend %small-italic;
+  color: gray;
+}
+
+.item-card-obtained {
+  grid-column: 1 / span 2;
+  font-style: italic;
+  font-size: 12px;
+  color: gray;
 }
 
 .item-count {
