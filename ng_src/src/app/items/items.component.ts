@@ -75,6 +75,7 @@ export class ItemsComponent implements OnInit {
       this._skills = data;
     });
     this._data.items.subscribe( data => {
+      console.log("ITEM LIST OBSERVABLE - Loaded data.");
       this._items = this.itemListSetUp(data);
       this.searchFilter();
     });     
@@ -128,6 +129,7 @@ export class ItemsComponent implements OnInit {
   }
 
   private showItemDetail(item : Item){
+    if(!this.editMode) return;
     let input = {
       item : item,
       isForm : this.editMode,

@@ -93,13 +93,45 @@ export class ItemDataService {
   }
 
   private loadAll() {
-    // HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
-    this.dataStore.items = this.returnDummyArray();
-    this._items.next(Object.assign({}, this.dataStore).items);
+    this.http
+      .get(this.backEndDomain + '/api/items/')
+      .take(1)
+      .subscribe( data => {        
+        this.dataStore.items = this.convertDataToItems(data);
+        this._items.next(Object.assign({}, this.dataStore).items);
+        console.log("ITEM DATA SERVICE - Load all Items request made."); // REMOVE
+      },
+      err => {
+        console.log(err);
+      });
   }
 
   getItemCount() : Observable<number> {
     return Observable.of(this.dataStore.items.length);
+  }
+
+  private convertDataToItems(data) {
+    let itemList : Item[] = [];
+    for (let entry of data) {      
+      itemList.push(this.convertDBEntryToItem(entry));
+    }
+    return itemList;
+  }
+
+  private convertDBEntryToItem(entry){
+    let newItem = new Item();
+    newItem.id = entry.ID;
+    newItem.iconUrl = entry.IconPath;
+    newItem.name = entry.Name;
+    newItem.desc = entry.Description;
+    newItem.type = entry.Type;
+    newItem.rarity = entry.Rarity;
+    newItem.obtainedFrom = entry.ObtainedFrom;
+    newItem.sellPrice = entry.SellPrice;
+    newItem.buyPrice = entry.BuyPrice;
+    newItem.skillID = entry.SkillID;
+    newItem.jwlLvl = entry.JewelLevel;
+    return newItem;
   }
 
   //
