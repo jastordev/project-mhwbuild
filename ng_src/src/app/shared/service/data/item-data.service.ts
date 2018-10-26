@@ -42,10 +42,11 @@ export class ItemDataService {
     this.http
       .post(this.backEndDomain + '/api/items/', itemFormData)
       .take(1)
-      .subscribe( (data : {iconUrl : string}) => {
+      .subscribe( (data : {iconUrl : string, itemID: number}) => {
         this.toast
         .createToast("[Success] Item added successfully.", 2);
         item.iconUrl = this.backEndDomain + data.iconUrl;
+        item.id = data.itemID;
         this.dataStore.items.unshift(item);
         this._items.next(Object.assign({}, this.dataStore).items);
       },
@@ -113,7 +114,9 @@ export class ItemDataService {
   private convertDataToItems(data) {
     let itemList : Item[] = [];
     for (let entry of data) {      
+      entry.IconPath = this.backEndDomain + entry.IconPath;
       itemList.push(this.convertDBEntryToItem(entry));
+
     }
     return itemList;
   }
@@ -126,6 +129,7 @@ export class ItemDataService {
     newItem.desc = entry.Description;
     newItem.type = entry.Type;
     newItem.rarity = entry.Rarity;
+    newItem.carry = entry.Carry;
     newItem.obtainedFrom = entry.ObtainedFrom;
     newItem.sellPrice = entry.SellPrice;
     newItem.buyPrice = entry.BuyPrice;
