@@ -7,6 +7,7 @@ const db = require("../database/db");
 
 const imageDestUrl = "/images/items/";
 const defaultIconUrl = imageDestUrl + "default_icon.png";
+const getAllItemsQuery = 'SELECT * FROM Items';
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -19,11 +20,15 @@ var storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
+// ROUTES HERE
+
+// Get all items.
 router.get('/', async (req, res) => {
-  const queryRes = await db.query(getAllItemsQueryStr);
-  res.json(queryRes);
+  const dbRes = await db.query(getAllItemsQuery);
+  res.json(dbRes);
 });
 
+// Receive new item and add to DB. Send back icon file path + id.
 router.post('/', upload.single('imageFile'), async (req, res, next) => {
   let itemIconPath; 
   if(req.file){
@@ -34,19 +39,25 @@ router.post('/', upload.single('imageFile'), async (req, res, next) => {
   // Convert item sent in req to db-ready item. Then send to DB
   let item = makeItemDBReady(JSON.parse(req.body.item));
   item.IconPath = itemIconPath;
-  const queryRes = await db.queryWithVar(item);
-  res.json({iconUrl: itemIconPath, itemID: queryRes[0].id});
+  const dbRes = await db.addItem(item);
+  res.json({iconUrl: itemIconPath, itemID: dbRes[0].id});
 });
 
-let getAllItemsQueryStr = 'SELECT * FROM Items';
+// Delete item where ids match.
+router.delete('/:item_ids', async (req, res) => {
+  console.log(req.params.item_ids);
+  const dbRes = await db.removeItem(req.params.item_ids);
+  res.json("yeo");
+});
 
-let insertItemQueryStr = function(item) {
-  let finalQueryStr = "INSERT INTO Items (Type, Name, Description,"
-  " Rarity, BuyPrice, SellPrice, Carry, ObtainedFrom, SkillID, JewelLevel, IconPath)";
-  
-}
+// Update item where id matches.
+router.put('/:item_id', upload.single('imageFile'), async (req, res) => {  
+  let item = makeItemDBReady(JSON.parse(req.body.item));
+  if(req.file) { item.IconPath = imageDestUrl + req.file.originalname; }
+  const dbRes = await db.updateItem(req.params.item_id, item);
+  res.json(); 
+});
 
-// Change this function if either front-end Item model or DB Item Table schema changes.
 let makeItemDBReady = function(reqItem) {
   let dbItem = {};
   dbItem.Type = reqItem.type;
@@ -62,7 +73,5 @@ let makeItemDBReady = function(reqItem) {
   dbItem.IconPath = reqItem.iconUrl || null;
   return dbItem;
 }
-
-
 
 module.exports = router;

@@ -24,8 +24,8 @@ exports.query = async function(queryStr){
 
 }
 
-exports.queryWithVar = async function( item){
-
+// Query to add a particular item to the db
+exports.addItem = async function(item){
   try{
     let pool = await new sql.ConnectionPool(config).connect();
     let result = await pool.request()
@@ -56,4 +56,35 @@ exports.queryWithVar = async function( item){
     if(err) console.log(err);
   });
 
+}
+
+// Query to remove an item with a particular id
+exports.removeItem = async function(ids) {
+  try{
+    let idArray = ids.split(',');
+    let pool = await new sql.ConnectionPool(config).connect();
+    let req = pool.request();
+    let query = 'DELETE FROM Items WHERE ' + parameteriseQueryForIn(req, 'ID', 'id', sql.Int, idArray);
+    req = await req.query(query);
+    pool.close();
+    return req.recordset;   
+  } catch (err) {
+    console.log(err);
+    pool.close();
+  }
+
+  sql.on('error', err => {
+    if(err) console.log(err);
+  });
+}
+
+
+let parameteriseQueryForIn = function(req, columnName, parameterNamePrefix, type, values) {
+  var parameterNames = [];
+  for (var i = 0; i < values.length; i++) {
+    var parameterName = parameterNamePrefix + i;
+    req.input(parameterName, type, values[i]);
+    parameterNames.push(`@${parameterName}`);
+  }
+  return `${columnName} IN (${parameterNames.join(',')})`
 }

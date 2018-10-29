@@ -16,14 +16,11 @@ export class ToastService {
 
     constructor(private domService : DOMService) {}
 
-    /*
-    *   Creates a toast which varies in look depending on the parameters provided.
-    * 
-    *   @msg : string -> The message to be displayed in the toast.
-    *   @type : ToastType -> The type of toast to display 0 = Error, 1 = Warning
-    *                       and 2 = Success.
-    *   @timeOut : number -> Optional parameter, provides the timeout for the toast.
-    */
+    /** Creates a toast which varies in look depending on the parameters provided.
+     * @msg {string} The message to be displayed in the toast.
+     * @type {ToastType} The type of toast to display 0 = Error, 1 = Warning and 2 = Success.
+     * @timeOut {number} Optional parameter, provides the timeout for the toast.
+     */
     public createToast(msg : string, type : ToastType, timeOut? : number){
         
         let compConfig = {

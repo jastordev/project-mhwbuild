@@ -7,7 +7,7 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 
 import { Item } from '../../models/item.model';
-import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpParams } from '@angular/common/http';
 import { ToastService } from '../toast.service';
 
 @Injectable()
@@ -71,22 +71,43 @@ export class ItemDataService {
   }
 
   deleteItems(items: Item[]){
-    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
-    for (let item of items) {
-      let index = this.dataStore.items.indexOf(item);
-      this.dataStore.items.splice(index, 1);
-    }
-    this._items.next(Object.assign({}, this.dataStore).items);
-
-    // Code for success message.
-    let toastMsg : string;
-    if (items.length <= 1) {
-      toastMsg = `Entry for ${items[0].name} has been succesfully deleted.`;
-    } else {
-      toastMsg = `${items.length} items have been successfully deleted.`;
-    }
-    this.toast.createToast(toastMsg, 2);
+    this.http
+      .delete(this.backEndDomain + '/api/items/' + this.createIDList(items))
+      .take(1)
+      .subscribe( res => {
+        for (let item of items) {
+          let index = this.dataStore.items.indexOf(item);
+          this.dataStore.items.splice(index, 1);
+        }
+        this.deleteItemToast(true);
+        this._items.next(Object.assign({}, this.dataStore).items);
+      },
+      err => {
+        this.deleteItemToast(false, err);
+        console.log(err);
+      });
   }  
+
+  // Delete items helper method. Creates a list (string) of all items' ids.
+  private createIDList(items: Item[]) {
+    let itemIds = [];
+    for (let item of items) {
+      itemIds.push(item.id);
+    }
+    return itemIds.join(',');
+  }
+
+  // Delete items toast notification helper method. 
+  private deleteItemToast(success : boolean, errMsg? : string) {
+    let toastMsg : string;
+    if (success) {      
+      toastMsg = "Item/s have been successfully deleted";
+      this.toast.createToast(toastMsg, 2);
+    } else {
+      toastMsg = "Item/s could not be deleted." + errMsg;
+      this.toast.createToast(toastMsg, 0);
+    }
+  }
 
   getItems() : Observable <Item[]> {
     this.loadAll();
