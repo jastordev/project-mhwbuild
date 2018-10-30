@@ -45,9 +45,8 @@ router.post('/', upload.single('imageFile'), async (req, res, next) => {
 
 // Delete item where ids match.
 router.delete('/:item_ids', async (req, res) => {
-  console.log(req.params.item_ids);
   const dbRes = await db.removeItem(req.params.item_ids);
-  res.json("yeo");
+  res.json("Success");
 });
 
 // Update item where id matches.

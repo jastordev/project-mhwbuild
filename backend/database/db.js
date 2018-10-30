@@ -6,12 +6,10 @@ var exports = module.exports = {};
 // Perform query provided as parameter. NOTE: Maybe change this, not sure how
 // safe it is...
 exports.query = async function(queryStr){
-
-  try{
+  try {
     let pool = await new sql.ConnectionPool(config).connect();
     let result = await pool.request().query(queryStr);
     pool.close();
-    
     return result.recordset;
   } catch (err) {
     console.log(err);
@@ -21,32 +19,18 @@ exports.query = async function(queryStr){
   sql.on('error', err => {
     if(err) console.log(err);
   });
-
 }
 
 // Query to add a particular item to the db
 exports.addItem = async function(item){
-  try{
+  try {
     let pool = await new sql.ConnectionPool(config).connect();
-    let result = await pool.request()
-      .input("Type", item.Type)
-      .input("Name", item.Name)
-      .input("Desc", item.Description)
-      .input("Rare", item.Rarity)
-      .input("BuyP", item.BuyPrice)
-      .input("SellP", item.SellPrice)
-      .input("Carry", item.Carry)
-      .input("Obtn", item.ObtainedFrom)
-      .input("SkillID", item.SkillID)
-      .input("JwlLvl", item.JewelLevel)
-      .input("IconUrl", item.IconPath)
-      .query("INSERT INTO Items (Type, Name, Description, Rarity, BuyPrice,"
-        +" SellPrice, Carry, ObtainedFrom, SkillID, JewelLevel, IconPath) " +
-        "VALUES (@Type, @Name, @Desc, @Rare, @BuyP, @SellP, @Carry, @Obtn,"
-        +"@SkillId, @JwlLvl, @IconUrl); SELECT SCOPE_IDENTITY() AS id;"); 
-
+    let req = pool.request();
+    let query = 'INSERT INTO Items ' + paramaterizeQueryForValues(req, item) +
+      "; SELECT SCOPE_IDENTITY() AS id;"
+    req = await req.query(query);
     pool.close();
-    return result.recordset;   
+    return req.recordset;   
   } catch (err) {
     console.log(err);
     pool.close();
@@ -55,16 +39,16 @@ exports.addItem = async function(item){
   sql.on('error', err => {
     if(err) console.log(err);
   });
-
 }
 
 // Query to remove an item with a particular id
 exports.removeItem = async function(ids) {
-  try{
+  try {
     let idArray = ids.split(',');
     let pool = await new sql.ConnectionPool(config).connect();
     let req = pool.request();
-    let query = 'DELETE FROM Items WHERE ' + parameteriseQueryForIn(req, 'ID', 'id', sql.Int, idArray);
+    let query = 'DELETE FROM Items WHERE '
+      + parameterizeQueryForIn(req, 'ID', 'id', sql.Int, idArray);
     req = await req.query(query);
     pool.close();
     return req.recordset;   
@@ -79,12 +63,24 @@ exports.removeItem = async function(ids) {
 }
 
 
-let parameteriseQueryForIn = function(req, columnName, parameterNamePrefix, type, values) {
+let parameterizeQueryForIn = function(req, columnName, parameterNamePrefix, type, values) {
   var parameterNames = [];
   for (var i = 0; i < values.length; i++) {
     var parameterName = parameterNamePrefix + i;
     req.input(parameterName, type, values[i]);
     parameterNames.push(`@${parameterName}`);
   }
-  return `${columnName} IN (${parameterNames.join(',')})`
+  return `${columnName} IN (${parameterNames.join(',')})`;
+}
+
+// Generates a dynamic query according to the key-value pairs in the provided object.
+// obj's keys MUST be the columns for the associated table.
+let paramaterizeQueryForValues = function(req, obj) {
+  var parameterNames = [];
+  let columns = Object.keys(obj);
+  for (let column of columns) {
+    req.input(column, obj[column]);
+    parameterNames.push(`@${column}`);
+  }
+  return `(${columns.join(',')}) VALUES (${parameterNames.join(',')})`;
 }
