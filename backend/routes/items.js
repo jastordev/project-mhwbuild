@@ -39,13 +39,14 @@ router.post('/', upload.single('imageFile'), async (req, res, next) => {
   // Convert item sent in req to db-ready item. Then send to DB
   let item = makeItemDBReady(JSON.parse(req.body.item));
   item.IconPath = itemIconPath;
-  const dbRes = await db.addItem(item);
+  const dbRes = await db.addItem(item, 'Items');
   res.json({iconUrl: itemIconPath, itemID: dbRes[0].id});
 });
 
 // Delete item where ids match.
 router.delete('/:item_ids', async (req, res) => {
-  const dbRes = await db.removeItem(req.params.item_ids);
+  let ids = req.params.item_ids.split(',');
+  const dbRes = await db.removeItem(ids, 'Items');
   res.json("Success");
 });
 

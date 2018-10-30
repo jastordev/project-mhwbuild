@@ -22,12 +22,11 @@ exports.query = async function(queryStr){
 }
 
 // Query to add a particular item to the db
-exports.addItem = async function(item){
+exports.addItem = async function(item, tableName){
   try {
     let pool = await new sql.ConnectionPool(config).connect();
     let req = pool.request();
-    let query = 'INSERT INTO Items ' + paramaterizeQueryForValues(req, item) +
-      "; SELECT SCOPE_IDENTITY() AS id;"
+    let query = `INSERT INTO ${tableName} ${paramaterizeQueryForValues(req, item)}; SELECT SCOPE_IDENTITY() AS id;`
     req = await req.query(query);
     pool.close();
     return req.recordset;   
@@ -42,13 +41,11 @@ exports.addItem = async function(item){
 }
 
 // Query to remove an item with a particular id
-exports.removeItem = async function(ids) {
+exports.removeItem = async function(ids, tableName) {
   try {
-    let idArray = ids.split(',');
     let pool = await new sql.ConnectionPool(config).connect();
     let req = pool.request();
-    let query = 'DELETE FROM Items WHERE '
-      + parameterizeQueryForIn(req, 'ID', 'id', sql.Int, idArray);
+    let query = `DELETE FROM ${tableName} WHERE ${parameterizeQueryForIn(req, 'ID', 'id', sql.Int, ids)}`;
     req = await req.query(query);
     pool.close();
     return req.recordset;   
@@ -62,7 +59,8 @@ exports.removeItem = async function(ids) {
   });
 }
 
-
+// HELPER FUNCTIONS BELOW
+// ===========================================
 let parameterizeQueryForIn = function(req, columnName, parameterNamePrefix, type, values) {
   var parameterNames = [];
   for (var i = 0; i < values.length; i++) {
