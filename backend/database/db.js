@@ -22,7 +22,7 @@ exports.query = async function(queryStr){
 }
 
 // Query to add a particular item to the db
-exports.addItem = async function(item, tableName){
+exports.addEntry = async function(item, tableName){
   try {
     let pool = await new sql.ConnectionPool(config).connect();
     let req = pool.request();
@@ -41,7 +41,7 @@ exports.addItem = async function(item, tableName){
 }
 
 // Query to remove an item with a particular id
-exports.removeItem = async function(ids, tableName) {
+exports.removeEntry = async function(ids, tableName) {
   try {
     let pool = await new sql.ConnectionPool(config).connect();
     let req = pool.request();
