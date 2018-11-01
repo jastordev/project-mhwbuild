@@ -16,12 +16,10 @@ export class DataService {
 
   items : Observable <Item[]>;
   skills : Observable <Skill[]>;
-  serverCount : Observable <number>; // REMOVE
 
   constructor(private itemServ : ItemDataService, private skillServ : SkillDataService) {
     this.items = this.itemServ.getItems();
     this.skills = this.skillServ.getSkills();
-    this.serverCount = this.itemServ.getTestCount(); // REMOVE
   }
 
   // Count methods, modify as tables become available
@@ -45,41 +43,16 @@ export class DataService {
     return Observable.of(99);
   }
 
-  // TEST REMOVE
-  getTestCount() : Observable<number> {
-    return this.serverCount;
-  }
-  // TEST REMOVE
-  testReq() {
-    this.itemServ.testReq();
-  }
-
   // Item-data service functions
   addOrUpdateItem(item : Item, iconFile? : any){   
     if(item.id) {
-      this.itemServ.updateItem(item);
+      this.itemServ.updateItem(item, iconFile ? iconFile : null);
     } else {
       this.itemServ.addItem(item, iconFile ? iconFile : null);
     }
   }
-
   deleteItems(items : Item[]){
     this.itemServ.deleteItems(items);
   }
-
-  testError(){
-    this.itemServ.testHttpError();
-  }
-
-  // getItemByIndex(i : number) : Observable<Item> {   
-  //   let placeItem : Observable<Item>;
-    
-  //   this.items.take(1).subscribe( data => {        
-  //     placeItem =  Observable.of(data[i]);
-  //     return placeItem;
-  //   }); 
-
-  //   return placeItem; 
-  // }
 
 }

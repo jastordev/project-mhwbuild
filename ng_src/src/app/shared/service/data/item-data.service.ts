@@ -16,7 +16,6 @@ export class ItemDataService {
   private backEndDomain = "http://localhost:4300";
 
   private _items : BehaviorSubject <Item[]>;
-  private serverCount : BehaviorSubject <number>; // DEL
   private dataStore: {
     items: Item[]
   }; 
@@ -24,89 +23,10 @@ export class ItemDataService {
   constructor(private http : HttpClient, private toast : ToastService) {
     this._items = <BehaviorSubject<Item[]>>new BehaviorSubject([]);
     this.dataStore = { items: [] };
-    this.serverCount = <BehaviorSubject<number>>new BehaviorSubject(0); // DEL   
   }
 
-  // Actual CRUD operation functions ahead.
-  addItem(item : Item, iconFile? : any){
-    let itemFormData = new FormData();
-
-    if(iconFile){
-      let fileName = item.name.trim();
-      fileName = fileName.replace(/ /g,"_");
-      fileName += iconFile.type.replace("image/", ".");      
-      itemFormData.append("imageFile", iconFile, fileName);
-    }
-    itemFormData.append('item', JSON.stringify(item));   
-
-    this.http
-      .post(this.backEndDomain + '/api/items/', itemFormData)
-      .take(1)
-      .subscribe( (data : {iconUrl : string, itemID: number}) => {
-        this.toast
-        .createToast("[Success] Item added successfully.", 2);
-        item.iconUrl = this.backEndDomain + data.iconUrl;
-        item.id = data.itemID;
-        this.dataStore.items.unshift(item);
-        this._items.next(Object.assign({}, this.dataStore).items);
-      },
-      err => {
-        this.toast
-        .createToast("[Error] Add Item operation has failed.", 0);
-      });
-
-    // this.dataStore.items.unshift(item);
-    // this._items.next(Object.assign({}, this.dataStore).items);
-    // this.toast.createToast(`Successfully added ${item.name} to the item DB.`, 2);     
-  }
-
-  updateItem(item : Item){
-    //HTTP REQUEST HERE IF SUCCESSFUL CONTINUE
-    let index = this.dataStore.items.findIndex(storeItem => {
-      return storeItem.id == item.id;
-    });
-    this.dataStore.items[index] = item;
-    this._items.next(Object.assign({}, this.dataStore).items);
-    this.toast.createToast(`The entry for ${item.name} has been updated.`, 2);
-  }
-
-  deleteItems(items: Item[]){
-    this.http
-      .delete(this.backEndDomain + '/api/items/' + this.createIDList(items))
-      .take(1)
-      .subscribe( res => {
-        for (let item of items) {
-          let index = this.dataStore.items.indexOf(item);
-          this.dataStore.items.splice(index, 1);
-        }
-        this.deleteItemToast(true);
-        this._items.next(Object.assign({}, this.dataStore).items);
-      },
-      err => {
-        this.deleteItemToast(false, err);
-        console.log(err);
-      });
-  }  
-
-  // Delete items helper method. Creates a list (string) of all items' ids.
-  private createIDList(items: Item[]) {
-    let itemIds = [];
-    for (let item of items) {
-      itemIds.push(item.id);
-    }
-    return itemIds.join(',');
-  }
-
-  // Delete items toast notification helper method. 
-  private deleteItemToast(success : boolean, errMsg? : string) {
-    let toastMsg : string;
-    if (success) {      
-      toastMsg = "Item/s have been successfully deleted";
-      this.toast.createToast(toastMsg, 2);
-    } else {
-      toastMsg = "Item/s could not be deleted." + errMsg;
-      this.toast.createToast(toastMsg, 0);
-    }
+  getItemCount() : Observable<number> {
+    return Observable.of(this.dataStore.items.length);
   }
 
   getItems() : Observable <Item[]> {
@@ -116,7 +36,7 @@ export class ItemDataService {
 
   private loadAll() {
     this.http
-      .get(this.backEndDomain + '/api/items/')
+      .get(`${this.backEndDomain}/api/items/`)
       .take(1)
       .subscribe( data => {        
         this.dataStore.items = this.convertDataToItems(data);
@@ -128,20 +48,102 @@ export class ItemDataService {
       });
   }
 
-  getItemCount() : Observable<number> {
-    return Observable.of(this.dataStore.items.length);
+  // Send an add item request to the back-end server.
+  addItem(item : Item, iconFile? : any){
+
+    let itemFormData = new FormData();
+    if(iconFile){
+      let fileName = item.name.trim();
+      fileName = fileName.replace(/ /g,"_");
+      fileName += iconFile.type.replace("image/", ".");      
+      itemFormData.append("imageFile", iconFile, fileName);
+    }
+    itemFormData.append('item', JSON.stringify(item));   
+
+    this.http
+      .post(`${this.backEndDomain}/api/items/`, itemFormData)
+      .take(1)
+      .subscribe( (data : {iconUrl : string, itemID: number}) => {
+        item.iconUrl = this.backEndDomain + data.iconUrl;
+        item.id = data.itemID;
+        this.dataStore.items.unshift(item);
+        this._items.next(Object.assign({}, this.dataStore).items);
+        this.addItemToast(true);
+      },
+      err => {
+        this.addItemToast(false, err);
+      });     
   }
 
+  // Send an update item PUT request to the back-end server.
+  updateItem(item : Item, iconFile? : any){
+
+    let itemFormData = new FormData();
+    if(iconFile){
+      let fileName = item.name.trim();
+      fileName = fileName.replace(/ /g,"_");
+      fileName += iconFile.type.replace("image/", ".");      
+      itemFormData.append("imageFile", iconFile, fileName);
+    }
+    itemFormData.append('item', JSON.stringify(item));   
+
+    this.http
+      .put(`${this.backEndDomain}/api/items/${item.id}`, itemFormData)
+      .take(1)
+      .subscribe( (data : {iconUrl : string}) => {        
+        item.iconUrl = this.backEndDomain + data.iconUrl;
+        let index = this.dataStore.items.findIndex(storeItem => {
+          return storeItem.id == item.id;
+        });
+        this.dataStore.items[index] = item;
+        this._items.next(Object.assign({}, this.dataStore).items);
+        this.updateItemToast(true);
+      },
+      err => {
+        this.updateItemToast(false, err);
+      });
+  }
+
+  // Send a DELETE item request to the back-end server.
+  deleteItems(items: Item[]){
+    this.http
+      .delete(`${this.backEndDomain}/api/items/${this.createIDList(items)}`)
+      .take(1)
+      .subscribe( res => {
+        for (let item of items) {
+          let index = this.dataStore.items.indexOf(item);
+          this.dataStore.items.splice(index, 1);
+        }
+        this._items.next(Object.assign({}, this.dataStore).items);
+        this.deleteItemToast(true);
+      },
+      err => {
+        this.deleteItemToast(false, err);
+      });
+  }  
+
+  // HELPER FUNCTIONS
+  // =============================================
+  // Delete items helper method. Creates a list (string) of all items' ids.
+  private createIDList(items: Item[]) {
+    let itemIds = [];
+    for (let item of items) {
+      itemIds.push(item.id);
+    }
+    return itemIds.join(',');
+  }
+
+  // Converts back-end response data to an array of Items
   private convertDataToItems(data) {
     let itemList : Item[] = [];
     for (let entry of data) {      
       entry.IconPath = this.backEndDomain + entry.IconPath;
       itemList.push(this.convertDBEntryToItem(entry));
-
     }
     return itemList;
   }
 
+  // Converts the back-end item (DB Schema) to a front-end item (Item Model)
   private convertDBEntryToItem(entry){
     let newItem = new Item();
     newItem.id = entry.ID;
@@ -159,71 +161,30 @@ export class ItemDataService {
     return newItem;
   }
 
-  //
-  // DUMMY DATA/TEST FUNCTIONS REMOVE WHEN DONE
-  // 
-  // Ahead are functions purely meant for dummydata/testing REMOVE
-  returnDummyArray() : Item[] {
-    let newItem  = [this.returnDummyItem(1, "Material"),
-         this.returnDummyItem(2, "Consumable/Misc", "Zorah Magdaros Heat Scale"),
-         this.returnDummyItem(3, "Material"),
-         this.returnDummyItem(4, "Consumable/Misc")];
-    return newItem;
+  // Creates a toast notification according to the result of the
+  // respective operation.
+  private addItemToast(success : boolean, errMsg? : string) {
+    if (success) {
+      this.toast.createToast("Item added successfully.", 2);
+    } else {
+      this.toast.createToast("Item could not be added. " + errMsg, 0);
+    }
   }
 
-  returnDummyItem(id : number, cat : string, name? : string) : Item {
-    let newItem = new Item();
-    newItem.iconUrl = this.backEndDomain + "/images/items/default_icon.png";
-    newItem.id = id;
-    newItem.name = (name) ? name : "Iron Ore" + id;
-    newItem.desc = "Ore that can be smelted into metal and used for many purposes";
-    newItem.type = cat;
-    newItem.rarity = 4;
-    newItem.obtainedFrom = "Mining, Quest Rewards, Palico";
-    newItem.carry = 99;
-    newItem.sellPrice = 60;
-    newItem.buyPrice = 0;
-    newItem.skillID = 0;
-    newItem.jwlLvl = 0;    
-    return newItem;
+  private updateItemToast(success : boolean, errMsg? : string) {
+    if (success) {
+      this.toast.createToast("Item has been updated successfully.", 2);
+    } else {
+      this.toast.createToast("Item could not be updated. " + errMsg, 0);
+    }
   }
 
-  // NOTE - DELETE
-  getTestCount(){
-    this.http
-      .get(this.backEndDomain + '/api/overview/test')
-      .subscribe((data : number)=> {
-        this.serverCount.next(data);
-      });
-    return this.serverCount.asObservable();
-  }
-  // NOTE - DELETE
-  testReq(){
-    this.http
-      .get(this.backEndDomain + '/api/overview/test')
-      .take(1)
-      .subscribe( data => {
-        this.serverCount.next(+data);
-        this.toast
-        .createToast("The test HTTP Request has succeeded.", 2);
-      },
-      err => {
-        this.serverCount.next(99);
-        this.toast
-        .createToast("The test HTTP request has returned with an error.", 0);
-      });
-  }
-
-  // NOTE - DELETE
-  testHttpError(){
-    let httpRes = { success: true };    
-    // HTTP REQUEST HERE, IF SUCCESSFUL CONTINUE
-    this.http
-      .get(this.backEndDomain + '/api/overview/error')
-      .catch((err : any) => Observable.throw(this.errorHandler(err)))
-      .subscribe(data => {
-        console.log(data);
-      });    
+  private deleteItemToast(success : boolean, errMsg? : string) {
+    if (success) {      
+      this.toast.createToast("Item/s have been successfully deleted", 2);
+    } else {
+      this.toast.createToast("Item/s could not be deleted. " + errMsg, 0);
+    }
   }
 
   errorHandler( error : any) : String{

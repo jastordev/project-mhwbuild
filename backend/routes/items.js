@@ -54,8 +54,8 @@ router.delete('/:item_ids', async (req, res) => {
 router.put('/:item_id', upload.single('imageFile'), async (req, res) => {  
   let item = makeItemDBReady(JSON.parse(req.body.item));
   if(req.file) { item.IconPath = imageDestUrl + req.file.originalname; }
-  const dbRes = await db.updateItem(req.params.item_id, item);
-  res.json(); 
+  const dbRes = await db.updateEntry(req.params.item_id, 'ID', item, 'Items');
+  res.json({iconUrl: item.IconPath}); 
 });
 
 let makeItemDBReady = function(reqItem) {

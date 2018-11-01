@@ -59,6 +59,24 @@ exports.removeEntry = async function(ids, tableName) {
   });
 }
 
+exports.updateEntry = async function(id, idColName, item, tableName) {
+  try {
+    let pool = await new sql.ConnectionPool(config).connect();
+    let req = pool.request();
+    let query = `UPDATE ${tableName} SET ${parameterizeQueryForSet(req, item)} WHERE ${idColName} = ${id}`;
+    req = await req.query(query);
+    pool.close();
+    return req.recordset;
+  } catch (err) {
+    console.log(err);
+    pool.close();
+  }
+
+  sql.on('error', err => {
+    if(err) console.log(err);
+  });
+}
+
 // HELPER FUNCTIONS BELOW
 // ===========================================
 let parameterizeQueryForIn = function(req, columnName, parameterNamePrefix, type, values) {
@@ -81,4 +99,17 @@ let paramaterizeQueryForValues = function(req, obj) {
     parameterNames.push(`@${column}`);
   }
   return `(${columns.join(',')}) VALUES (${parameterNames.join(',')})`;
+}
+
+// Generates the column-value pairs required for the SET portion of an
+// update query, according to the object provided.
+// obj's keys MUST be the columns for the associated table.
+let parameterizeQueryForSet = function(req, obj) {
+  var colParamPairs = [];
+  let columns = Object.keys(obj);
+  for (let column of columns) {
+    req.input(column, obj[column]);
+    colParamPairs.push(`${column} = @${column}`);
+  }
+  return colParamPairs.join(',');
 }
