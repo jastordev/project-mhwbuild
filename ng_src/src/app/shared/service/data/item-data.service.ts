@@ -78,10 +78,8 @@ export class ItemDataService {
 
     let itemFormData = new FormData();
     if(iconFile){
-      let fileName = item.name.trim();
-      fileName = fileName.replace(/ /g,"_");
-      fileName += iconFile.type.replace("image/", ".");      
-      itemFormData.append("imageFile", iconFile, fileName);
+      let fileName = iconFile.type.replace("image/", ".");      
+      itemFormData.append("imageFile", iconFile);
     }
     itemFormData.append('item', JSON.stringify(item));   
 
@@ -90,6 +88,7 @@ export class ItemDataService {
       .take(1)
       .subscribe( (data : {iconUrl : string}) => {        
         item.iconUrl = this.backEndDomain + data.iconUrl;
+        console.log(item.iconUrl);
         let index = this.dataStore.items.findIndex(storeItem => {
           return storeItem.id == item.id;
         });

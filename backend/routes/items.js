@@ -53,7 +53,7 @@ router.delete('/:item_ids', async (req, res) => {
     for (let item of dbRes) {
       if(fs.existsSync(`./public${item.IconPath}`) 
         && item.IconPath != defaultIconUrl) {
-          fs.unlink(`./public${item.IconPath}`, err => console.log(err));
+        fs.unlink(`./public${item.IconPath}`, err => console.log(err));
       }
     }
     res.json("Item deleted.");
@@ -65,9 +65,17 @@ router.delete('/:item_ids', async (req, res) => {
 // Update item where id matches.
 router.put('/:item_id', upload.single('imageFile'), async (req, res) => {  
   let item = makeItemDBReady(JSON.parse(req.body.item));
-  if(req.file) { item.IconPath = imageDestUrl + req.file.originalname; }
-  const dbRes = await db.updateEntry(req.params.item_id, 'ID', item, 'Items');
-  res.json({iconUrl: item.IconPath}); 
+  let itemIconOld = item.IconPath;
+  if(req.file) { item.IconPath = imageDestUrl + req.file.filename; }
+  try {
+    const dbRes = await db.updateEntry(req.params.item_id, 'ID', item, 'Items');
+    if(fs.existsSync(`./public${itemIconOld}`) && itemIconOld != defaultIconUrl){
+      fs.unlink(`./public${itemIconOld}`, err => console.log(err));
+    }
+    res.json({iconUrl: item.IconPath}); 
+  } catch (err) {
+    res.status(400).send("Could not update item.");
+  }  
 });
 
 let makeItemDBReady = function(reqItem) {
