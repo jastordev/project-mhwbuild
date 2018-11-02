@@ -45,7 +45,7 @@ exports.removeEntry = async function(ids, tableName) {
   try {
     let pool = await new sql.ConnectionPool(config).connect();
     let req = pool.request();
-    let query = `DELETE FROM ${tableName} WHERE ${parameterizeQueryForIn(req, 'ID', 'id', sql.Int, ids)}`;
+    let query = `DELETE FROM ${tableName} OUTPUT DELETED.* WHERE ${parameterizeQueryForIn(req, 'ID', 'id', sql.Int, ids)} `;
     req = await req.query(query);
     pool.close();
     return req.recordset;   

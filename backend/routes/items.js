@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require('fs');
 const router = express.Router();
 
 const multer = require("multer");
@@ -33,7 +34,6 @@ router.get('/', async (req, res) => {
 router.post('/', upload.single('imageFile'), async (req, res, next) => {
   let itemIconPath; 
   if(req.file){
-    console.log(req.file);
     itemIconPath = imageDestUrl + req.file.filename;    
   } else {
     itemIconPath = defaultIconUrl;
@@ -48,8 +48,18 @@ router.post('/', upload.single('imageFile'), async (req, res, next) => {
 // Delete item where ids match.
 router.delete('/:item_ids', async (req, res) => {
   let ids = req.params.item_ids.split(',');
-  const dbRes = await db.removeEntry(ids, 'Items');
-  res.json("Success");
+  try {
+    const dbRes = await db.removeEntry(ids, 'Items');
+    for (let item of dbRes) {
+      if(fs.existsSync(`./public${item.IconPath}`) 
+        && item.IconPath != defaultIconUrl) {
+          fs.unlink(`./public${item.IconPath}`, err => console.log(err));
+      }
+    }
+    res.json("Item deleted.");
+  } catch (err) {
+    res.status(400).send("Could not delete item.");
+  }  
 });
 
 // Update item where id matches.
