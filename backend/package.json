@@ -15,7 +15,8 @@
     "cors": "*",
     "express": "*",
     "mssql": "*",
-    "multer": "^1.3.1"
+    "multer": "^1.3.1",
+    "uuid": "^3.3.2"
   },
   "author": "Juan Astorga",
   "license": "ISC",
