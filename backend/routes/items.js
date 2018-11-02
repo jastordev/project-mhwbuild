@@ -3,10 +3,11 @@ const router = express.Router();
 
 const multer = require("multer");
 const db = require("../database/db");
-
+const uuidv1 = require('uuid/v1');
 
 const imageDestUrl = "/images/items/";
 const defaultIconUrl = imageDestUrl + "default_icon.png";
+
 const getAllItemsQuery = 'SELECT * FROM Items';
 
 var storage = multer.diskStorage({
@@ -14,7 +15,7 @@ var storage = multer.diskStorage({
       cb(null, "./public" + imageDestUrl)
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname.toLowerCase());
+      cb(null, `${uuidv1()}${file.mimetype.replace("image/", ".")}`);
     }
   })
 
@@ -32,7 +33,8 @@ router.get('/', async (req, res) => {
 router.post('/', upload.single('imageFile'), async (req, res, next) => {
   let itemIconPath; 
   if(req.file){
-    itemIconPath = imageDestUrl + req.file.originalname;    
+    console.log(req.file);
+    itemIconPath = imageDestUrl + req.file.filename;    
   } else {
     itemIconPath = defaultIconUrl;
   } 

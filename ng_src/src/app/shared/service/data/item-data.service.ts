@@ -53,10 +53,8 @@ export class ItemDataService {
 
     let itemFormData = new FormData();
     if(iconFile){
-      let fileName = item.name.trim();
-      fileName = fileName.replace(/ /g,"_");
-      fileName += iconFile.type.replace("image/", ".");      
-      itemFormData.append("imageFile", iconFile, fileName);
+      let fileName = iconFile.type.replace("image/", ".");      
+      itemFormData.append("imageFile", iconFile);
     }
     itemFormData.append('item', JSON.stringify(item));   
 
