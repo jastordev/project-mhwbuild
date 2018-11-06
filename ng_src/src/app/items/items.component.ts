@@ -149,4 +149,9 @@ export class ItemsComponent implements OnInit {
       this.showItemDetail(item);
     }    
   }
+
+  // If image does not load, replace with default.
+  private imgErrHandler(event: any) {
+    event.target.src = "http://localhost:4300/images/items/default_icon.png";
+  }
 }

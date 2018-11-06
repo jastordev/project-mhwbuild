@@ -91,7 +91,7 @@
     </div>
     <div class="item-edit-row-2">
       <div class="item-icon">
-        <img src={{defIconPath}} alt="Iron Ore" />
+        <img [src]='itemIconUrl' (error)="imgErrHandler($event)" alt="Iron Ore" />
         <div class="upload-img">
           <input type="file" id="icon" (change)="onItemIconChange($event.target.files)" accept=".jpg, .jpeg, .png, .gif"/>
           <span>Upload Image</span>

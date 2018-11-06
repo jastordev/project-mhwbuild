@@ -71,7 +71,7 @@
           class="item-card-container">
           <div class="item-card">
             <div [ngClass]="'item-card-icon r' + item.rarity +'-shadow'">
-                <img src={{item.iconUrl}} alt={{item.name}}/>
+                <img src={{item.iconUrl}} alt={{item.name}} (error)="imgErrHandler($event)"/>
             </div>
             <div class="item-card-name">{{item.name}}</div>
             <div class="item-card-desc">{{item.desc}}</div>

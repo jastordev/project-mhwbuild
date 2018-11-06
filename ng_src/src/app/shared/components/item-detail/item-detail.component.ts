@@ -29,12 +29,14 @@ export class ItemDetailComponent implements OnInit {
 
   private iconProvided : boolean;
   private iconFile : any;
+  private defItemIconUrl : string;
+  private itemIconUrl : string;
 
   // Constant variables.
   private types = ["Material", "Consumable/Misc",
     "Specialized Tool", "Decoration", "Ammo/Coating"];
   private rarities = [1, 2, 3, 4, 5, 6, 7, 8];
-  private defIconPath = "http://localhost:4300/images/items/default_icon.png";
+  private backEndDomain = "http://localhost:4300";
 
   constructor(private data : DataService, private toast : ToastService,
      private imgUp : ImageValidationService, private fb : FormBuilder) {
@@ -42,7 +44,10 @@ export class ItemDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.defItemIconUrl = this.backEndDomain + "/images/items/default_icon.png";
+    this.itemIconUrl = this.defItemIconUrl;
     if(this.item) {
+      this.itemIconUrl = this.item.iconUrl;
       if(this.item.type == "Decoration") {
         this.itemSkill = this.skills.find(s => s.skillId == this.item.skillID);
       }
@@ -155,14 +160,13 @@ export class ItemDetailComponent implements OnInit {
           .createToast("Image height and width must be the same and within 200x200px.", 0);
           return;
         } 
-        this.defIconPath = image.src;
+        this.itemIconUrl = image.src;
         this.iconProvided = true;
         this.iconFile = files.item(0);
       }
     }
     reader.readAsDataURL(files.item(0));
   }
-
 
   /*
   * Helper functions down below.
@@ -184,6 +188,10 @@ export class ItemDetailComponent implements OnInit {
       item.jwlLvl = +formValue.jwlLvl;
     }
     return item;
+  }
+
+  private imgErrHandler(event: any) {
+    event.target.src = this.defItemIconUrl;
   }
 
   // Used by DOMService.
