@@ -34,8 +34,7 @@ export class ItemsComponent implements OnInit {
   constructor(
     private _data : DataService,
     private modal : ModalService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -47,9 +46,11 @@ export class ItemsComponent implements OnInit {
     this.getCategoryThenLoadData();
   }
 
+  // this.route.url returns an array in which the elems are
+  // url segments (ie. 'items/mats' would be [items, mats])
   private getCategoryThenLoadData() {
-    this.route.params.subscribe( (params) => {
-      switch(params.category) {
+    this.route.url.subscribe( (url) => {
+      switch(url[1].path) {
         case 'mats':
           this.category = "Material";
           break;
@@ -64,6 +65,9 @@ export class ItemsComponent implements OnInit {
           break;
         case 'misc':
           this.category = "Consumable/Misc";
+          break;
+        default:
+          this.category = "Material";
           break;
       }
       this.loadData();

@@ -4,7 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { ItemsComponent } from './items.component';
 
 const routes: Routes = [
-  { path: 'items/:category', component: ItemsComponent },
+  { path: 'items/mats', component: ItemsComponent },
+  { path: 'items/deco', component: ItemsComponent },
+  { path: 'items/ammo', component: ItemsComponent },
+  { path: 'items/tools', component: ItemsComponent },
+  { path: 'items/misc', component: ItemsComponent },
   { path: 'items', redirectTo: 'items/mats' }
 ];
 
