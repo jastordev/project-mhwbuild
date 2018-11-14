@@ -75,10 +75,10 @@ export class ItemsComponent implements OnInit {
   }
 
   private loadData(){
-    this._data.skills.subscribe( data => {
+    this._data.getSkills().subscribe( data => {
       this._skills = data;
     });
-    this._data.items.subscribe( data => {
+    this._data.getItems().subscribe( data => {
       console.log("ITEM LIST OBSERVABLE - Loaded data.");
       this._items = this.itemListSetUp(data);
       this.searchFilter();

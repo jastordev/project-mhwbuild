@@ -14,12 +14,20 @@ import { SkillDataService } from './data/skill-data.service';
 @Injectable()
 export class DataService {
 
-  items : Observable <Item[]>;
-  skills : Observable <Skill[]>;
+  private items : Observable <Item[]>;
+  private skills : Observable <Skill[]>;
 
   constructor(private itemServ : ItemDataService, private skillServ : SkillDataService) {
     this.items = this.itemServ.getItems();
     this.skills = this.skillServ.getSkills();
+  }
+
+  getItems() : Observable<Item[]> {
+    return this.items;
+  }
+
+  getSkills() : Observable<Skill[]> {
+    return this.skills;
   }
 
   // Count methods, modify as tables become available
