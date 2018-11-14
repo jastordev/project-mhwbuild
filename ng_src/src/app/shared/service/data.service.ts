@@ -23,7 +23,7 @@ export class DataService {
   }
 
   // Count methods, modify as tables become available
-  getItemCount(){
+  getItemCount() : Observable<number>{
     return this.itemServ.getItemCount();
   }
 

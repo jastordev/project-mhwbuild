@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { DataService } from '../shared/service/data.service';
-
 import { Observable } from 'rxjs/observable';
 
-import { Item } from '../shared/models/item.model';
+import { DataService } from '../shared/service/data.service';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +9,6 @@ import { Item } from '../shared/models/item.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  tableCounts : any;
 
   constructor(private data: DataService) { }
 
