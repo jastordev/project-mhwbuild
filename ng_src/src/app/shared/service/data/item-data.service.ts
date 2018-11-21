@@ -23,14 +23,11 @@ export class ItemDataService {
   constructor(private http : HttpClient, private toast : ToastService) {
     this._items = <BehaviorSubject<Item[]>>new BehaviorSubject([]);
     this.dataStore = { items: [] };
-  }
-
-  getItemCount() : Observable<number> {
-    return Observable.of(this.dataStore.items.length);
+    this.loadAll(); 
   }
 
   getItems() : Observable <Item[]> {
-    this.loadAll();
+    
     return this._items.asObservable();
   }
 
@@ -41,11 +38,14 @@ export class ItemDataService {
       .subscribe( data => {        
         this.dataStore.items = this.convertDataToItems(data);
         this._items.next(Object.assign({}, this.dataStore).items);
-        console.log("ITEM DATA SERVICE - Load all Items request made."); // REMOVE
       },
       err => {
         console.log(err);
       });
+  }
+
+  getItemCount() : Observable<number> {
+    return Observable.of(this.dataStore.items.length);
   }
 
   // Send an add item request to the back-end server.
@@ -88,7 +88,6 @@ export class ItemDataService {
       .take(1)
       .subscribe( (data : {iconUrl : string}) => {        
         item.iconUrl = this.backEndDomain + data.iconUrl;
-        console.log(item.iconUrl);
         let index = this.dataStore.items.findIndex(storeItem => {
           return storeItem.id == item.id;
         });
@@ -134,7 +133,6 @@ export class ItemDataService {
   private convertDataToItems(data) {
     let itemList : Item[] = [];
     for (let entry of data) {      
-      entry.IconPath = this.backEndDomain + entry.IconPath;
       itemList.push(this.convertDBEntryToItem(entry));
     }
     return itemList;
@@ -144,7 +142,7 @@ export class ItemDataService {
   private convertDBEntryToItem(entry){
     let newItem = new Item();
     newItem.id = entry.ID;
-    newItem.iconUrl = entry.IconPath;
+    newItem.iconUrl = this.backEndDomain + entry.IconPath;
     newItem.name = entry.Name;
     newItem.desc = entry.Description;
     newItem.type = entry.Type;

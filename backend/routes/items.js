@@ -39,10 +39,15 @@ router.post('/', upload.single('imageFile'), async (req, res, next) => {
     itemIconPath = defaultIconUrl;
   } 
   // Convert item sent in req to db-ready item. Then send to DB
-  let item = makeItemDBReady(JSON.parse(req.body.item));
-  item.IconPath = itemIconPath;
-  const dbRes = await db.addEntry(item, 'Items');
-  res.json({iconUrl: itemIconPath, itemID: dbRes[0].id});
+  try {
+    let item = makeItemDBReady(JSON.parse(req.body.item));
+    item.IconPath = itemIconPath;
+    const dbRes = await db.addEntry(item, 'Items');
+    res.json({iconUrl: itemIconPath, itemID: dbRes[0].id});
+  } catch (err) {
+    res.status(400).send("Could not add item.");
+  }
+  
 });
 
 // Delete item where ids match.
