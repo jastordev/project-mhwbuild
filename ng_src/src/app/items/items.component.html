@@ -2,12 +2,12 @@
   <h1 class="header-category">{{category}}</h1>
   <div class="header-tools">
     <div [ngClass]="{'search-pulled' : searchOpen}" class="tools-search">
-      <input (keyup)="searchFilter()" [(ngModel)]="searchStr" class="search" placeholder="Search..." />
+      <input (keyup)="searchFilter(searchStr)" [(ngModel)]="searchStr" class="search" placeholder="Search..." />
     </div>
     <div [ngClass]="{'btns-pulled' : toolsOpen}" class="tools-btns">
 
       <div class="header-btn">
-        <button class="btn-round btn-sml btn-light"
+        <button class="btn-round btn-sml btn-light search-btn"
           [ngClass]="{'toggled-on' : searchOpen}" 
           (click) = "searchOpen = !searchOpen">
           <i class="material-icons header-btn-icon">search</i>
@@ -18,7 +18,7 @@
       </div>
   
       <div class="header-btn">
-        <button class="btn-round btn-sml btn-light" (click)=addNewItem()>
+        <button class="btn-round btn-sml btn-light add-btn" (click)=addNewItem()>
           <i class="material-icons header-btn-icon">add</i>
         </button>
         <div class="header-btn-tooltip">
@@ -27,7 +27,7 @@
       </div>
   
       <div class="header-btn">
-        <button class="btn-round btn-sml btn-light"
+        <button class="btn-round btn-sml btn-light edit-btn"
           [ngClass]="{'toggled-on' : editMode}"
           (click)="this.editMode = !this.editMode">
           <i class="material-icons header-btn-icon">edit</i>
@@ -38,7 +38,7 @@
       </div>
   
       <div class="header-btn">
-        <button class="btn-round btn-sml btn-light" (click)="selectAll($event)">
+        <button class="btn-round btn-sml btn-light select-btn" (click)="selectAll($event)">
           <i class="material-icons header-btn-icon">reorder</i>
         </button>
         <div class="header-btn-tooltip">
@@ -48,7 +48,7 @@
       </div>
       
       <div class="header-btn">
-        <button class="btn-round btn-sml btn-light" (click)=deleteSelected()>
+        <button class="btn-round btn-sml btn-light del-btn" (click)=deleteSelected()>
           <i class="material-icons header-btn-icon">delete</i>
         </button>
         <div class="header-btn-tooltip">

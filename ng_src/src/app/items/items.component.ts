@@ -21,7 +21,7 @@ export class ItemsComponent implements OnInit {
 
   private _items;
   private _skills : Skill[];
-  private itemsFiltered : Item[];
+  itemsFiltered : Item[];
   private itemsSelected;
 
   private category;
@@ -29,7 +29,7 @@ export class ItemsComponent implements OnInit {
   private editMode : boolean;
   private toolsOpen : boolean;
   private searchOpen : boolean;
-  private searchStr : String;
+  searchStr : String;
 
   constructor(
     private _data : DataService,
@@ -76,7 +76,6 @@ export class ItemsComponent implements OnInit {
 
   private loadData(){
     this._data.getSkills().subscribe( data => {
-      console.log(data);
       this._skills = data;
     });
     this._data.getItems().subscribe( data => {
@@ -99,7 +98,7 @@ export class ItemsComponent implements OnInit {
     if(this.searchStr.trim()){
       this.itemsFiltered = this._items.filter(item => {
         return item.name.toLowerCase().includes(this.searchStr.toLowerCase());
-      });      
+      });
     } else {
       this.itemsFiltered = Object.assign([],this._items);
     }
