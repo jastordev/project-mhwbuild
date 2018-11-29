@@ -12,12 +12,14 @@ import { of } from 'rxjs/observable/of';
 import { Item } from '../shared/models/item.model';
 import { Skill } from '../shared/models/skill.model';
 import { eventNames } from 'cluster';
+import { ItemDetailComponent } from '../shared/components/item-detail/item-detail.component';
 
 describe('ItemsComponent', () => {
   let component: ItemsComponent;
   let fixture: ComponentFixture<ItemsComponent>;
   let dataServiceSpy;
   let modalServiceSpy;
+  let windowSpy;
 
   let testSkill : Skill;
   let testItems : Item[];
@@ -82,14 +84,13 @@ describe('ItemsComponent', () => {
     return skill;
   } 
 
-  const keyUpEvent = new Event('keyup', {
-    bubbles : true, cancelable : true
-  });
+  const ctrlClickEvent = new MouseEvent('click', { ctrlKey: true });
 
   beforeEach(async(() => {
     testSkill = createTestSkill();
     testItems = createTestItemArray();
 
+    windowSpy = spyOn(window, 'confirm').and.callThrough();
     dataServiceSpy = jasmine.createSpyObj('DataService', ['getItems', 'getSkills',
       'addOrUpdateItem', 'deleteItems']);
     dataServiceSpy.getSkills.and.returnValue(of([testSkill]));
@@ -213,23 +214,142 @@ describe('ItemsComponent', () => {
 
     renderedItems = fixture.nativeElement.querySelectorAll('.item-card-container');  
     expect(renderedItems.length).toBe(1);
+    expect(renderedItems[0].textContent).toContain("1");
   }));
 
   it('should open an add new item modal when the add item btn is clicked', () => {
-    expect(false).toBeTruthy();
+    let testInputForModal = {
+      isForm: true,
+      skills: [testSkill]
+    }
+    let addItemBtn = fixture.nativeElement.querySelector('.add-btn');
+
+    expect(modalServiceSpy.init).not.toHaveBeenCalled();
+    addItemBtn.click();
+    expect(modalServiceSpy.init).toHaveBeenCalledTimes(1);
+    expect(modalServiceSpy.init).toHaveBeenCalledWith(
+      ItemDetailComponent,testInputForModal,{});
+  });
+
+  it('editMode should toggle when edit button is clicked', () => {
+    let itemElem = fixture.nativeElement.querySelector('.item-card-container');
+    let editItemBtn = fixture.nativeElement.querySelector('.edit-btn');
+
+    itemElem.click();
+    expect(modalServiceSpy.init).not.toHaveBeenCalled();
+    editItemBtn.click();
+    itemElem.click();
+    expect(modalServiceSpy.init).toHaveBeenCalled();
   });
 
   it('should open an edit item modal when a particular item is clicked with editMode on', () => { 
-    expect(false).toBeTruthy();
+    let itemElem = fixture.nativeElement.querySelector('.item-card-container');
+    let editItemBtn = fixture.nativeElement.querySelector('.edit-btn');
+
+    let inputForEditClick = {
+      item: testItems[0], // testItems[0] is a 'Material' item.
+      isForm: true,
+      skills: [testSkill]
+    }
+
+    editItemBtn.click();
+    itemElem.click();
+
+    expect(modalServiceSpy.init).toHaveBeenCalledTimes(1);
+    expect(modalServiceSpy.init).toHaveBeenCalledWith(ItemDetailComponent, inputForEditClick, {});
   });
 
   it('ctrlClick on an item should select it', () => { 
-    expect(false).toBeTruthy();
+    let testSearchItems = createTestItemArrayMultipleOneCat();
+   
+    dataServiceSpy.getItems.and.returnValue(of(testSearchItems));
+    fixture = TestBed.createComponent(ItemsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+        
+    let renderedItems = fixture.nativeElement.querySelectorAll('.item-card-container');
+    let selectedItems = fixture.nativeElement.querySelectorAll('.selected');
+    expect(selectedItems.length).toBe(0);
+
+    // test selecting 1 item out of three.
+    renderedItems[0].dispatchEvent(ctrlClickEvent);
+    fixture.detectChanges();
+    selectedItems = fixture.nativeElement.querySelectorAll('.selected');
+    expect(selectedItems.length).toBe(1);
+
+    // test selecting 2 more items for a total of three.
+    renderedItems[1].dispatchEvent(ctrlClickEvent);
+    renderedItems[2].dispatchEvent(ctrlClickEvent);
+    fixture.detectChanges();
+    selectedItems = fixture.nativeElement.querySelectorAll('.selected');
+    expect(selectedItems.length).toBe(3);
+
+    //deselect 1 for a total of 2.
+    renderedItems[1].dispatchEvent(ctrlClickEvent);
+    fixture.detectChanges();
+    selectedItems = fixture.nativeElement.querySelectorAll('.selected');
+    expect(selectedItems.length).toBe(2);
   });
 
   it('hitting the select button should select all items, likewise for deselect', () => {
-    expect(false).toBeTruthy();
+    let testSearchItems = createTestItemArrayMultipleOneCat();
+   
+    dataServiceSpy.getItems.and.returnValue(of(testSearchItems));
+    fixture = TestBed.createComponent(ItemsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    let renderedItems = fixture.nativeElement.querySelectorAll('.item-card-container');
+    let selectAllBtn = fixture.nativeElement.querySelector('.select-btn');
+    
+    selectAllBtn.click();
+    fixture.detectChanges();
+    let selectedItems = fixture.nativeElement.querySelectorAll('.selected');
+    expect(selectedItems.length).toBe(3);
+
+    selectAllBtn.click();
+    fixture.detectChanges();
+    selectedItems = fixture.nativeElement.querySelectorAll('.selected');
+    expect(selectedItems.length).toBe(0);
+
+    renderedItems[0].dispatchEvent(ctrlClickEvent);
+    selectAllBtn.click();
+    fixture.detectChanges();
+    selectedItems = fixture.nativeElement.querySelectorAll('.selected');
+    expect(selectedItems.length).toBe(0);    
+
   });
 
+  it('hitting the delete button should delete all selectedItems on confirm', () => {
+    let testSearchItems = createTestItemArrayMultipleOneCat();
+   
+    dataServiceSpy.getItems.and.returnValue(of(testSearchItems));
+    fixture = TestBed.createComponent(ItemsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    let renderedItems = fixture.nativeElement.querySelectorAll('.item-card-container');
+    let selectAllBtn = fixture.nativeElement.querySelector('.select-btn');
+    let deleteBtn = fixture.nativeElement.querySelector('.del-btn');
+
+    // Press delete with no selected items
+    deleteBtn.click();
+    expect(windowSpy).not.toHaveBeenCalled();
+    expect(dataServiceSpy.deleteItems).not.toHaveBeenCalled();
+    
+    // Delete 1 item and confirm with 'yes'
+    renderedItems[0].dispatchEvent(ctrlClickEvent);
+    windowSpy.and.returnValue(true);
+    deleteBtn.click();
+    expect(windowSpy).toHaveBeenCalled();
+    expect(dataServiceSpy.deleteItems).toHaveBeenCalledTimes(1);
+
+    // Delete 1 item and confirm with 'no'
+    renderedItems[0].dispatchEvent(ctrlClickEvent);
+    windowSpy.and.returnValue(false);
+    deleteBtn.click();
+    expect(windowSpy).toHaveBeenCalled();
+    expect(dataServiceSpy.deleteItems).not.toHaveBeenCalledTimes(2);
+  });
 
 });

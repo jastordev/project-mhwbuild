@@ -21,7 +21,7 @@ export class ItemsComponent implements OnInit {
 
   private _items;
   private _skills : Skill[];
-  itemsFiltered : Item[];
+  private itemsFiltered : Item[];
   private itemsSelected;
 
   private category;
@@ -29,7 +29,7 @@ export class ItemsComponent implements OnInit {
   private editMode : boolean;
   private toolsOpen : boolean;
   private searchOpen : boolean;
-  searchStr : String;
+  private searchStr : String;
 
   constructor(
     private _data : DataService,
@@ -131,8 +131,7 @@ export class ItemsComponent implements OnInit {
     }
   }
 
-  private showItemDetail(item : Item){
-    if(!this.editMode) return;
+  private editItem(item : Item){
     let input = {
       item : item,
       isForm : this.editMode,
@@ -149,7 +148,8 @@ export class ItemsComponent implements OnInit {
         this.itemsSelected.push(item);
       }     
     } else {
-      this.showItemDetail(item);
+      if(!this.editMode) return;
+      this.editItem(item);
     }    
   }
 
