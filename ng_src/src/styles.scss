@@ -29,8 +29,8 @@ body {
 .r8-shadow { box-shadow: 0px 0px 3px #c76c46;}
 
 .inline-flex { display: inline-flex; }
-.hidden { visibility: hidden; opacity: 0;}
-.show { visibility: visible; opacity: 1;}
+.hidden { visibility: hidden !important; opacity: 0;}
+.show { visibility: visible !important; opacity: 1;}
 .fade-out { opacity: 0; }
 
 .noscroll { overflow: hidden; }

@@ -7,10 +7,22 @@ import { ModalService } from './shared/service/modal.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  profileOptsVisible: boolean;
+
   constructor(private modal : ModalService) {  }
+
+  ngOnInit(){
+    this.profileOptsVisible = false;
+  }
 
   removeModal(){
     this.modal.destroy();
+  }
+
+  openLoginModal() {
+    alert("login modal here");
+    //this.modal.init();
   }
 }

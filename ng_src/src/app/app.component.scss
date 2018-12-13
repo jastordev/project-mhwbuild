@@ -38,6 +38,54 @@ img.header-logo {
   height: 60px;
 }
 
+.header-login {
+  display: inline;
+  position: absolute;
+  right: 10px;
+}
+
+.header-login-profile-pic {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #767a80;
+  border-radius: 6px;
+  display: inline-block;
+  background: #272a30;
+  margin-top: 11px;
+
+  &:hover {
+    border-color: white;
+    cursor: pointer;
+  }
+}
+
+.header-login-opts {
+  visibility: hidden;
+  position: absolute;
+  right: -5px;
+  margin-top: 7px;
+  background: #262f3e;
+  border: 1px solid #3f4651;
+  border-top: 0px;
+  width: 125px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.header-login-opts-list {
+  margin: 0px;
+  padding: 0px;
+  li { 
+    list-style-type: none;
+    color: #d2d2d2;
+    padding: 5px;
+    font-size: small;
+    &:hover {
+      cursor:pointer;
+      background: #2c3749;
+    }
+  }
+}
 
 // Main container rules here
 #main-container {
@@ -123,10 +171,12 @@ img.header-logo {
   #sidebar-container {
     grid-row: 1;
     height: 70px;
-    width: 100%;
-    justify-self: right;
     z-index: 2;
     position: absolute;
     margin: 0px;
   }
+
+  .header-logo { display: none;}
+  .header { text-align:center;}
+  .header-grid { justify-items: center;}
 }

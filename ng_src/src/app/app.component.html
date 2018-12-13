@@ -2,7 +2,18 @@
   <header class="header">
     <div class="header-grid">
       <img class="header-logo header-grid-child" src="assets/guildlogo.PNG" />
-      <h1 class="header-grid-child"> MHWorld Database </h1>      
+      <h1 class="header-grid-child"> PalicoDB </h1>      
+    </div>
+    <div class="header-login">
+      <img (click)="profileOptsVisible = !profileOptsVisible"
+        class="header-login-profile-pic" src="assets/default_profile.png" />
+      <div class="header-login-opts" [ngClass]="{'show': profileOptsVisible}">
+        <ul class="header-login-opts-list">
+          <li>My Profile</li>
+          <li>Some Options</li>
+          <li (click)="openLoginModal()">Login / Register</li>
+        </ul>
+      </div>
     </div>
   </header>
   <main id="main-container">
