@@ -1,0 +1,51 @@
+<div *ngIf="loginFormToggle; else registerForm" class="login-container">
+  <div class="login-form">
+    <form [ngClass]="formSubmitted ? 'form-submitted' : ''"
+      (submit)="onLoginSubmit($event)" [formGroup]="loginForm">
+      <fieldset class="login-fieldset">
+        <legend class="login-form-header">LOGIN</legend>
+        <div class="login-input-wrapper tooltip">
+            <input class="login-input" formControlName="username" placeholder="Username"/>
+          </div>
+          <div class="login-input-wrapper tooltip">
+            <input class="login-input" type="password" formControlName="password" placeholder="Password"/>
+          </div>
+          <input class="item-submit" type="submit" value="Login" />
+      </fieldset>
+    </form>
+    <div class="login-msg">
+      New to the site? <span (click)="switchForms()"
+      class="login-link">Register here.</span>
+    </div>
+  </div>
+</div>
+
+<ng-template #registerForm>
+  <div class="login-container">
+    <div class="login-form">
+      <form [ngClass]="formSubmitted ? 'form-submitted' : ''"
+      (submit)="onRegisterSubmit($event)" [formGroup]="registerForm">
+        <fieldset class="login-fieldset">
+          <legend class="login-form-header">REGISTER</legend>
+          <div class="login-input-wrapper tooltip">
+            <input class="login-input" formControlName="username" placeholder="Username"/>
+          </div>
+          <div class="login-input-wrapper tooltip">
+            <input class="login-input" formControlName="email" placeholder="Email Address"/>
+          </div>
+          <div class="login-input-wrapper tooltip">
+            <input class="login-input" type="password" formControlName="password" placeholder="Password"/>
+          </div>
+          <div class="login-input-wrapper tooltip">
+            <input class="login-input" type="password" formControlName="confirmPassword" placeholder="Confirm Password"/>
+          </div>
+          <input class="item-submit" type="submit" value="Register" />
+        </fieldset>
+      </form>
+      <div class="login-msg">
+        Already have an account? <span (click)="switchForms()"
+        class="login-link">Login here.</span>
+      </div>
+    </div>
+  </div>
+</ng-template>

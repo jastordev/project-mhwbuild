@@ -30,7 +30,7 @@ export class ModalService {
   }
 
   destroy(){
-    let canDestroy = !this.domService.isComponentDirty(this.modalCompId);
+    let canDestroy = this.domService.canCloseModal(this.modalCompId);
         
     if(!canDestroy) {
       confirm("If you navigate away, you will discard all changes."

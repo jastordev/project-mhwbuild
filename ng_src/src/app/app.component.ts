@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './shared/service/data.service';
 import { ModalService } from './shared/service/modal.service';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,6 @@ export class AppComponent implements OnInit {
   }
 
   openLoginModal() {
-    alert("login modal here");
-    //this.modal.init();
+    this.modal.init(LoginComponent, {}, {});
   }
 }

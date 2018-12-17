@@ -18,12 +18,14 @@ import { ItemDetailComponent }
 import { ToastComponent } from './shared/components/toast/toast.component';
 
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     ItemDetailComponent,
+    LoginComponent,
     ToastComponent
   ],
   imports: [
@@ -41,6 +43,6 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ItemDetailComponent, ToastComponent]
+  entryComponents: [ItemDetailComponent, LoginComponent, ToastComponent]
 })
 export class AppModule { }

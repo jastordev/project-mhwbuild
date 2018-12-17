@@ -10,8 +10,6 @@ import { ToastService } from '../../service/toast.service';
 
 import { validateType } from '../../validators/item.validator';
 
-
-
 @Component({
   selector: 'app-item-detail',
   templateUrl: './item-detail.component.html',
@@ -195,9 +193,9 @@ export class ItemDetailComponent implements OnInit {
   }
 
   // Used by DOMService.
-  isModalDirty() : boolean {
-    if (!this.isForm) return false;
-    return this.itemForm.dirty;
+  canCloseModal() : boolean {
+    if (!this.isForm) return true;
+    return !this.itemForm.dirty;
   }   
 
 }

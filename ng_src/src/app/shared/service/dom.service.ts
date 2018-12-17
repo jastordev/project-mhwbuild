@@ -62,8 +62,8 @@ export class DOMService {
     }
   }
 
-  public isComponentDirty(id: number) : boolean {
-    return this.childCompRefs[id].instance.isModalDirty();
+  public canCloseModal(id: number) : boolean {
+    return this.childCompRefs[id].instance.canCloseModal();
   }
 
   // Helper function

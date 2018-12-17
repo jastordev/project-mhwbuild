@@ -1,0 +1,41 @@
+// Login component styles.
+.login-form {
+    text-align: center;
+    padding: 15px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.login-fieldset {
+    text-align: center;
+    border: 0;
+}
+
+.login-form-header {
+    font-size: 24px;
+    width: 100%;
+}
+
+.login-input-wrapper {
+    display: block;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.login-input {
+    width: 200px;
+    height: 25px;
+}
+
+.login-msg {
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.login-link {
+    color: white;
+    &:hover {
+        color: #d69230;
+        cursor: pointer;
+    }
+}
